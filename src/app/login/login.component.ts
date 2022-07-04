@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  // Alert handler
-  alert = {type: null, msg: null};
 
   constructor(private restService: RestService, private authService: AuthService, private router: Router) { }
 
@@ -45,37 +43,22 @@ export class LoginComponent implements OnInit {
       next: data => {
 
       // Successful login
-      if (data["status"] == 200) {
-        // Reset alert
-        this.resetAlert();
         console.log("yess login");
         // Save token to localstorage
         this.authService.setToken(data["jwt"]);
         // // Navigate to home page
-          this.router.navigate(['/']);
-      } else {
-        // Display alert
-        console.log("cannot login");
-        this.displayAlert("danger", data["data"].msg);
-      }
+        this.router.navigate(['/']);
+        //set login true
+        this.isLoggedIn = true;
+      
     },
     error:err =>{
       this.errorMessage = err.error.message;
       this.isLoginFailed = true;
     }}
       );
-    console.log(this.loginForm.value.email);
-    console.log(this.loginForm.value.password)
   }
 
-  resetAlert() {
-    this.alert = {type: null, msg: null};
-  }
-
-  displayAlert(type, msg) {
-    this.alert.type = type;
-    this.alert.msg = msg;
-  }
 
 
 }

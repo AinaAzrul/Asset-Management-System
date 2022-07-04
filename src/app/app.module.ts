@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
     TooltipModule,
     NgbModule,
     HttpClientModule,
-    NgBootstrapFormValidationModule.forRoot()
+    NgBootstrapFormValidationModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
