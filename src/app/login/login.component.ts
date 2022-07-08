@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     this.restService.getPosts("login", null, {email: this.loginForm.value.email, password: this.loginForm.value.password})
     .subscribe({
       next: data => {
-
       // Successful login
         console.log("yess login");
         // Save token to localstorage
@@ -58,7 +57,5 @@ export class LoginComponent implements OnInit {
     }}
       );
   }
-
-
 
 }

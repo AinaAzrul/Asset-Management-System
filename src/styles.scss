@@ -8,3 +8,47 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body { 
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+//Custom Styling
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+.ngx-datatable .datatable-body-cell {
+  font-size: .8rem;
+}
+
+.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-header-cell:first-child {
+  padding-left: 0.625rem;
+}
+.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-header-cell:last-child {
+  padding-right: 0.625rem;
+}
+.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-body-cell:first-child {
+  padding-left: 0.625rem;
+}
+.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-body-cell:last-child {
+  padding-right: 0.625rem;
+}
+

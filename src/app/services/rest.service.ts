@@ -13,7 +13,6 @@ export class RestService {
 
   // Method exports
    getPosts(method, token = null, data = null) {
-    console.log(method);
     return this.httpClient.post(
       this.url,
         {
