@@ -22,15 +22,14 @@ import { SidenavModule } from './sidenav/sidenav.module';
 // import { MasterListComponent } from './master-list/master-list.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
-import { AssetListComponent } from './asset-list/asset-list.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SidebarComponent,
-    AssetListComponent,
+    SidebarComponent
     // DashboardComponent
     // MasterListComponent,
     // HomeComponent,

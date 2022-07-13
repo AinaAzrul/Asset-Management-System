@@ -52,3 +52,9 @@ body {
   padding-right: 0.625rem;
 }
 
+button.calendar, button.calendar:active {
+  width: 2.75rem;
+  background-repeat: no-repeat;
+  background-size: 23px;
+  background-position: center;
+}

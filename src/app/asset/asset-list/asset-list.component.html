@@ -1,0 +1,83 @@
+
+<!-- Default form register -->
+<div class="col-md-6 mx-auto"> 
+    <form class="border border-grey p-5">
+        <p class="h4 mb-4">Entry Form</p><hr>
+        <div class="container">
+    
+        <div class="form-row mb-4">
+            <div class="col-6">
+                <!-- First name -->
+                <label for="assetNumber">Asset Number:</label>
+                <input type="text" id = "assetNumber"  list="codes" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="asset no.">
+                <datalist id="codes">
+                <option *ngFor="let c of codeList" [value]="c.name" >{{c.name}}</option>
+              </datalist>
+            </div>
+        </div>
+    
+         <!-- Asset Description -->
+         
+         <label for="assetDesc">Asset Description: </label>
+         <input type="email" id="assetDesc" class="form-control mb-4" placeholder="asset name">
+         
+       
+        <!-- Category -->
+        <div class="form-row mb-4" >
+        <label for="category">Category:</label>
+        <input type="text" id="category" class="form-control" placeholder="category">
+        </div>
+    
+        <!-- Location -->
+        <div class="form-row mb-4" >
+        <label for="location">Location:</label>
+        <input type="long-text" id="location" class="form-control" placeholder="location">
+        </div>
+
+        <div class="form-row mb-4" >
+            <label for="companyName">Company name:</label>
+            <input type="long-text" id="companyName" class="form-control" placeholder="company name">
+            </div>
+
+        <div class="form-row mb-4">
+            <div class="col-6">
+              <!-- Last name -->
+              <label for="calibStart">Calibration start:</label>
+              <div  class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="calibStart" [(ngModel)]="model" ngbDatepicker #c="ngbDatepicker">
+            <div class="input-group-prepend">
+              <button class="btn-primary calendar fas fa-calendar-alt" (click)="c.toggle()" type="button"></button>
+           </div>
+          </div>
+        </div> 
+      </div> 
+
+      <div class="form-row mb-4">
+        <div class="col-6">
+          <!-- Last name -->
+          <label for="calibEnd">Calibration ends:</label>
+          <div  class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+               name="calibEnd" [(ngModel)]="model2" ngbDatepicker #f="ngbDatepicker">
+        <div class="input-group-prepend">
+          <button class="btn-primary calendar fas fa-calendar-alt" (click)="f.toggle()" type="button"></button>
+       </div>
+      </div>
+    </div> 
+  </div> 
+        
+        </div><br>
+
+        <!-- Sign up button -->
+        <div class="text-center">
+        <button type="button" class="btn btn-grey">Clear All</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-grey">Cancel</button>
+        </div>
+        
+      </form>
+    </div>
+    <br><br><hr>
+    <!-- <app-asset-table></app-asset-table> -->
+    <app-asset-test></app-asset-test>

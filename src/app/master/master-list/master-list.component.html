@@ -7,59 +7,77 @@
     <div class="form-row mb-4">
         <div class="col-6">
             <!-- First name -->
-            <label for="exampleFormControlSelect1">Asset Number:</label>
-            <select  id="exampleFormControlSelect1" class="form-control">
-              
-              <option selected>Choose...</option>
-              <option>1342</option>
-              <option>2132</option>
-              <option>31313</option>
-              <option>4123</option>
-              <option>53345</option>
-            </select>
+            <label for="assetNumber">Asset Number:</label>
+            <input type="text" id = "assetNumber"  list="codes" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="Asset no.">
+            <datalist id="codes">
+            <option *ngFor="let c of codeList" [value]="c.name" >{{c.name}}</option>
+          </datalist>
         </div>
     </div>
 
      <!-- E-mail -->
-     <label for="exampleFormControlInput1">Asset Description: </label>
-     <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Asset Name">
+     <label for="assetDesc">Asset Description: </label>
+     <input type="email" id="assetDesc" class="form-control mb-4" placeholder="Asset name">
 
     <div class="form-row mb-4">
       <div class="col">
         <!-- First name -->
-        <label for="exampleFormControlInput1">Taken By:</label>
-        <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Taken by">
+        <label for="takenBy">Taken By:</label>
+        <input type="text" id = "takenBy"  list="names" (change)="nameCode($event)"  class="browser-default custom-select" placeholder="Taken by">
+            <datalist id="names">
+            <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
+          </datalist>
       </div>
       <div class="col">
         <!-- Last name -->
-        <label for="exampleFormControlInput1">Date Taken:</label>
-        <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Date taken">
-      </div>
+        <label for="dateTaken">Date Taken:</label>
+        <div  class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dateTaken" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-prepend">
+        <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
+     </div>
     </div>
+  </div> 
+</div> 
+     
+     <!-- <hr/>
+      <pre>Model: {{ model | json }}</pre> class='fas fa-calendar-alt'  -->
+    
+   
 
     <div class="form-row mb-4">
         <div class="col">
           <!-- First name -->
-          <label for="exampleFormControlInput1">Return By: </label>
-          <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Return by">
+          <label for="returnBy">Return By: </label>
+          <input type="text" id = "returnBy"  list="names" (change)="nameCode($event)"  class="browser-default custom-select" placeholder="Return by">
+            <datalist id="names">
+            <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
+          </datalist>
         </div>
         <div class="col">
           <!-- Last name -->
-          <label for="exampleFormControlInput1">Date Return:</label>
-          <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Date return">
+          <label for="dateReturn">Date Return:</label>
+          <div  class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dateReturn" [(ngModel)]="model2" ngbDatepicker #s="ngbDatepicker">
+          <div class="input-group-prepend">
+            <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
+         </div> 
+        </div>
         </div>
       </div>
 
    
     <!-- Category -->
     <div class="form-row mb-4">
-    <label for="exampleFormControlInput1">Category:</label>
-    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="category">
+    <label for="category">Category:</label>
+    <input type="text" id="category" class="form-control" placeholder="category">
     </div>
 
     <!-- Category -->
-    <label for="exampleFormControlInput1">Remarks:</label>
-    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="remarks">
+    <label for="remarks">Remarks:</label>
+    <input type="long-text" id="remarks" class="form-control" placeholder="remarks">
     
     </div><br><br>
     <!-- Newsletter -->

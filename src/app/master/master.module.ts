@@ -4,7 +4,9 @@ import { MasterRoutingModule } from './master-routing.module';
 import { MasterComponent } from './master.component';
 import { MasterListComponent } from './master-list/master-list.component';
 import { MasterTableComponent } from './master-table/master-table.component';
-
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,9 @@ import { MasterTableComponent } from './master-table/master-table.component';
   imports: [
     CommonModule,
     MasterRoutingModule,
+    FormsModule,
+    NgbModule,
+    NgxDatatableModule
   ]
 })
 export class MasterModule { }

@@ -1,0 +1,84 @@
+    <div class="card">
+<div>
+    <div class="card-header">
+    <h4>
+      Asset Calibration List
+     
+    </h4><small>
+        <a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a>
+        |
+        <a href="javascript:void(0)" (click)="table.rowDetail.collapseAllRows()">Collapse All</a>
+      </small>
+</div>
+      <div class="card-ngx-datatable table-responsive">
+    <ngx-datatable
+      #myTable
+      class="material expandable"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="50"
+      [rows]="rows"
+      [limit]="10"
+      (page)="onPage($event)"
+    >
+      <!-- Row Detail Template -->
+      <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+          <div style="padding-left:35px;">
+            <div><strong>Calibration 1</strong></div>
+            <div>{{ row.First_calib }}</div><br>
+
+            <div><strong>Calibration 2</strong></div>
+            <div>{{ row.Second_calib }}</div><br>
+            
+            <div><strong>Calibration 3</strong></div>
+            <div>{{ row.Third_calib }}</div><br>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+      <!-- Column Templates -->
+      <ngx-datatable-column
+        [width]="50"
+        [resizeable]="false"
+        [sortable]="false"
+        [draggable]="false"
+        [canAutoResize]="true"
+      >
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+          <a
+            href="javascript:void(0)"
+            [class.datatable-icon-right]="!expanded"
+            [class.datatable-icon-down]="expanded"
+            title="Expand/Collapse Row"
+            (click)="toggleExpandRow(row)"
+          >
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+      
+      <ngx-datatable-column name="Asset Number" prop="Asset_no">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p>{{ value }}</p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Asset Description"  prop="Asset_desc">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <p>{{ value }}</p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Category"  prop="Category">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+           <p>{{ value }}</p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Location" prop="Location">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <p>{{ value }}</p>
+         </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
+</div><br><br>
+  

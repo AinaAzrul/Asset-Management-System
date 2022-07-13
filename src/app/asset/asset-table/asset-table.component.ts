@@ -3,13 +3,12 @@ import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-dat
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
-  selector: 'app-master-table',
-  templateUrl: './master-table.component.html',
-  styleUrls: ['./master-table.component.scss']
+  selector: 'app-asset-table',
+  templateUrl: './asset-table.component.html',
+  styleUrls: ['./asset-table.component.scss']
 })
-export class MasterTableComponent implements OnInit {
+export class AssetTableComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   rows = [];
@@ -32,7 +31,7 @@ export class MasterTableComponent implements OnInit {
   getUsers() {
     this.loadingIndicator = true;
     // Get Assets
-    this.restService.getPosts("read_master", this.authService.getToken())
+    this.restService.getPosts("read_asset", this.authService.getToken())
       .subscribe({
         next: data => {
           console.log(data)
@@ -57,4 +56,5 @@ export class MasterTableComponent implements OnInit {
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
   }
+
 }

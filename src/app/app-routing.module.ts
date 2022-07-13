@@ -5,8 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 // import { SidenavComponent } from './sidenav/sidenav.component';
 import {SidebarComponent} from './layout/sidebar/sidebar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AssetListComponent } from './asset-list/asset-list.component';
+// import { DashboardComponent } from './dashboard/dashboard.component';
 
 // Authentication
 import { AuthService } from './services/auth.service';
@@ -17,10 +16,10 @@ const routes: Routes = [
     path: '',
     component: SidebarComponent, canActivate: [AuthGuard], runGuardsAndResolvers: 'always',
     children: [
-      { path: '', canActivate: [AuthGuard], component: DashboardComponent },
-      { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
+      { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'master-list', loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
-      { path: 'asset-list', canActivate: [AuthGuard], component: AssetListComponent },
+      { path: 'asset-list', loadChildren: () => import('./asset/asset.module').then(m => m.AssetModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
     ]
   },
