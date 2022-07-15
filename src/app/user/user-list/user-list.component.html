@@ -9,7 +9,7 @@
     </h4>
     <div class="card-ngx-datatable table-responsive">
       <ngx-datatable #table style="min-width: 550px"
-        class="material"
+        class="material striped"
         [rows]="rows"
         [loadingIndicator]="loadingIndicator"
         [columnMode]="ColumnMode.force"
@@ -17,8 +17,6 @@
         [footerHeight]="'auto'"
         [rowHeight]="'auto'"
         [reorderable]="false"
-        [selected]="selected"
-        [selectionType]="SelectionType.single"
         [limit]="20"
         (activate)="onActivate($event)"
         >
@@ -27,13 +25,61 @@
         <ngx-datatable-column name="Last name"  prop="lastname"></ngx-datatable-column>
         <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>
         <ngx-datatable-column name="Role" [maxWidth]="200" prop="role"></ngx-datatable-column>
-        <!-- <ngx-datatable-column name="Action" [maxWidth]="200" prop="action_list">
+        <ngx-datatable-column *ngIf="userInfo == 'System Admin'" name="Action" [maxWidth]="200" prop="action_list">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <div *ngIf="row.role != 'superadmin'" class="btn btn-xs btn-warning" (click)="modifyUserRow(row, $event)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>MODIFY</b></div>
-            &nbsp;
-            <div *ngIf="row.role != 'superadmin'" class="btn btn-xs btn-danger" (click)="deleteUserRow(row, $event)"><i class="ion ion-md-close"></i>&nbsp;&nbsp;<b>DELETE</b></div>
+            <div *ngIf="row.role != 'System Admin'" class="btn btn-primary btn-sm" (click)="modifyUserRow(row)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>MODIFY</b></div>
+            <!-- <div *ngIf="row.role != 'System Admin'" ><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-whatever="row" (click)=" modifyUserRow(row)">
+              Modify 
+            </button></div>  -->
+           
+            <!-- <div *ngIf="row.role != 'System Admin'" class="btn  btn-danger btn-sm" (click)="deleteUserRow(row, $event)"><i class="ion ion-md-close"></i>&nbsp;&nbsp;<b>DELETE</b></div>
+             -->
+             <div *ngIf="row.role != 'System Admin'" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemodal">
+              <i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div>
           </ng-template>
-        </ngx-datatable-column> -->
+        </ngx-datatable-column>
       </ngx-datatable>
     </div>
 </div> 
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" >Understood</button>
+      </div>
+    </div>
+  </div>
+</div><!-- [selected]="selected"
+        [selectionType]="SelectionType.single" -->
+
+        <!-- Modal -->
+<div class="modal fade" id="deletemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="deleteUserRow()">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
             <input type="text" id = "assetNumber"  list="codes" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="Asset no.">
             <datalist id="codes">
             <option *ngFor="let c of codeList" [value]="c.name" >{{c.name}}</option>
-          </datalist>
+            </datalist>
         </div>
     </div>
 

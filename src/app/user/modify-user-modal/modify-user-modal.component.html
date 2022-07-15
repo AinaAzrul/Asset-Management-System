@@ -1,0 +1,78 @@
+
+<div class="modal-header">
+  <h5 class="modal-title">
+    Modify Existing User<br>
+    <small class="text-muted">Please enter the user details.</small>
+  </h5>
+</div>
+<div class="modal-body">
+  <form [formGroup]="modifyUserForm">
+    <!-- <div class="form-group">
+      <label class="form-label">ID</label>
+      <input type="text" formControlName="id" class="form-control" readonly>
+    </div> -->
+
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">ID: </label>
+      <div class="col-sm-2">
+        <input type="text" readonly class="form-control-plaintext" [class.is-valid] disabled="true" id="staticEmail" formControlName="id" >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">First Name</label>
+      <input type="text" formControlName="firstname" class="form-control"
+        [class.is-invalid]="modifyUserForm.get('firstname').touched && modifyUserForm.get('firstname').errors?.['required']"
+        placeholder="firstname">
+      <small class="invalid-feedback">
+        This field is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Last Name</label>
+      <input type="text" formControlName="lastname" class="form-control"
+        [class.is-invalid]="modifyUserForm.get('lastname').touched && modifyUserForm.get('lastname').errors?.['required']"
+        placeholder="lastname">
+      <small class="invalid-feedback">
+        This field is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="text" formControlName="email" class="form-control"
+        [class.is-invalid]="modifyUserForm.get('email').touched && modifyUserForm.get('email').errors?.['email']"
+        placeholder="example@domain.com">
+      <small class="invalid-feedback">
+        Please enter a valid email address.
+      </small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="text" formControlName="password" class="form-control"
+        [class.is-invalid]="modifyUserForm.get('password').touched && modifyUserForm.get('password').errors?.['required']"
+        placeholder="password">
+      <small class="invalid-feedback">
+        This field is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Role</label>
+      <input type="text" id = "role" list="role_selectOptions" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="Select User Role">
+            <datalist id="role_selectOptions">
+            <option *ngFor="let c of role_selectOptions" [value]="c.name" >{{c.name}}</option>
+            </datalist>
+      <!-- <ng-select [items]="role_selectOptions" [multiple]="false" [closeOnSelect]="true" bindLabel="label"
+         placeholder="Select User Role" formControlName="role" [hideSelected]="true"
+        [class.is-invalid]="modifyUserForm.get('role').touched && modifyUserForm.get('role').errors?.['required']">
+      </ng-select> -->
+      <small class="invalid-feedback">
+        This field is required.
+      </small>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-grey" (click)="activeModal.dismiss('cancel');">Cancel</button>
+  <button type="button" class="btn btn-primary" [disabled]="!modifyUserForm.valid"
+    (click)="activeModal.dismiss('save'); this.updateUser()">Save</button>
+</div>

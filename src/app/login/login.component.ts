@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  userInfo: any;
 
   constructor(private restService: RestService, private authService: AuthService, private router: Router) { }
 
@@ -45,10 +46,14 @@ export class LoginComponent implements OnInit {
         console.log("yess login");
         // Save token to localstorage
         this.authService.setToken(data["jwt"]);
+
+        //auth token
+        this.authService.val_token();
         // // Navigate to home page
         this.router.navigate(['/']);
         //set login true
         this.isLoggedIn = true;
+
       
     },
     error:err =>{
