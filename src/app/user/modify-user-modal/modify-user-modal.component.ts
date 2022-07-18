@@ -14,15 +14,16 @@ export class ModifyUserModalComponent implements OnInit {
   
   @Input() row: any;
   @Output() valueChange = new EventEmitter();
+  role: any;
   // ng-select
   public role_selectOptions = [
-    { id: 'administrator', name: 'Administrator' },
-    { id: 'technician', name: 'Technician' }
+    { id: 'Administrator', name: 'Administrator' },
+    { id: 'Technician', name: 'Technician' }
   ];
 
   // Form input (defaults)
   modifyUserForm = new FormGroup({
-    id: new FormControl(''),
+    id: new FormControl({disabled:true}),
     firstname: new FormControl('',Validators.required), 
     lastname: new FormControl('',Validators.required),
     email: new FormControl('', Validators.email),
@@ -46,15 +47,14 @@ export class ModifyUserModalComponent implements OnInit {
 
   updateUser(){
     console.log("yess");
-    this.valueChange.emit("getUsersEvent");
       // Get Assets
-      this.restService.getPosts("update_user", this.authService.getToken(),  {id: this.modifyUserForm.value.id, firstname: this.modifyUserForm.value.firstname, lastname: this.modifyUserForm.value.lastname, email: this.modifyUserForm.value.email, password: this.modifyUserForm.value.password, role: this.modifyUserForm.value.role})
+      this.restService.getPosts("update_user", this.authService.getToken(),  {id: this.modifyUserForm.value.id, firstname: this.modifyUserForm.value.firstname, lastname: this.modifyUserForm.value.lastname, email: this.modifyUserForm.value.email, password: this.modifyUserForm.value.password, role: this.role})
         .subscribe({
           next: data => {
             console.log(data)
             if (data["status"] == 200) {
               this.modifyUserForm.reset();
-              
+              this.valueChange.emit("getUsersEvent");
             }
         }}
           );
@@ -63,7 +63,8 @@ export class ModifyUserModalComponent implements OnInit {
 
   public saveCode(e): void {
     let find = this.role_selectOptions.find(x => x?.name === e.target.value);
-    console.log(find?.id);
+    this.role = find?.id;
+    console.log(this.role);
   }
 
 }

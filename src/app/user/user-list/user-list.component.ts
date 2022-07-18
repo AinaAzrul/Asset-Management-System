@@ -4,7 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal.component';
-
+import { DeleteUserModalComponent } from '../delete-user-modal/delete-user-modal.component';
+import { AddUserModalComponent } from '../add-user-modal/add-user-modal.component';
 
 @Component({
   selector: 'app-user-list',
@@ -29,12 +30,14 @@ export class UserListComponent implements OnInit {
   SelectionType = SelectionType;
 
   private modifyUserModalRef;
+  private deleteUserModalRef;
+  private addUserModalRef;
   
   constructor(private restService: RestService, private authService: AuthService, private modalService: NgbModal ) { }
 
   ngOnInit(){
 
-    this.session = this.authService.val_token();
+    // this.session = this.authService.val_token();
     this.userInfo = this.authService.getRole();
     console.log(this.userInfo);
      if(this.userInfo!=null){
@@ -49,19 +52,24 @@ export class UserListComponent implements OnInit {
     this.restService.getPosts("get_user", this.authService.getToken())
       .subscribe({
         next: data => {
-    
+        console.log(data);
           if (data["status"] == 200) {
             
             this.rows = data["data"].records;
             this.temp = [...this.rows];
             this.loadingIndicator = false;
             
-          }console.log(this.rows);
+          }
+          else{
+            this.authService.logout();
+          };
+          console.log(this.rows);
 
           this.rows;
       },
       error:err =>{
         this.errorMessage = err.error.message;
+        
       }}
         );
 
@@ -83,24 +91,34 @@ export class UserListComponent implements OnInit {
 
   //14/7/2022
   modifyUserRow(row){
-    console.log('row')
+    console.log(row)
     this.modifyUserModalRef = this.modalService.open(ModifyUserModalComponent);
     this.modifyUserModalRef.componentInstance.row = row;
     this.modifyUserModalRef.componentInstance.valueChange.subscribe((event) => {
       console.log(event);
-      this.getUsers(); //this function won't work  (15/7)
+      this.getUsers(); 
     });
-    // this.modifyUserModalRef.result.then(this.getUsers();
-    //   (data: any) => {
-    //     console.log(data);
-        
-    //   },
-    //   (reason: any) => { }
-    // );
   }
 
-  deleteUserRow(){
-    console.log("delete");
+  deleteUserRow(row){
+    console.log(row);
+    this.deleteUserModalRef = this.modalService.open(DeleteUserModalComponent);
+    this.deleteUserModalRef.componentInstance.row = row;
+    this.deleteUserModalRef.componentInstance.valueChange.subscribe((event) => {
+      console.log(event);
+      this.getUsers(); 
+    });
+
+  }
+
+  openAddUserModal(){
+    console.log("add");
+    this.addUserModalRef = this.modalService.open(AddUserModalComponent);
+    this.addUserModalRef.componentInstance.valueChange.subscribe((event) => {
+      console.log(event);
+      this.getUsers(); 
+    });
+
   }
 
 }

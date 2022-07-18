@@ -2,6 +2,7 @@
   <div class="card">
     <h4 class="card-header" >
         Users&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
+        <button class="float-sm-right btn btn-success btn-sm" (click)="openAddUserModal()"><i class="ion ion-md-add"></i>&nbsp;<b>+ Add New User</b></button>
       <!-- <button class="float-sm-right btn btn-primary" (click)="openAddUserModal()"><i class="ion ion-md-add"></i>&nbsp;<b>Add New User</b></button> -->
       <!-- <div class="float-sm-right" style="padding-right: 10px">
         <input [(ngModel)]="filterkey" class="form-control" type='text' placeholder='Filter by ...' (keyup)='updateFilter($event)'>
@@ -27,16 +28,17 @@
         <ngx-datatable-column name="Role" [maxWidth]="200" prop="role"></ngx-datatable-column>
         <ngx-datatable-column *ngIf="userInfo == 'System Admin'" name="Action" [maxWidth]="200" prop="action_list">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <div *ngIf="row.role != 'System Admin'" class="btn btn-primary btn-sm" (click)="modifyUserRow(row)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>MODIFY</b></div>
+            <div *ngIf="row.role!= 'System Admin'" class="btn btn-primary btn-sm" (click)="modifyUserRow(row)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>MODIFY</b></div>
             <!-- <div *ngIf="row.role != 'System Admin'" ><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-whatever="row" (click)=" modifyUserRow(row)">
               Modify 
             </button></div>  -->
            
             <!-- <div *ngIf="row.role != 'System Admin'" class="btn  btn-danger btn-sm" (click)="deleteUserRow(row, $event)"><i class="ion ion-md-close"></i>&nbsp;&nbsp;<b>DELETE</b></div>
              -->
-             <div *ngIf="row.role != 'System Admin'" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemodal">
-              <i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div>
-          </ng-template>
+             <!-- <div *ngIf="row.role != 'System Admin'" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemodal">
+              <i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div> -->
+              <div *ngIf="row.role!= 'System Admin'" class="btn btn-danger btn-sm" (click)="deleteUserRow(row)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div>
+            </ng-template>
         </ngx-datatable-column>
       </ngx-datatable>
     </div>
@@ -78,7 +80,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="deleteUserRow()">Understood</button>
+        <button type="button" class="btn btn-primary" (click)="deleteUserRow(row)">Understood</button>
       </div>
     </div>
   </div>

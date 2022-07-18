@@ -15,7 +15,7 @@
     <div class="form-group row">
       <label for="staticEmail" class="col-sm-2 col-form-label">ID: </label>
       <div class="col-sm-2">
-        <input type="text" readonly class="form-control-plaintext" [class.is-valid] disabled="true" id="staticEmail" formControlName="id" >
+        <input type="text" readonly class="form-control-plaintext" [class.is-valid] id="staticEmail" formControlName="id" >
       </div>
     </div>
 
@@ -57,7 +57,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Role</label>
-      <input type="text" id = "role" list="role_selectOptions" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="Select User Role">
+      <input type="text" id = "role" list="role_selectOptions" (change)="saveCode($event)"  class="browser-default custom-select form-control" placeholder="Select User Role">
             <datalist id="role_selectOptions">
             <option *ngFor="let c of role_selectOptions" [value]="c.name" >{{c.name}}</option>
             </datalist>
@@ -72,7 +72,8 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-grey" (click)="activeModal.dismiss('cancel');">Cancel</button>
-  <button type="button" class="btn btn-primary" [disabled]="!modifyUserForm.valid"
+   <button type="button" class="btn btn-primary" [disabled]="!modifyUserForm.valid"
     (click)="activeModal.dismiss('save'); this.updateUser()">Save</button>
+    <button type="button" class="btn btn-grey" (click)="activeModal.dismiss('cancel');">Cancel</button>
+ 
 </div>

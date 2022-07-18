@@ -20,9 +20,9 @@ export class AuthService {
   }
 
   public getRole() {
-    let a = sessionStorage.getItem("role");
-    let b = sessionStorage.getItem("access");
-    return [a,b];
+    this.val_token();
+     return sessionStorage.getItem("role");
+   
   }
 
 
@@ -52,11 +52,13 @@ export class AuthService {
     .subscribe({
       next: data => {
       // Successful login
+      if(data["status"] == 200){
       userInfo = data["data"].role;
-      let usersesh = data["message"];
-      console.log(userInfo);
       sessionStorage.setItem("role", userInfo);
-      sessionStorage.setItem("access", usersesh);
+    }
+    else{
+      this.logout();
+    }
     },
     error:err =>{
       this.errorMessage = err.error.message;

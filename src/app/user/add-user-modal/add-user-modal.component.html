@@ -1,0 +1,78 @@
+
+<div class="modal-header">
+    <h5 class="modal-title">
+      Add User<br>
+      <small class="text-muted">Please enter the user details.</small>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addUserForm">
+      <!-- <div class="form-group">
+        <label class="form-label">ID</label>
+        <input type="text" formControlName="id" class="form-control" readonly>
+      </div> -->
+  
+      <!-- <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">ID: </label>
+        <div class="col-sm-2">
+          <input type="text" readonly class="form-control-plaintext" [class.is-valid] id="staticEmail" formControlName="id" >
+        </div>
+      </div>
+   -->
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input type="text" formControlName="firstname" class="form-control"
+          [class.is-invalid]="addUserForm.get('firstname').touched && addUserForm.get('firstname').errors?.['required']"
+          placeholder="firstname">
+        <small class="invalid-feedback">
+          This field is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input type="text" formControlName="lastname" class="form-control"
+          [class.is-invalid]="addUserForm.get('lastname').touched && addUserForm.get('lastname').errors?.['required']"
+          placeholder="lastname">
+        <small class="invalid-feedback">
+          This field is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="text" formControlName="email" class="form-control"
+          [class.is-invalid]="addUserForm.get('email').touched && addUserForm.get('email').errors?.['email']"
+          placeholder="example@domain.com">
+        <small class="invalid-feedback">
+          Please enter a valid email address.
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="text" formControlName="password" class="form-control"
+          [class.is-invalid]="addUserForm.get('password').touched && addUserForm.get('password').errors?.['required']"
+          placeholder="password">
+        <small class="invalid-feedback">
+          This field is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select class="form-select" formControlName="role" aria-label="Default select example">
+            <!-- <option selected>Open this select menu</option> -->
+            <option value="Administrator">Administrator</option>
+            <option value="Technician">Technician</option>
+            <option value="System Admin">System Admin</option>
+          </select>
+       
+        <small class="invalid-feedback">
+          This field is required.
+        </small>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+     <button type="button" class="btn btn-primary" [disabled]="!addUserForm.valid"
+      (click)="activeModal.dismiss('save'); this.addUser()">Save</button>
+      <button type="button" class="btn btn-grey" (click)="activeModal.dismiss('cancel');">Cancel</button>
+   
+  </div>
