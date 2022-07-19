@@ -1,0 +1,132 @@
+
+<div>
+    <ngx-datatable
+      #table
+      class="material"
+      [headerHeight]="50"
+      [limit]="5"
+      [columnMode]="ColumnMode.force"
+      [footerHeight]="50"
+      rowHeight="auto"
+      [rows]="rows"
+    >
+      <ngx-datatable-column name="Entry Id" prop="Entry_id">
+        <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + '-Entry_id'] = true"
+            *ngIf="!editing[rowIndex + '-Entry_id']"
+          >
+            {{ value }}
+          </span>
+          <input
+            autofocus
+            (blur)="updateValue($event, 'Entry_id', rowIndex)"
+            *ngIf="editing[rowIndex + '-Entry_id']"
+            type="text"
+            [value]="value"
+          />
+        </ng-template> -->
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Asset Number" prop="Asset_no">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + '-Asset_no'] = true"
+            *ngIf="!editing[rowIndex + '-Asset_no']"
+          >
+            {{ value }}
+          </span>
+          <select
+            *ngIf="editing[rowIndex + '-Asset_no']"
+            (blur)="editing[rowIndex + '-Asset_no'] = false"
+            (change)="updateValue($event, 'Asset_no', rowIndex)"
+            [value]="value"
+          >
+            <option value="2020/103">2020/103</option>
+            <option value="2019/101">2019/101</option>
+            <option value="2015/067">2015/067</option>
+            <option value="2013/027">2013/027</option>
+            <option value="2015/089">2015/089</option>
+            <option value="2015/092">2015/092</option>
+            <option value="2013/004">2013/004</option>
+            <option value="2015/071">2015/071</option>
+          </select>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Asset Description" prop="Asset_desc">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + '-Asset_desc'] = true"
+            *ngIf="!editing[rowIndex + '-Asset_desc']"
+          >
+            {{ value }}
+          </span>
+          <input
+            autofocus
+            (blur)="updateValue($event, 'Asset_desc', rowIndex)"
+            *ngIf="editing[rowIndex + '-Asset_desc']"
+            type="text"
+            [value]="value"
+          />
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Taken By" prop="Taken_by">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + '-Taken_by'] = true"
+            *ngIf="!editing[rowIndex + '-Taken_by']"
+          >
+            {{ value }}
+          </span>
+          <select
+            *ngIf="editing[rowIndex + '-Taken_by']"
+            (blur)="editing[rowIndex + '-Taken_by'] = false"
+            (change)="updateValue($event, 'Taken_by', rowIndex)"
+            [value]="value"
+          >
+            <option value="Maya">Maya</option>
+            <option value="Ali">Ali</option>
+            <option value="Amirul">Amirul</option>
+            <option value="Ehwan">Ehwan</option>
+            <option value="Muhsin">Muhsin</option>
+          </select>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Date Taken" prop="Date_taken">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + 'Date_taken'] = true"
+            *ngIf="!editing[rowIndex + '-Date_taken']"
+          >
+            {{ value }}
+          </span>
+          <input
+            autofocus
+            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
+            (blur)="updateValue($event, 'Date_taken', rowIndex)"
+            *ngIf="editing[rowIndex + '-Date_taken']"
+            type="text"
+            [value]="value"
+          /> <div class="input-group-prepend">
+            <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
+         </div>
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      
+      <ngx-datatable-column name="Age">
+        <ng-template ngx-datatable-cell-template let-value="value">
+          {{ value }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>

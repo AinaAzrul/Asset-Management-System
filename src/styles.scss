@@ -34,6 +34,7 @@ body {
 .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
   white-space: normal !important;
   word-break: break-word !important;
+  display:block;
 }
 .ngx-datatable .datatable-body-cell {
   font-size: .8rem;
@@ -58,3 +59,12 @@ button.calendar, button.calendar:active {
   background-size: 23px;
   background-position: center;
 }
+
+.tableHeader{
+  display:inline-block;
+}
+
+.wrapper_test { 
+  padding:8px;
+  margin:15px auto;
+   }

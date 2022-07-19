@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit,Input,Output,ViewChild,EventEmitter } from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl,Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-master-list',
@@ -8,6 +9,8 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 })
 export class MasterListComponent implements OnInit {
 
+  @Input() row: any;
+  @Output() valueChange = new EventEmitter();
   model: NgbDateStruct;
   model2: NgbDateStruct;
   @ViewChild('NgbdDatepicker') d: NgbDateStruct;
@@ -16,6 +19,7 @@ export class MasterListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.row);
   }
 
   public codeValue: string;

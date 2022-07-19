@@ -2,10 +2,14 @@
 <div class="card">
     <h4 class="card-header" >
         Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-      <!-- <button class="float-sm-right btn btn-primary" (click)="openAddUserModal()"><i class="ion ion-md-add"></i>&nbsp;<b>Add New User</b></button> -->
-      <!-- <div class="float-sm-right" style="padding-right: 10px">
-        <input [(ngModel)]="filterkey" class="form-control" type='text' placeholder='Filter by ...' (keyup)='updateFilter($event)'>
-      </div> -->
+        <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button>
+        <input
+           class = "float-sm-right form-control form-control-sm"
+           type="text"
+           style=" padding:8px;margin:15px auto;width:20%;"
+           placeholder="Global search..."
+           (keyup)="searchMaster($event)"
+         />
     </h4>
     <div class="card-ngx-datatable table-responsive">
       <ngx-datatable #table style="min-width: 550px"
@@ -21,7 +25,7 @@
         [selectionType]="SelectionType.single"
         [limit]="10"
         (activate)="onActivate($event)"
-        >
+        > 
         <ngx-datatable-column name="Entry id"  prop="Entry_id"></ngx-datatable-column>
         <ngx-datatable-column name="Asset number"  prop="Asset_no"></ngx-datatable-column>
         <ngx-datatable-column name="Asset description"  prop="Asset_desc"></ngx-datatable-column>
@@ -33,5 +37,7 @@
         <ngx-datatable-column name="Category" [maxWidth]="200" prop="Category"></ngx-datatable-column>
         
       </ngx-datatable>
+      
     </div>
 </div><br>
+<app-master-datatable></app-master-datatable>

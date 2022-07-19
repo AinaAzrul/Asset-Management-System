@@ -42,6 +42,9 @@ export class UserListComponent implements OnInit {
     console.log(this.userInfo);
      if(this.userInfo!=null){
       this.getUsers();
+    }
+    else{
+      this.authService.logout();
     } ;
     
   }
@@ -52,7 +55,7 @@ export class UserListComponent implements OnInit {
     this.restService.getPosts("get_user", this.authService.getToken())
       .subscribe({
         next: data => {
-        console.log(data);
+        console.log(data["status"]);
           if (data["status"] == 200) {
             
             this.rows = data["data"].records;
@@ -60,16 +63,13 @@ export class UserListComponent implements OnInit {
             this.loadingIndicator = false;
             
           }
-          else{
-            this.authService.logout();
-          };
-          console.log(this.rows);
+          // console.log(this.rows);
 
-          this.rows;
+          // this.rows;
       },
       error:err =>{
         this.errorMessage = err.error.message;
-        
+     
       }}
         );
 
@@ -89,7 +89,6 @@ export class UserListComponent implements OnInit {
 
   // }
 
-  //14/7/2022
   modifyUserRow(row){
     console.log(row)
     this.modifyUserModalRef = this.modalService.open(ModifyUserModalComponent);
@@ -119,6 +118,31 @@ export class UserListComponent implements OnInit {
       this.getUsers(); 
     });
 
+  }
+
+  updateFilter(event){
+    console.log(typeof event.target.value);
+    console.log(this.temp);
+    const val = event.target.value.toLowerCase();
+    const keys = Object.keys(this.temp[0]);
+    const colsAmt = keys.length;
+
+    // filter our data
+    // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
+   const temp = this.temp.filter(function(item){
+    // iterate through each row's column data
+    for (let i=0; i<colsAmt; i++){
+       // check for a match
+       if (item[keys[i]].toString().toLowerCase().indexOf(val) !== -1 || !val){
+         // found match, return true to add to result set
+         return true;
+       }
+     }
+});
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 
 }
