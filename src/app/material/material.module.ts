@@ -6,7 +6,7 @@ import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -40,6 +40,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTreeModule} from '@angular/material/tree';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 // import {
 //   MatAutocompleteModule,
@@ -79,7 +81,17 @@ import {MatTreeModule} from '@angular/material/tree';
 //   MatTreeModule,
 // } from '@angular/material';
 
-
+export const MY_FORMATS = {
+  parse: {
+      dateInput: 'LL'
+  },
+  display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'YYYY'
+  }
+};
 
 @NgModule({
   exports: [
@@ -141,7 +153,6 @@ import {MatTreeModule} from '@angular/material/tree';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -182,6 +193,7 @@ import {MatTreeModule} from '@angular/material/tree';
   entryComponents: [],
   declarations: [],
   bootstrap: [],
-  providers: [MatDatepickerModule,]
+  providers: [MatDatepickerModule,  { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }]
 })
 export class MaterialModule { }

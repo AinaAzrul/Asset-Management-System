@@ -3,6 +3,8 @@ import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-dat
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-master-datatable',
   templateUrl: './master-datatable.component.html',
@@ -18,10 +20,12 @@ export class MasterDatatableComponent implements OnInit {
   temp: any;
   loadingIndicator = true;
   errorMessage: any;
+  timeout: any;
+  expanded: any = {};
 
   ColumnMode = ColumnMode;
 
-  constructor(private restService: RestService, private authService: AuthService) { }
+  constructor(private datePipe: DatePipe, private restService: RestService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -47,5 +51,86 @@ export class MasterDatatableComponent implements OnInit {
       }}
         );
   }
+  
+  // transformDate(date) {
+  //   var dateToDBthis.datePipe.transform(date('yyyy-MM-dd')); 
+  // };
+
+  updateValue(event, cell, rowIndex) {
+    console.log(event.target.value);
+    this.editing[rowIndex + '-' + cell] = false;
+    var val = event instanceof Date ? event :event.target.value;
+
+    // transform(Date){
+    // var  val.datePipe.transform(Date, 'yyyy-MM-dd'); }
+    
+    this.rows[rowIndex][cell] = val;
+    this.rows = [...this.rows];
+    console.log('UPDATED!', this.rows[rowIndex][cell]);
+    console.log(this.rows[rowIndex]);
+    let newRow = this.rows[rowIndex];
+    console.log(newRow.Date_taken)
+    
+    // this.restService.getPosts("update_master", this.authService.getToken(),  {
+    //   Entry_id: newRow.Entry_id, 
+    //   Asset_no: newRow.Asset_no, 
+    //   Asset_desc: newRow.Asset_desc, 
+    //   Taken_by: newRow.Taken_by, 
+    //   Date_taken: newRow.Date_taken, 
+    //   Return_by: newRow.Return_by,
+    //   Date_return: newRow.Date_return,
+    //   Remarks: newRow.Remarks,
+    //   Category: newRow.Category}).subscribe({
+    //       next: data => {
+    //         console.log(data)
+    //         if (data["status"] == 200) {
+    //           this.getUsers();
+    //         }
+    //     }}
+    //       );
+
+  }
+
+  searchMaster(event){
+    console.log(event);
+    const val = event.target.value.toLowerCase();
+    const keys = Object.keys(this.temp[0]);
+    const colsAmt = keys.length;
+
+    // filter our data
+    // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
+   const temp = this.temp.filter(function(item){
+    // iterate through each row's column data
+    for (let i=0; i<colsAmt; i++){
+       // check for a match
+       if (item[keys[i]].toString().toLowerCase().indexOf(val) !== -1 || !val){
+         // found match, return true to add to result set
+         return true;
+       }
+     }
+  });
+     // update the rows
+     this.rows = temp;
+     // Whenever the filter changes, always go back to the first page
+     this.table.offset = 0;
+
+     
+}
+
+//Scrollable table
+// onPage(event) {
+//   clearTimeout(this.timeout);
+//   this.timeout = setTimeout(() => {
+//     console.log('paged!', event);
+//   }, 100);
+// }
+// toggleExpandRow(row) {
+//   console.log('Toggled Expand Row!', row);
+//   this.table.rowDetail.toggleExpandRow(row);
+// }
+
+// onDetailToggle(event) {
+//   console.log('Detail Toggled', event);
+// }
 
 }

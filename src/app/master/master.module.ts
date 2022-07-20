@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe  } from '@angular/common';
 import { MasterRoutingModule } from './master-routing.module';
 import { MasterComponent } from './master.component';
 import { MasterListComponent } from './master-list/master-list.component';
@@ -10,6 +10,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MasterDatatableComponent } from './master-datatable/master-datatable.component';
 import { ModifyMasterModalComponent } from './modify-master-modal/modify-master-modal.component';
 
+import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
     MasterComponent,
@@ -24,7 +25,10 @@ import { ModifyMasterModalComponent } from './modify-master-modal/modify-master-
     FormsModule,
     NgbModule,
     NgxDatatableModule,
-    ReactiveFormsModule 
-  ]
+    ReactiveFormsModule,
+    MaterialModule
+  ],
+  providers: [DatePipe],
+  
 })
 export class MasterModule { }
