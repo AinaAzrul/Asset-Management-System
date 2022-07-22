@@ -11,13 +11,15 @@ import { MasterDatatableComponent } from './master-datatable/master-datatable.co
 import { ModifyMasterModalComponent } from './modify-master-modal/modify-master-modal.component';
 
 import { MaterialModule } from '../material/material.module';
+import { DeleteMasterModalComponent } from './delete-master-modal/delete-master-modal.component';
 @NgModule({
   declarations: [
     MasterComponent,
     MasterListComponent,
     MasterTableComponent,
     MasterDatatableComponent,
-    ModifyMasterModalComponent
+    ModifyMasterModalComponent,
+    DeleteMasterModalComponent
   ],
   imports: [
     CommonModule,

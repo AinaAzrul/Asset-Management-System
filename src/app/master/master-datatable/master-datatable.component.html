@@ -1,7 +1,8 @@
-<div class="card">
-  <h4 class="card-header" >
+<div class="card ng-deep">
+  <h4 class="card-header">
       Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-      <!-- <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button> -->
+      <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
+      <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Entry&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
       <input
          class = "float-sm-right form-control form-control-sm"
          type="text"
@@ -13,38 +14,25 @@
 <div>
     <ngx-datatable
       #table
-      class="material "
+      class="material striped"
       [headerHeight]="50"
       [columnMode]="ColumnMode.force"
       [footerHeight]="50"
       [rowHeight]="'auto'"
-      [limit]="5"
+      [limit]="10"
       [rows]="rows"
+      [selected]="selected"
+      [selectionType]="SelectionType.single"
+      (activate)="onActivate($event)"
+      (select)="onSelect($event)"
     >
-
       <ngx-datatable-column name="Entry Id" prop="Entry_id">
-        <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <span
-            title="Double click to edit"
-            (click)="editing[rowIndex + '-Entry_id'] = true"
-            *ngIf="!editing[rowIndex + '-Entry_id']"
-          >
-            {{ value }}
-          </span>
-          <input
-            autofocus
-            (blur)="updateValue($event, 'Entry_id', rowIndex)"
-            *ngIf="editing[rowIndex + '-Entry_id']"
-            type="text"
-            [value]="value"
-          />
-        </ng-template> -->
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Asset Number" prop="Asset_no">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span
-            title="Double click to edit"
+            title="click to edit"
             (click)="editing[rowIndex + '-Asset_no'] = true"
             *ngIf="!editing[rowIndex + '-Asset_no']"
           >
@@ -72,7 +60,7 @@
       <ngx-datatable-column name="Asset Description" prop="Asset_desc">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
-            title="Double click to edit"
+            title="click to edit"
             (click)="editing[rowIndex + '-Asset_desc'] = true"
             *ngIf="!editing[rowIndex + '-Asset_desc']"
           >
@@ -91,10 +79,11 @@
       <ngx-datatable-column name="Taken By" prop="Taken_by">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span
-            title="Double click to edit"
+           
+            title="click to edit"
             (click)="editing[rowIndex + '-Taken_by'] = true"
             *ngIf="!editing[rowIndex + '-Taken_by']"
-          >
+          ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <select
@@ -103,6 +92,7 @@
             (change)="updateValue($event, 'Taken_by', rowIndex)"
             [value]="value"
           >
+            <option value="">  </option>
             <option value="Maya">Maya</option>
             <option value="Ali">Ali</option>
             <option value="Amirul">Amirul</option>
@@ -116,38 +106,39 @@
       <ngx-datatable-column name="Date Taken" prop="Date_taken" >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
           <span
-          title="Double click to edit"
-              (click)="editing[rowIndex + '-Date_taken'] = true"
-              
+              title="click to edit"
+              (click)="editing[rowIndex + '-Date_taken'] = true" 
               *ngIf="!editing[rowIndex + '-Date_taken']">
-              {{value | date:'M-d-y'}}
-            
+              {{value}}
           </span>
           <mat-form-field *ngIf="editing[rowIndex + '-Date_taken']" (blur)="editing[rowIndex + '-Date_taken'] = false" style="width:90%">
-            <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateChange)="updateValue($event, 'Date_taken', rowIndex)"  />
+            <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateValue($event, 'Date_taken', rowIndex)" />
             <mat-hint>MM/DD/YYYY</mat-hint>  
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker ></mat-datepicker>
           </mat-form-field>
-          
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Return By" prop="Return_by">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span
-            title="Double click to edit"
+            title="click to edit"
+            class="container-fluid"
             (click)="editing[rowIndex + '-Return_by'] = true"
             *ngIf="!editing[rowIndex + '-Return_by']"
-          >
+            
+          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <select
+          
             *ngIf="editing[rowIndex + '-Return_by']"
             (blur)="editing[rowIndex + '-Return_by'] = false"
             (change)="updateValue($event, 'Return_by', rowIndex)"
             [value]="value"
           >
+            <option value="">  </option>
             <option value="Maya">Maya</option>
             <option value="Ali">Ali</option>
             <option value="Amirul">Amirul</option>
@@ -162,11 +153,11 @@
       <ngx-datatable-column name="Date Return" prop="Date_return" >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
           <span
-          title="Double click to edit"
+          title=" click to edit"
               (click)="editing[rowIndex + '-Date_return'] = true"
               
               *ngIf="!editing[rowIndex + '-Date_return']">
-              {{value | date:'M-d-y'}}
+              {{value}}
             
           </span>
           <mat-form-field *ngIf="editing[rowIndex + '-Date_return']" (blur)="editing[rowIndex + '-Date_return'] = false" style="width:90%">
@@ -180,12 +171,13 @@
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Remarks" prop="Remarks" >
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <ng-template  ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
-            title="Double click to edit"
+            title="click to edit"
+            class="container-fluid"
             (click)="editing[rowIndex + '-Remarks'] = true"
             *ngIf="!editing[rowIndex + '-Remarks']"
-          >
+          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <input
@@ -202,10 +194,10 @@
       <ngx-datatable-column name="Category" prop="Category">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
-            title="Double click to edit"
+            title="click to edit"
             (click)="editing[rowIndex + '-Category'] = true"
             *ngIf="!editing[rowIndex + '-Category']"
-          >
+          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <input
@@ -220,14 +212,6 @@
       </ngx-datatable-column>
 
 
-
-
-      
-      <!-- <ngx-datatable-column name="Age">
-        <ng-template ngx-datatable-cell-template let-value="value">
-          {{ value }}
-        </ng-template>
-      </ngx-datatable-column> -->
 
     </ngx-datatable>
   </div></div> <br><br>

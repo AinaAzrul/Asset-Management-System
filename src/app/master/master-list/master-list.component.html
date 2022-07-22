@@ -1,6 +1,6 @@
-<!-- Default form register -->
+<!--ASSET ENTRY FORM -->
 <div class="col-md-6 mx-auto"> 
-<form class="border border-grey p-5">
+<form [formGroup]="addMasterForm" class="border border-grey p-5">
     <p class="h4 mb-4">Entry Form</p><hr>
     <div class="container">
 
@@ -8,7 +8,7 @@
         <div class="col-6">
             <!-- First name -->
             <label for="assetNumber">Asset Number:</label>
-            <input type="text" id = "assetNumber"  list="codes" (change)="saveCode($event)"  class="browser-default custom-select" placeholder="Asset no.">
+            <input type="text" formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no.">
             <datalist id="codes">
             <option *ngFor="let c of codeList" [value]="c.name" >{{c.name}}</option>
             </datalist>
@@ -17,13 +17,13 @@
 
      <!-- E-mail -->
      <label for="assetDesc">Asset Description: </label>
-     <input type="email" id="assetDesc" class="form-control mb-4" placeholder="Asset name">
+     <input type="text" id="assetDesc" formControlName="Asset_desc" class="form-control mb-4" placeholder="Asset name">
 
     <div class="form-row mb-4">
       <div class="col">
         <!-- First name -->
         <label for="takenBy">Taken By:</label>
-        <input type="text" id = "takenBy"  list="names" (change)="nameCode($event)"  class="browser-default custom-select" placeholder="Taken by">
+        <input type="text" id = "takenBy" formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
             <datalist id="names">
             <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
           </datalist>
@@ -33,7 +33,7 @@
         <label for="dateTaken">Date Taken:</label>
         <div  class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dateTaken" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+             name="dateTaken" formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-prepend">
         <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
      </div>
@@ -50,7 +50,7 @@
         <div class="col">
           <!-- First name -->
           <label for="returnBy">Return By: </label>
-          <input type="text" id = "returnBy"  list="names" (change)="nameCode($event)"  class="browser-default custom-select" placeholder="Return by">
+          <input type="text" id = "returnBy" formControlName="Return_by" list="names"   class="browser-default custom-select" placeholder="Return by">
             <datalist id="names">
             <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
           </datalist>
@@ -60,7 +60,7 @@
           <label for="dateReturn">Date Return:</label>
           <div  class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
-                 name="dateReturn" [(ngModel)]="model2" ngbDatepicker #s="ngbDatepicker">
+                 name="dateReturn" formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
           <div class="input-group-prepend">
             <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
          </div> 
@@ -72,41 +72,21 @@
     <!-- Category -->
     <div class="form-row mb-4">
     <label for="category">Category:</label>
-    <input type="text" id="category" class="form-control" placeholder="category">
+    <input type="text" id="category" formControlName="Category" class="form-control" placeholder="category">
     </div>
 
     <!-- Category -->
     <label for="remarks">Remarks:</label>
-    <input type="long-text" id="remarks" class="form-control" placeholder="remarks">
+    <input type="long-text" id="remarks" formControlName="Remarks" class="form-control" placeholder="remarks">
     
     </div><br><br>
-    <!-- Newsletter -->
-    <!-- <div class="row">
-      <div class="col-md-6 mx-auto d-flex justify-content-center">
-        <p class="mdb-checkbox" >Subscribe to our newsletter</p>
-      </div>
-    </div> -->
+   
     <!-- Sign up button -->
     <div class="text-center">
-    <button type="button" class="btn btn-grey">Clear All</button>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-grey">Cancel</button>
+    <button type="button" class="btn btn-grey" (click)="this.addMasterForm.reset()">Clear All</button>
+    <button type="submit" class="btn btn-primary" (click)="this.addMaster()">Save</button>
+    <!-- <button type="button" class="btn btn-grey">Cancel</button> -->
     </div>
-    <!-- Social register -->
-    <!-- <p>or sign up with:</p>
-    <a type="button" class="light-blue-text mx-2">
-      <a class="mdb-icon" fab icon="facebook"></a>
-    </a>
-    <a type="button" class="light-blue-text mx-2">
-      <a class="mdb-icon" fab icon="twitter"></a>
-    </a>
-    <a type="button" class="light-blue-text mx-2">
-      <a class="mdb-icon" fab icon="linkedin"></a>
-    </a>
-    <a type="button" class="light-blue-text mx-2">
-      <a class="mdb-icon" fab icon="github"></a>
-    </a>
-    <hr> -->
     
   </form>
 </div>

@@ -4,7 +4,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -40,8 +40,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTreeModule} from '@angular/material/tree';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+
 
 // import {
 //   MatAutocompleteModule,
@@ -193,7 +192,8 @@ export const MY_FORMATS = {
   entryComponents: [],
   declarations: [],
   bootstrap: [],
-  providers: [MatDatepickerModule,  { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }]
+  providers: [MatDatepickerModule  ]
 })
 export class MaterialModule { }
+// { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+//   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }

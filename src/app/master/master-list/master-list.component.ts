@@ -1,6 +1,9 @@
-import { Component, OnInit,Input,Output,ViewChild,EventEmitter } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl,Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl,Validators, ReactiveFormsModule, FormControlName } from '@angular/forms';
+import { MasterDatatableComponent } from '../master-datatable/master-datatable.component';
+import { RestService } from '../../services/rest.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-master-list',
@@ -9,55 +12,85 @@ import { FormGroup, FormControl,Validators, ReactiveFormsModule } from '@angular
 })
 export class MasterListComponent implements OnInit {
 
-  @Input() row: any;
-  @Output() valueChange = new EventEmitter();
-  model: NgbDateStruct;
-  model2: NgbDateStruct;
+  // model: NgbDateStruct;
+  // model2: NgbDateStruct;
   @ViewChild('NgbdDatepicker') d: NgbDateStruct;
   @ViewChild('NgbdDatepicker') s: NgbDateStruct;
+  @ViewChild(MasterDatatableComponent) private tableComponent!: MasterDatatableComponent;
 
-  constructor() { }
+  constructor(private restService: RestService, private authService: AuthService) { }
+
+  // Form input (defaults)
+  addMasterForm = new FormGroup({
+    Asset_no: new FormControl('',Validators.required), 
+    Asset_desc: new FormControl('',Validators.required),
+    Taken_by: new FormControl(''),
+    Date_taken: new FormControl(''),
+    Return_by: new FormControl(''),
+    Date_return: new FormControl(''),
+    Remarks: new FormControl(''),
+    Category: new FormControl(''),
+  });
+
 
   ngOnInit(): void {
-    console.log(this.row);
   }
 
   public codeValue: string;
 
   public codeList = [
-    { id: 1, name: '2013/002' },
-    { id: 2, name: '2015/071' },
-    { id: 3, name: '2013/004' },
-    { id: 4, name: '2015/092' },
-    { id: 5, name: '2015/089' },
-    { id: 6, name: '2013/027' },
-    { id: 7, name: '2015/067' },
-    { id: 8, name: '2019/101' },
-    { id: 9, name: '2020/103' },
+    { id: '2013/002', name: '2013/002' },
+    { id: '2015/071', name: '2015/071' },
+    { id: '2013/004', name: '2013/004' },
+    { id: '2015/092', name: '2015/092' },
+    { id: '2015/089', name: '2015/089' },
+    { id: '2013/027', name: '2013/027' },
+    { id: '2015/067', name: '2015/067' },
+    { id: '2019/101', name: '2019/101' },
+    { id: '2020/103', name: '2020/103' },
   ];
 
   public nameList = [
-    { id: 1, name: 'Aiman' },
-    { id: 2, name: 'Ehwan' },
-    { id: 3, name: 'Shah' },
-    { id: 4, name: 'Nik' },
-    { id: 5, name: 'Muhsin' },
-    { id: 6, name: 'Mazrul' },
-    { id: 7, name: 'Adli' },
-    { id: 8, name: 'Alan' },
-    { id: 9, name: 'Azman' },
-    { id: 10, name: 'Hafiz' },
-    { id: 11, name: 'Amirul2' },
+    { id: 'Aiman', name: 'Aiman' },
+    { id: 'Ehwan', name: 'Ehwan' },
+    { id: 'Shah', name: 'Shah' },
+    { id: 'Nik', name: 'Nik' },
+    { id: 'Muhsin', name: 'Muhsin' },
+    { id: 'Mazrul', name: 'Mazrul' },
+    { id: 'Adli', name: 'Adli' },
+    { id: 'Alan', name: 'Alan' },
+    { id: 'Azman', name: 'Azman' },
+    { id: 'Hafiz', name: 'Hafiz' },
+    { id: 'Amirul2', name: 'Amirul2' },
   ];
 
-  public saveCode(e): void {
-    let find = this.codeList.find(x => x?.name === e.target.value);
-    console.log(find?.id);
-  }
+  // public saveCode(e): void {
+  //   let find = this.codeList.find(x => x?.name === e.target.value);
+  //   // console.log(find?.id);
+  // }
 
-  public nameCode(e): void {
-    let find = this.nameList.find(x => x?.name === e.target.value);
-    console.log(find?.id);
+  // public nameCode(e): void {
+  //   let find = this.nameList.find(x => x?.name === e.target.value);
+  //   // console.log(find?.id);
+  // }
+  
+  private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
+  
+  addMaster(){
+    this.addMasterForm.value.Date_taken = this.dateToString(this.addMasterForm.value.Date_taken);
+    this.addMasterForm.value.Date_return = this.dateToString(this.addMasterForm.value.Date_return);
+    console.log( this.addMasterForm.value);
+    this.restService.getPosts("create_master", this.authService.getToken(),  this.addMasterForm.value)
+        .subscribe({
+          next: data => {
+            console.log(data)
+            if (data["status"] == 201) { 
+              this.tableComponent.getMaster();
+              this.addMasterForm.reset();
+            }
+        }}
+          );
+   
   }
 
 }

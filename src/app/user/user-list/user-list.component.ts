@@ -39,14 +39,14 @@ export class UserListComponent implements OnInit {
 
     // this.session = this.authService.val_token();
     this.userInfo = this.authService.getRole();
-    console.log(this.userInfo);
-     if(this.userInfo!=null){
-      this.getUsers();
-    }
-    else{
-      this.authService.logout();
-    } ;
-    
+    this.getUsers();
+    // console.log(this.userInfo);
+    //  if(this.userInfo!=null){
+      
+    // }
+    // else{
+    //   this.authService.logout();
+    // } ;
   }
 
   getUsers() {
@@ -62,6 +62,9 @@ export class UserListComponent implements OnInit {
             this.temp = [...this.rows];
             this.loadingIndicator = false;
             
+          }
+          else{
+            this.authService.logout();
           }
           // console.log(this.rows);
 
