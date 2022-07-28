@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl,Validators, ReactiveFormsModule, FormControlName } from '@angular/forms';
+import { RestService } from '../../services/rest.service';
+import { AuthService } from '../../services/auth.service';
+import { AssetTestComponent } from '../asset-test/asset-test.component';
+
 
 @Component({
   selector: 'app-asset-list',
@@ -8,11 +13,29 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AssetListComponent implements OnInit {
  
-  model: NgbDateStruct;
-  model2: NgbDateStruct;
+  // model: NgbDateStruct;
+  // model2: NgbDateStruct;
   @ViewChild('NgbdDatepicker') c: NgbDateStruct;
   @ViewChild('NgbdDatepicker') f: NgbDateStruct;
-  constructor() { }
+  @ViewChild(AssetTestComponent) child:AssetTestComponent;
+  calibData: any;
+  
+
+  constructor(private restService: RestService, private authService: AuthService) { 
+    
+  }
+
+  // Form input (defaults)
+  addCalibForm = new FormGroup({
+    Asset_no: new FormControl('',Validators.required), 
+    Asset_desc: new FormControl('',Validators.required),
+    Category: new FormControl(''),
+    Location: new FormControl(''),
+    Calib_no: new FormControl(''),
+    Company_name: new FormControl(''),
+    Start_date: new FormControl(''),
+    End_date: new FormControl(''),
+  });
 
   ngOnInit(): void {
   }
@@ -31,10 +54,34 @@ export class AssetListComponent implements OnInit {
     { id: 9, name: '2020/103' },
   ];
 
-  
-  public saveCode(e): void {
-    let find = this.codeList.find(x => x?.name === e.target.value);
-    console.log(find?.id);
+
+  private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
+
+
+  addCalib(){
+    //check calibration number
+    const calibFirst = "1"; //adding the first calib
+    this.addCalibForm.value.Calib_no="1"; 
+    this.addCalibForm.value.Start_date = this.dateToString(this.addCalibForm.value.Start_date);
+    this.addCalibForm.value.End_date = this.dateToString(this.addCalibForm.value.End_date);
+    console.log(this.addCalibForm.value);
+
+    this.restService.getPosts("create_asset", this.authService.getToken(),  this.addCalibForm.value)
+        .subscribe({
+          next: data => {
+            console.log(data)
+            if (data["status"] == 201) { 
+
+              this.child.getAsset();
+              this.addCalibForm.reset();
+            }
+        }}
+          );
+   
+  }
+
+  calibAdd(event){
+    console.log(event);
   }
 
 

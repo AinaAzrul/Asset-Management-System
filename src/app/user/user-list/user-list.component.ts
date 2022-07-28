@@ -61,20 +61,17 @@ export class UserListComponent implements OnInit {
             this.rows = data["data"].records;
             this.temp = [...this.rows];
             this.loadingIndicator = false;
-            
           }
           else{
             this.authService.logout();
           }
           // console.log(this.rows);
-
           // this.rows;
       },
       error:err =>{
         this.errorMessage = err.error.message;
-     
       }}
-        );
+      );
 
   }
 
@@ -89,7 +86,6 @@ export class UserListComponent implements OnInit {
 
   // onSelect({ selected }) {
   //   console.log('Select Event', selected.row, this.selected);
-
   // }
 
   modifyUserRow(row){

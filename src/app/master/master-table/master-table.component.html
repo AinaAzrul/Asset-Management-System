@@ -1,16 +1,58 @@
 
 <div class="card">
-    <h4 class="card-header" >
+  <div class="card-header">
+    <h4>
         Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-        <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button>
+        <!-- <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button>
         <input
            class = "float-sm-right form-control form-control-sm"
            type="text"
            style=" padding:8px;margin:15px auto;width:20%;"
            placeholder="Global search..."
            (keyup)="searchMaster($event)"
-         />
-    </h4>
+         /> -->
+</h4>
+
+      <form style="display: flex " [formGroup]="formControl">
+          <mat-form-field>
+            <input matInput formControlName="entry_id" type="number" min="0" (keyup)="searchMaster($event)">
+            <mat-placeholder>Entry id</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="asset_no"  (keyup)="searchMaster($event)">
+            <mat-placeholder>Asset number</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="asset_desc" (keyup)="searchMaster($event)">
+            <mat-placeholder>Asset description</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="taken_by" (keyup)="searchMaster($event)">
+            <mat-placeholder>Taken by</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="date_taken" (keyup)="searchMaster($event)">
+            <mat-placeholder>Date taken</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="return_by" (keyup)="searchMaster($event)">
+            <mat-placeholder>Return by</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="date_return" (keyup)="searchMaster($event)">
+            <mat-placeholder>Date return</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="remarks" (keyup)="searchMaster($event)">
+            <mat-placeholder>Remarks</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="category" (keyup)="searchMaster($event)">
+            <mat-placeholder>Category</mat-placeholder>
+          </mat-form-field>  
+        </form>
+    </div>
+
     <div class="card-ngx-datatable table-responsive">
       <ngx-datatable #table style="min-width: 550px"
         class="material striped"
@@ -40,4 +82,4 @@
       
     </div>
 </div><br>
-<app-master-datatable></app-master-datatable>
+<!-- <app-master-datatable></app-master-datatable> -->

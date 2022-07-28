@@ -17,26 +17,26 @@
       [columnMode]="ColumnMode.force"
       [headerHeight]="50"
       [footerHeight]="50"
-      [rowHeight]="50"
+      [rowHeight]="'auto'"
       [rows]="rows"
       [limit]="10"
       (page)="onPage($event)"
     >
       <!-- Row Detail Template -->
       <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
-        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-          <div style="padding-left:35px;">
-            <div><strong>Calibration 1</strong></div>
-            <div>{{ row.First_calib }}</div><br>
-
-            <div><strong>Calibration 2</strong></div>
-            <div>{{ row.Second_calib }}</div><br>
-            
-            <div><strong>Calibration 3</strong></div>
-            <div>{{ row.Third_calib }}</div><br>
-          </div>
-        </ng-template>
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>        
+                    <div>
+                      <ngx-datatable #myDaughter class="material striped" [columnMode]="ColumnMode.force" [headerHeight]="40" [rows]="getDetailRows(row)"
+                         [rowHeight]="'auto'" [loadingIndicator]="loadingIndicator" [externalPaging]="false">
+                        <ngx-datatable-column name="Calibration Number" prop="Calib_no"></ngx-datatable-column>
+                        <ngx-datatable-column name="Start Date" prop="Start_date"></ngx-datatable-column>
+                        <ngx-datatable-column name="End Date" prop="End_date"></ngx-datatable-column>
+                        <ngx-datatable-column name="Company Name" prop="Company_name"></ngx-datatable-column>
+                      </ngx-datatable>
+                    </div>
+                </ng-template>
       </ngx-datatable-row-detail>
+
       <!-- Column Templates -->
       <ngx-datatable-column
         [width]="50"
@@ -72,11 +72,12 @@
            <p>{{ value }}</p>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Location" prop="Location">
+      <ngx-datatable-column name="Location"  prop="Location">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <p>{{ value }}</p>
-         </ng-template>
+           <p>{{ value }}</p>
+        </ng-template>
       </ngx-datatable-column>
+     
     </ngx-datatable>
   </div>
 </div>

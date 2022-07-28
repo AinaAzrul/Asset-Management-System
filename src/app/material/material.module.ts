@@ -35,7 +35,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule,MatTableDataSource } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -192,7 +192,7 @@ export const MY_FORMATS = {
   entryComponents: [],
   declarations: [],
   bootstrap: [],
-  providers: [MatDatepickerModule  ]
+  providers: [MatDatepickerModule,MatTableDataSource ]
 })
 export class MaterialModule { }
 // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

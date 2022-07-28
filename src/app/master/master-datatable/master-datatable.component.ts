@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
@@ -6,6 +6,7 @@ import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { DeleteMasterModalComponent } from '../delete-master-modal/delete-master-modal.component';
 import { Router } from '@angular/router';
+import {FormBuilder, AbstractControl} from '@angular/forms'
 
 
 @Component({
@@ -16,6 +17,8 @@ import { Router } from '@angular/router';
 export class MasterDatatableComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('NgbdDatepicker') d: NgbDateStruct;
+
+  readonly formControl: AbstractControl;
 
   model: NgbDateStruct;
   editing = {};
@@ -31,16 +34,42 @@ export class MasterDatatableComponent implements OnInit {
   selected = [];
   deleteMasterModalRef: any;
 
+  columns = [];
+
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  constructor(private router: Router, private datePipe: DatePipe, private restService: RestService, private authService: AuthService,private modalService: NgbModal) { }
+  constructor(formBuilder: FormBuilder,private router: Router, private datePipe: DatePipe, private restService: RestService, private authService: AuthService,private modalService: NgbModal) { 
+    this.formControl = formBuilder.group({
+      entry_id: '',
+      asset_no: '',
+      asset_desc: '',
+      taken_by: '',
+      date_taken: '',
+      return_by: '',
+      date_return: '',
+      remarks: '',
+      category: '',
+    });
+  }
 
   ngOnInit(): void {
     this.getMaster();
   }
-  
-  
+
+  // updateFilter(event, prop) {
+  //   const val = event.target.value.toLowerCase();
+
+  //   // filter our data
+  //   const temp = this.temp.filter(function(d) {
+  //     return d[prop].toLowerCase().indexOf(val) !== -1 || !val;
+  //   });
+
+  //   // update the rows
+  //   this.rows = temp;
+  //   // Whenever the filter changes, always go back to the first page
+  //   // this.table.offset = 0;
+  // }
 
   getMaster() {
     this.loadingIndicator = true;
@@ -67,7 +96,9 @@ export class MasterDatatableComponent implements OnInit {
   // };
 
   updateValue(event, cell, rowIndex) {
-    console.log(event.target.value);
+    console.log(event);
+    console.log(cell);
+    console.log(rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
     var val = event.target.value;
     if (val instanceof Date){
@@ -104,31 +135,55 @@ export class MasterDatatableComponent implements OnInit {
 
   }
 
-  searchMaster(event){
-    console.log(event);
+   //filter individual column function
+   searchMaster(event){
+    // console.log(event.target.value);
+    // console.log(this.formControl.value);
+    // console.log(this.temp);
+
     const val = event.target.value.toLowerCase();
     const keys = Object.keys(this.temp[0]);
     const colsAmt = keys.length;
-
-    // filter our data
-    // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
-   const temp = this.temp.filter(function(item){
-    // iterate through each row's column data
+    let form2 = Object.values(this.formControl.value);
+    console.log(val);
+    if(val){
+    //loop through the input form
     for (let i=0; i<colsAmt; i++){
-       // check for a match
-       if (item[keys[i]].toString().toLowerCase().indexOf(val) !== -1 || !val){
-         // found match, return true to add to result set
-         return true;
-       }
-     }
-  });
-     // update the rows
-     this.rows = temp;
-     // Whenever the filter changes, always go back to the first page
-     this.table.offset = 0;
+      //check for index where value exist
+      if(form2[i]){
+    console.log(form2[i]);
 
-     
-}
+        //call function filter based on the specified column index
+          this.searchThrough(colsAmt, keys[i], val)
+          break;
+      }
+  }
+}else if (!val){
+  this.rows = this.temp;
+  }
+    
+  }
+
+  searchThrough(colsAmt, colIdx, val){
+      // filter our data
+      // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
+      const temp = this.temp.filter(function(item){
+        // iterate through each row's column data
+        for (let i=0; i<colsAmt; i++){
+          // check for a match
+          if (item[colIdx].toString().toLowerCase().indexOf(val) !== -1 || !val){
+            // found match, return true to add to result set
+            return true;
+          }
+        }
+    });
+    
+    // update the rows
+    this.rows = temp;
+
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
 
 deleteRow(){
   // console.log(this.selected);
@@ -157,24 +212,5 @@ onSelect({ selected }) {
 
 test() {
     window.scroll(0,120);
-    //or document.body.scrollTop = 0;
-    //or document.querySelector('body').scrollTo(0,0)
-    
 }
-//Scrollable table
-// onPage(event) {
-//   clearTimeout(this.timeout);
-//   this.timeout = setTimeout(() => {
-//     console.log('paged!', event);
-//   }, 100);
-// }
-// toggleExpandRow(row) {
-//   console.log('Toggled Expand Row!', row);
-//   this.table.rowDetail.toggleExpandRow(row);
-// }
-
-// onDetailToggle(event) {
-//   console.log('Detail Toggled', event);
-// }
-
 }

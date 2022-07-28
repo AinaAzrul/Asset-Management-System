@@ -77,6 +77,7 @@ export class MasterListComponent implements OnInit {
   private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
   
   addMaster(){
+    console.log( this.addMasterForm.value);
     this.addMasterForm.value.Date_taken = this.dateToString(this.addMasterForm.value.Date_taken);
     this.addMasterForm.value.Date_return = this.dateToString(this.addMasterForm.value.Date_return);
     console.log( this.addMasterForm.value);
@@ -87,10 +88,13 @@ export class MasterListComponent implements OnInit {
             if (data["status"] == 201) { 
               this.tableComponent.getMaster();
               this.addMasterForm.reset();
+              this.test();
             }
-        }}
-          );
-   
+          }});
   }
+
+  test() {
+    window.scroll(0,1000);
+}
 
 }

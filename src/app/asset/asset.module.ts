@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe  } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { AssetRoutingModule } from './asset-routing.module';
 import { AssetComponent } from './asset.component';
@@ -23,7 +23,9 @@ import { AssetTestComponent } from './asset-test/asset-test.component';
     AssetRoutingModule,
     NgbModule,
     NgxDatatableModule,
-    FormsModule 
-  ]
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [DatePipe],
 })
 export class AssetModule { }

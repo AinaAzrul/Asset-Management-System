@@ -16,6 +16,13 @@
       display: initial;
     }
   }
+
+ .filter {
+    .mat-form-field.mat-form-field{
+    font-size: 12px;
+    width: 140px;
+    padding: 30px 10px 10px 10px;}
+  }
  
 //   .ngx-datatable {
 //     height: calc(100vh - 110px); 

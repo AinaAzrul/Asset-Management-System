@@ -1,5 +1,7 @@
-<div class="card ng-deep">
-  <h4 class="card-header">
+ 
+    <div class="card ng-deep">
+      <div class="card-header">
+  <h4>
       Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
       <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
       <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Entry&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
@@ -10,8 +12,55 @@
          placeholder="Global search..."
          (keyup)="searchMaster($event)"
        />
+        
   </h4>
+  <div class="filter">
+  <form style="display: flex " [formGroup]="formControl">
+    
+    <mat-form-field>
+      <input matInput formControlName="entry_id" type="number" min="0" (keyup)="searchMaster($event)">
+      <mat-placeholder>Entry id</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="asset_no"  (keyup)="searchMaster($event)">
+      <mat-placeholder>Asset number</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="asset_desc" (keyup)="searchMaster($event)">
+      <mat-placeholder>Asset description</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="taken_by" (keyup)="searchMaster($event)">
+      <mat-placeholder>Taken by</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="date_taken" (keyup)="searchMaster($event)">
+      <mat-placeholder>Date taken</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="return_by" (keyup)="searchMaster($event)">
+      <mat-placeholder>Return by</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="date_return" (keyup)="searchMaster($event)">
+      <mat-placeholder>Date return</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="remarks" (keyup)="searchMaster($event)">
+      <mat-placeholder>Remarks</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="category" (keyup)="searchMaster($event)">
+      <mat-placeholder>Category</mat-placeholder>
+    </mat-form-field>
+  
+  </form>
+</div> 
+</div>
+
 <div>
+ 
+   
     <ngx-datatable
       #table
       class="material striped"
@@ -26,11 +75,15 @@
       (activate)="onActivate($event)"
       (select)="onSelect($event)"
     >
+  
+
       <ngx-datatable-column name="Entry Id" prop="Entry_id">
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Asset Number" prop="Asset_no">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+       
+       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+          
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Asset_no'] = true"
@@ -167,7 +220,7 @@
               <mat-datepicker #picker ></mat-datepicker>
           </mat-form-field>
           
-        </ng-template>
+          </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Remarks" prop="Remarks" >
@@ -190,9 +243,18 @@
           />
         </ng-template>
       </ngx-datatable-column>
-
+<!-- <ng-template #hdrTpl let-column="column" let-sort="sortFn">
+     
+      <input
+        type="text"
+        style="padding:8px;margin:15px auto;width:30%;"
+        placeholder="Type to filter the name column..."
+        (keyup)="updateFilter($event, column.prop)"
+      />
+    </ng-template> -->
       <ngx-datatable-column name="Category" prop="Category">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      
+     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Category'] = true"
@@ -210,8 +272,9 @@
           />
         </ng-template>
       </ngx-datatable-column>
-
-
-
     </ngx-datatable>
-  </div></div> <br><br>
+
+   
+   
+  </div> 
+  </div> <br><br>

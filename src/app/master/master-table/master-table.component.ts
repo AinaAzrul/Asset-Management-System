@@ -4,6 +4,9 @@ import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 import { ModifyMasterModalComponent } from '../modify-master-modal/modify-master-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import {MatTableDataSource} from '@angular/material';
+// import {  } from '../../material/material.module';
+import {FormBuilder, AbstractControl} from '@angular/forms'
 
 @Component({
   selector: 'app-master-table',
@@ -12,7 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MasterTableComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
-
+  
   rows = [];
   temp = [];
   filterkey = "";
@@ -27,7 +30,27 @@ export class MasterTableComponent implements OnInit {
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  constructor(private restService: RestService, private authService: AuthService,  private modalService: NgbModal) { }
+
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  // dataSource = new MatTableDataSource(ELEMENT_DATA);
+  readonly formControl: AbstractControl;
+
+
+  constructor(formBuilder: FormBuilder,private restService: RestService, private authService: AuthService,  private modalService: NgbModal) {
+    
+    this.formControl = formBuilder.group({
+      entry_id: '',
+      asset_no: '',
+      asset_desc: '',
+      taken_by: '',
+      date_taken: '',
+      return_by: '',
+      date_return: '',
+      remarks: '',
+      category: '',
+    });
+  }
 
   ngOnInit(){
     this.getUsers();
@@ -77,24 +100,43 @@ export class MasterTableComponent implements OnInit {
     });
   }
 
+  //filter individual column function
   searchMaster(event){
-    console.log(event);
+    // console.log(event.target.value);
+    // console.log(this.formControl.value);
+    // console.log(this.temp);
+
     const val = event.target.value.toLowerCase();
     const keys = Object.keys(this.temp[0]);
     const colsAmt = keys.length;
+    let form2 = Object.values(this.formControl.value);
 
-    // filter our data
-    // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
-   const temp = this.temp.filter(function(item){
-    // iterate through each row's column data
+    //loop through the input form
     for (let i=0; i<colsAmt; i++){
-       // check for a match
-       if (item[keys[i]].toString().toLowerCase().indexOf(val) !== -1 || !val){
-         // found match, return true to add to result set
-         return true;
-       }
-     }
-});
+      //check for index where value exist
+      if(form2[i]){
+        //call function filter based on the specified column index
+          this.searchThrough(colsAmt, keys[i], val)
+          break;
+      }
+  }
+    
+  }
+
+  searchThrough(colsAmt, colIdx, val){
+      // filter our data
+        // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
+      const temp = this.temp.filter(function(item){
+        // iterate through each row's column data
+        for (let i=0; i<colsAmt; i++){
+          // check for a match
+          if (item[colIdx].toString().toLowerCase().indexOf(val) !== -1 || !val){
+            // found match, return true to add to result set
+            return true;
+          }
+        }
+    });
+    
     // update the rows
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page

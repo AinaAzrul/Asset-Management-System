@@ -34,7 +34,6 @@ export class AssetTableComponent implements OnInit {
     this.restService.getPosts("read_asset", this.authService.getToken())
       .subscribe({
         next: data => {
-          console.log(data)
           if (data["status"] == 200) {
             
             this.rows = data["data"].records;
@@ -46,6 +45,7 @@ export class AssetTableComponent implements OnInit {
         this.errorMessage = err.error.message;
       }}
         );
+        console.log(this.temp);
   }
 
   onActivate(event) {
