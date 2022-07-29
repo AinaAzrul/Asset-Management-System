@@ -17,7 +17,7 @@ export class AssetListComponent implements OnInit {
   // model2: NgbDateStruct;
   @ViewChild('NgbdDatepicker') c: NgbDateStruct;
   @ViewChild('NgbdDatepicker') f: NgbDateStruct;
-  @ViewChild(AssetTestComponent) child:AssetTestComponent;
+  @ViewChild(AssetTestComponent) private child!:AssetTestComponent;
   calibData: any;
   
 
@@ -53,37 +53,40 @@ export class AssetListComponent implements OnInit {
     { id: 8, name: '2019/101' },
     { id: 9, name: '2020/103' },
   ];
-
-
   private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
 
 
   addCalib(){
+    console.log(this.addCalibForm.value.Company_name);
+
+    console.log(typeof(this.addCalibForm.value.Company_name));
     //check calibration number
-    const calibFirst = "1"; //adding the first calib
+    if(this.addCalibForm.value.Company_name != '' && null){
+      console.log("calib");
+    //adding the first calib
     this.addCalibForm.value.Calib_no="1"; 
     this.addCalibForm.value.Start_date = this.dateToString(this.addCalibForm.value.Start_date);
     this.addCalibForm.value.End_date = this.dateToString(this.addCalibForm.value.End_date);
-    console.log(this.addCalibForm.value);
+  }
 
     this.restService.getPosts("create_asset", this.authService.getToken(),  this.addCalibForm.value)
         .subscribe({
           next: data => {
             console.log(data)
-            if (data["status"] == 201) { 
-
+            if (data["status"] == 200) { 
               this.child.getAsset();
               this.addCalibForm.reset();
+              this.test();
             }
         }}
           );
    
   }
+  test() {
+    window.scroll(0,1000);
+}
 
-  calibAdd(event){
-    console.log(event);
-  }
-
-
-
+  // calibAdd(event){
+  //   console.log(event);
+  // }
 }

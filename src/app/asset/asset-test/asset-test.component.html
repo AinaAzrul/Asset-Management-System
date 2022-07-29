@@ -2,8 +2,10 @@
 <div>
     <div class="card-header">
     <h4>
-      Asset Calibration List
-     
+      Asset Calibration List&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
+      <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledDelButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
+      <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Asset&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
+      
     </h4><small>
         <a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a>
         |
@@ -20,14 +22,24 @@
       [rowHeight]="'auto'"
       [rows]="rows"
       [limit]="10"
+      [selected]="selected"
+      [selectionType]="SelectionType.single"
+      (activate)="onActivate($event)"
       (page)="onPage($event)"
     >
       <!-- Row Detail Template -->
       <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>        
                     <div>
-                      <ngx-datatable #myDaughter class="material striped" [columnMode]="ColumnMode.force" [headerHeight]="40" [rows]="getDetailRows(row)"
-                         [rowHeight]="'auto'" [loadingIndicator]="loadingIndicator" [externalPaging]="false">
+                      <ngx-datatable 
+                      #myDaughter 
+                      class="material striped" 
+                      [columnMode]="ColumnMode.force" 
+                      [headerHeight]="40" 
+                      [rows]="getDetailRows(row)"
+                      [rowHeight]="'auto'" 
+                      [loadingIndicator]="loadingIndicator" 
+                      [externalPaging]="false">
                         <ngx-datatable-column name="Calibration Number" prop="Calib_no"></ngx-datatable-column>
                         <ngx-datatable-column name="Start Date" prop="Start_date"></ngx-datatable-column>
                         <ngx-datatable-column name="End Date" prop="End_date"></ngx-datatable-column>
@@ -39,12 +51,17 @@
 
       <!-- Column Templates -->
       <ngx-datatable-column
-        [width]="50"
+        [width]="20"
         [resizeable]="false"
         [sortable]="false"
         [draggable]="false"
         [canAutoResize]="true"
       >
+      <ng-template
+          let-column="column"
+          ngx-datatable-header-template>
+          <i class="fa fa-maximize"></i>
+        </ng-template>
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
           <a
             href="javascript:void(0)"

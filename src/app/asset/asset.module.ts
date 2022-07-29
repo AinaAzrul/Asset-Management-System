@@ -7,16 +7,18 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { AssetRoutingModule } from './asset-routing.module';
 import { AssetComponent } from './asset.component';
 import { AssetListComponent } from './asset-list/asset-list.component';
-import { AssetTableComponent } from './asset-table/asset-table.component';
+// import { AssetTableComponent } from './asset-table/asset-table.component';
 import { AssetTestComponent } from './asset-test/asset-test.component';
+import { DeleteAssetModalComponent } from './delete-asset-modal/delete-asset-modal.component';
 
 
 @NgModule({
   declarations: [
     AssetComponent,
     AssetListComponent,
-    AssetTableComponent,
-    AssetTestComponent
+    // AssetTableComponent,
+    AssetTestComponent,
+    DeleteAssetModalComponent
   ],
   imports: [
     CommonModule,

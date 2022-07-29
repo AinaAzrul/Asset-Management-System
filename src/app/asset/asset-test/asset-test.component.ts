@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, ViewChild,Output, EventEmitter } from '@a
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { DeleteAssetModalComponent } from '../delete-asset-modal/delete-asset-modal.component';
 
 @Component({
   selector: 'app-asset-test',
@@ -12,11 +14,15 @@ import { AuthService } from '../../services/auth.service';
 export class AssetTestComponent {
 
   @ViewChild('myTable') table: any;
-  @Output() valuePass = new EventEmitter();
+  // @Output() valuePass = new EventEmitter();
 
   rows: any[] = [];
   expanded: any = {};
   timeout: any;
+  selectedRow: any;
+  deleteAssetModalRef:any;
+  disabledDelButton= false;
+  
 
   tab = [];
   temp = [];
@@ -29,11 +35,11 @@ export class AssetTestComponent {
   startD = [];
   endD = [];
   companyName= [];
-
+  
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  constructor(private restService: RestService, private authService: AuthService) {
+  constructor(private restService: RestService, private authService: AuthService,private modalService: NgbModal) {
     
     this.getAsset();
   }
@@ -90,13 +96,13 @@ export class AssetTestComponent {
             });
             console.log(this.tab) 
             this.rows = this.tab;
-            this.valuePass.emit(this.rows);
+            // this.valuePass.emit(this.rows);
           }
       },
       error:err =>{
         this.errorMessage = err.error.message;
       }}
-        );
+      );
   }
 
   toggleExpandRow(row) {
@@ -113,11 +119,35 @@ export class AssetTestComponent {
   }
 
   getDetailRows(row){
-    console.log(row)
+    // console.log(row)
     let val4 = row.Asset_no; 
     const fil= this.temp.filter(temp=>temp.Asset_no.toLowerCase().indexOf(val4) !== -1 || !val4);
-    console.log(fil)
+    // console.log(fil)
     return fil;
+  }
+
+  onActivate(event){
+    // console.log(event);
+      if (event.type === "click") {
+        this.selectedRow = event.row;
+        this.disabledDelButton = true;
+      }
+      event.type === "click" && event.cellElement.blur();
+  }
+
+  deleteRow(){
+  console.log(this.selected);
+  this.deleteAssetModalRef = this.modalService.open(DeleteAssetModalComponent);
+  this.deleteAssetModalRef.componentInstance.row = this.selected;
+  this.deleteAssetModalRef.componentInstance.valueChange.subscribe((event) => {
+    console.log(event);
+    this.getAsset(); 
+  });
+
+  }
+
+  test(){
+    window.scroll(0,120);
   }
 
 }
