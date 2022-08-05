@@ -4,6 +4,11 @@ import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { DeleteAssetModalComponent } from '../delete-asset-modal/delete-asset-modal.component';
+import { DatePipe } from '@angular/common';
+import { AddCalibModalComponent } from '../add-calib-modal/add-calib-modal.component';
+import { DeleteCalibModalComponent } from '../delete-calib-modal/delete-calib-modal.component';
+import {FormBuilder, AbstractControl} from '@angular/forms'
+
 
 @Component({
   selector: 'app-asset-test',
@@ -13,16 +18,29 @@ import { DeleteAssetModalComponent } from '../delete-asset-modal/delete-asset-mo
 })
 export class AssetTestComponent {
 
-  @ViewChild('myTable') table: any;
-  // @Output() valuePass = new EventEmitter();
+  readonly formControl: AbstractControl;
 
+  @ViewChild('NgbdDatepicker') c: NgbDateStruct;
+  @ViewChild('myTable') table: any;
+  //@Output() valuePass = new EventEmitter();
+
+
+  //Date input
+  model: NgbDateStruct;
+  newdate: any;
+
+  //generate table variables
   rows: any[] = [];
   expanded: any = {};
+  editing = {};
   timeout: any;
   selectedRow: any;
+  calib: any;
+  fil: any;
   deleteAssetModalRef:any;
+  addCalibModalRef:any;
+  deleteCalibModalRef: any;
   disabledDelButton= false;
-  
 
   tab = [];
   temp = [];
@@ -39,9 +57,18 @@ export class AssetTestComponent {
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  constructor(private restService: RestService, private authService: AuthService,private modalService: NgbModal) {
-    
+  constructor(formBuilder: FormBuilder,private restService: RestService, private authService: AuthService,private modalService: NgbModal, private datePipe: DatePipe) {
+
     this.getAsset();
+
+    this.formControl = formBuilder.group({
+      Asset_no: '',
+      Asset_desc: '',
+      Category: '',
+      Location: '',
+      Start_date: '',
+      End_date: '',
+    });
   }
 
   onPage(event) {
@@ -51,16 +78,7 @@ export class AssetTestComponent {
     }, 100);
   }
 
-  // fetch(cb) {
-  //   const req = new XMLHttpRequest();
-  //   req.open('GET', `assets/data/100k.json`);
 
-  //   req.onload = () => {
-  //     cb(JSON.parse(req.response));
-  //   };
-
-  //   req.send();
-  // }
   getAsset() {
     this.loadingIndicator = true;
     // Get Assets
@@ -106,10 +124,8 @@ export class AssetTestComponent {
   }
 
   toggleExpandRow(row) {
+    console.log(row);
     console.log('Toggled Expand Row!', row);
-    console.log(row.Calib_no);
-    let calibArr = row.Calib_no;
-    // console.log(calibArr)
     this.table.rowDetail.toggleExpandRow(row);
   }
 
@@ -120,10 +136,11 @@ export class AssetTestComponent {
 
   getDetailRows(row){
     // console.log(row)
-    let val4 = row.Asset_no; 
-    const fil= this.temp.filter(temp=>temp.Asset_no.toLowerCase().indexOf(val4) !== -1 || !val4);
-    // console.log(fil)
-    return fil;
+   let val4 = row.Asset_no; 
+   this.fil= this.temp.filter(temp=>temp.Asset_no.toLowerCase().indexOf(val4) !== -1 || !val4);
+   this.calib = this.fil[0].Calib_no;
+   console.log(this.fil)
+   return this.fil;
   }
 
   onActivate(event){
@@ -143,11 +160,148 @@ export class AssetTestComponent {
     console.log(event);
     this.getAsset(); 
   });
-
   }
+
+  deleteCalib(row){
+    console.log(row);
+    this.deleteCalibModalRef = this.modalService.open(DeleteCalibModalComponent);
+    this.deleteCalibModalRef.componentInstance.row = row;
+    this.deleteCalibModalRef.componentInstance.valueChange.subscribe((event) => {
+      console.log(event);
+      this.getAsset(); 
+    });
+    }
+
+  updateValue(event, cell, rowIndex) {
+      console.log(event);
+      console.log(cell);
+      console.log(rowIndex);
+      this.editing[rowIndex + '-' + cell] = false;
+      var val = event.target.value;
+      
+      console.log(val);
+      this.rows[rowIndex][cell] = val;
+      this.rows = [...this.rows];
+      console.log('UPDATED!', this.rows[rowIndex][cell]);
+      console.log(this.rows[rowIndex]);
+      let newRow = this.rows[rowIndex];
+
+      this.restService.getPosts("update_asset", this.authService.getToken(),  {
+      Asset_no: newRow.Asset_no, 
+      Asset_desc: newRow.Asset_desc, 
+      Category: newRow.Category,
+      Location: newRow.Location
+      }).subscribe({
+            next: data => {
+              console.log(data)
+              if (data["status"] == 200) {
+                this.getAsset();
+              }
+          }}
+         );
+
+    }
+
+    updateCalib(event, cell, rowIndex){
+      console.log(event);
+      console.log(cell);
+      console.log(rowIndex);
+      this.editing[rowIndex + '-' + cell] = false;
+      var val = event.target.value;
+      if (val instanceof Date){
+        console.log(event.target.value);
+        this.newdate = new Date(val);
+        val = this.datePipe.transform(this.newdate, 'yyyy-MM-dd');
+      }
+
+      console.log(val);
+      this.fil[rowIndex][cell] = val;
+      this.fil = [...this.fil];
+      console.log('UPDATED!', this.fil[rowIndex][cell]);
+      console.log(this.fil[rowIndex]);
+      let newRow = this.fil[rowIndex];
+
+      this.restService.getPosts("update_calib", this.authService.getToken(),  {
+        id: newRow.id, 
+        Calib_no: newRow.Calib_no, 
+        Start_date: newRow.Start_date,
+        End_date: newRow.End_date,
+        Company_name: newRow.Company_name,
+        }).subscribe({
+              next: data => {
+                console.log(data)
+                if (data["status"] == 200) {
+                  this.getAsset();
+              }
+            }}
+           );
+    }
 
   test(){
     window.scroll(0,120);
   }
+ 
+  Addcalib(row){
+   console.log(row)
+   let calibRow = row;
+   this.addCalibModalRef = this.modalService.open(AddCalibModalComponent);
+   this.addCalibModalRef.componentInstance.row = calibRow;
+   this.addCalibModalRef.componentInstance.valueChange.subscribe((event) => {
+    console.log(event);
+   this.getAsset(); 
+  });
+  }
+
+  onSelect({ selected }) {
+    console.log(selected);
+  }
+
+  //filter function
+  searchMaster(event){
+    console.log(this.temp);
+    const val = event.target.value.toLowerCase();
+    const keys = Object.keys(this.temp[0]);
+    const colsAmt = keys.length;
+    let form2 = Object.values(this.formControl.value);
+    console.log(val);
+    if(val){
+    //loop through the input form
+    for (let i=0; i<colsAmt; i++){
+      //check for index where value exist
+      if(form2[i]){
+      console.log(form2[i]);
+        //call function filter based on the specified column index
+          this.searchThrough(colsAmt, keys[i], val)
+          break;
+      }
+  }
+}else if (!val){
+  this.rows = this.temp;
+  }
+}    
+
+
+  searchThrough(colsAmt, colIdx, val){
+    // filter our data
+    // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
+    const temp = this.temp.filter(function(item){
+      // iterate through each row's column data
+      for (let i=0; i<colsAmt; i++){
+        // check for a match
+        console.log(item[colIdx]);
+        if (item[colIdx].toString().toLowerCase().indexOf(val) !== -1 || !val){
+          // found match, return true to add to result set
+          return true;
+        }
+      }
+  });
+  // update the rows
+  this.rows = temp;
+
+  // Whenever the filter changes, always go back to the first page
+  this.table.offset = 0;
+}
+
+  
 
 }

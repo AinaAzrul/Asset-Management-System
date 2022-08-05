@@ -53,14 +53,11 @@
       <input matInput formControlName="category" (keyup)="searchMaster($event)">
       <mat-placeholder>Category</mat-placeholder>
     </mat-form-field>
-  
   </form>
 </div> 
 </div>
-
 <div>
- 
-   
+  
     <ngx-datatable
       #table
       class="material striped"
@@ -75,13 +72,10 @@
       (activate)="onActivate($event)"
       (select)="onSelect($event)"
     >
-  
-
       <ngx-datatable-column name="Entry Id" prop="Entry_id">
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Asset Number" prop="Asset_no">
-       
        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           
           <span
@@ -97,15 +91,13 @@
             (change)="updateValue($event, 'Asset_no', rowIndex)"
             [value]="value"
           >
-          
-            <option value="2019/101">2019/101</option>
-            <option value="2020/103">2020/103</option>
-            <option value="2015/032">2015/032</option>
-            <option value="2013/027">2013/027</option>
-            <option value="2015/057">2015/057</option>
-            <option value="2015/092">2015/092</option>
-            <option value="2013/004">2013/004</option>
-            <option value="2015/981">2015/981</option>
+          <option >
+            Select..
+           </option>
+             <option [ngValue]="value" *ngFor="let assetno of assetNo">
+              {{assetno}}
+             </option>
+            
           </select>
         </ng-template>
       </ngx-datatable-column>
@@ -132,7 +124,6 @@
       <ngx-datatable-column name="Taken By" prop="Taken_by">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span
-           
             title="click to edit"
             (click)="editing[rowIndex + '-Taken_by'] = true"
             *ngIf="!editing[rowIndex + '-Taken_by']"
@@ -145,12 +136,13 @@
             (change)="updateValue($event, 'Taken_by', rowIndex)"
             [value]="value"
           >
-            <option value="">  </option>
-            <option value="Maya">Maya</option>
-            <option value="Ali">Ali</option>
-            <option value="Amirul">Amirul</option>
-            <option value="Ehwan">Ehwan</option>
-            <option value="Muhsin">Muhsin</option>
+          <option >
+            Select..
+           </option>
+             <option [ngValue]="value" *ngFor="let empname of empName">
+              {{empname}}
+             </option>
+            
           </select>
         </ng-template>
       </ngx-datatable-column>
@@ -161,8 +153,9 @@
           <span
               title="click to edit"
               (click)="editing[rowIndex + '-Date_taken'] = true" 
-              *ngIf="!editing[rowIndex + '-Date_taken']">
-              {{value}}
+              *ngIf="!editing[rowIndex + '-Date_taken']"><i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
+              
+              <p *ngIf="value!=='0000-00-00'" >{{value}}</p>
           </span>
           <mat-form-field *ngIf="editing[rowIndex + '-Date_taken']" (blur)="editing[rowIndex + '-Date_taken'] = false" style="width:90%">
             <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateValue($event, 'Date_taken', rowIndex)" />
@@ -191,13 +184,12 @@
             (change)="updateValue($event, 'Return_by', rowIndex)"
             [value]="value"
           >
-            <option value="">  </option>
-            <option value="Maya">Maya</option>
-            <option value="Ali">Ali</option>
-            <option value="Amirul">Amirul</option>
-            <option value="Ehwan">Ehwan</option>
-            <option value="Muhsin">Muhsin</option>
-            <option value="Abu">Abu</option>
+          <option >
+            Select..
+          </option>
+          <option [ngValue]="value" *ngFor="let empname of empName">
+            {{empname}}
+          </option>
 
           </select>
         </ng-template>
@@ -209,8 +201,8 @@
           title=" click to edit"
               (click)="editing[rowIndex + '-Date_return'] = true"
               
-              *ngIf="!editing[rowIndex + '-Date_return']">
-              {{value}}
+              *ngIf="!editing[rowIndex + '-Date_return']"><i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
+              <p  *ngIf="value!=='0000-00-00'" >{{value}}</p>
             
           </span>
           <mat-form-field *ngIf="editing[rowIndex + '-Date_return']" (blur)="editing[rowIndex + '-Date_return'] = false" style="width:90%">

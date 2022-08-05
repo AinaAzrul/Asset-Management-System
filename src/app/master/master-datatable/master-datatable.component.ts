@@ -22,7 +22,10 @@ export class MasterDatatableComponent implements OnInit {
 
   model: NgbDateStruct;
   editing = {};
+  
   rows = [];
+  assetNo = [];
+  empName = [];
   temp: any;
   loadingIndicator = true;
   errorMessage: any;
@@ -73,6 +76,16 @@ export class MasterDatatableComponent implements OnInit {
 
   getMaster() {
     this.loadingIndicator = true;
+    this.empName = [
+      "",
+      "Ehwan",
+      "Shah",
+      "Ali",
+      "Maya",
+      "Amirul",
+      "Muhsin",
+      "Adli"
+  ];
     // Get Assets
     this.restService.getPosts("read_master", this.authService.getToken())
       .subscribe({
@@ -83,12 +96,13 @@ export class MasterDatatableComponent implements OnInit {
             // console.log( this.rows )
             this.temp = [...this.rows];
             this.loadingIndicator = false;
+            this.assetNo = [...new Set(this.rows.map(item=>{return item.Asset_no}))];
           }
       },
       error:err =>{
         this.errorMessage = err.error.message;
       }}
-        );
+      );
   }
   
   // transformDate(date) {
@@ -160,9 +174,8 @@ export class MasterDatatableComponent implements OnInit {
   }
 }else if (!val){
   this.rows = this.temp;
-  }
-    
-  }
+  }    
+}
 
   searchThrough(colsAmt, colIdx, val){
       // filter our data
@@ -177,7 +190,6 @@ export class MasterDatatableComponent implements OnInit {
           }
         }
     });
-    
     // update the rows
     this.rows = temp;
 

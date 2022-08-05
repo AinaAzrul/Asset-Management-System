@@ -10,7 +10,9 @@ import { AssetListComponent } from './asset-list/asset-list.component';
 // import { AssetTableComponent } from './asset-table/asset-table.component';
 import { AssetTestComponent } from './asset-test/asset-test.component';
 import { DeleteAssetModalComponent } from './delete-asset-modal/delete-asset-modal.component';
-
+import { MaterialModule } from '../material/material.module';
+import { AddCalibModalComponent } from './add-calib-modal/add-calib-modal.component';
+import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import { DeleteAssetModalComponent } from './delete-asset-modal/delete-asset-mod
     AssetListComponent,
     // AssetTableComponent,
     AssetTestComponent,
-    DeleteAssetModalComponent
+    DeleteAssetModalComponent,
+    AddCalibModalComponent,
+    DeleteCalibModalComponent
+   
   ],
   imports: [
     CommonModule,
@@ -26,7 +31,8 @@ import { DeleteAssetModalComponent } from './delete-asset-modal/delete-asset-mod
     NgbModule,
     NgxDatatableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [DatePipe],
 })

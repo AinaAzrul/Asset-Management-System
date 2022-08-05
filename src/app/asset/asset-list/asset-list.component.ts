@@ -58,17 +58,19 @@ export class AssetListComponent implements OnInit {
 
   addCalib(){
     console.log(this.addCalibForm.value.Company_name);
-
     console.log(typeof(this.addCalibForm.value.Company_name));
+    let expRow = this.addCalibForm.value.Company_name;
     //check calibration number
-    if(this.addCalibForm.value.Company_name != '' && null){
+    if(expRow !== '' || null){
       console.log("calib");
     //adding the first calib
     this.addCalibForm.value.Calib_no="1"; 
     this.addCalibForm.value.Start_date = this.dateToString(this.addCalibForm.value.Start_date);
     this.addCalibForm.value.End_date = this.dateToString(this.addCalibForm.value.End_date);
-  }
+    // console.log(this.addCalibForm.value.End_date);
+    // console.log(typeof(this.addCalibForm.value.End_date));
 
+  }
     this.restService.getPosts("create_asset", this.authService.getToken(),  this.addCalibForm.value)
         .subscribe({
           next: data => {

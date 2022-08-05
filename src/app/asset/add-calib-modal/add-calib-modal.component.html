@@ -1,0 +1,71 @@
+
+<div class="modal-header">
+    <h5 class="modal-title">
+      Add calibration<br>
+      <small class="text-muted">Please enter calibration details.</small>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addCalibForm">
+
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm col-form-label">Asset Number: </label>
+        <div class="col-sm">
+          <input type="text" readonly class="form-control-plaintext" [class.is-valid] id="staticEmail" disabled formControlName="Asset_no" >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm col-form-label">Asset Description: </label>
+        <div class="col-sm">
+          <input type="text" readonly class="form-control-plaintext" [class.is-valid] id="staticEmail" disabled formControlName="Asset_desc" >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Calibration Number:</label>
+        <input type="number" formControlName="Calib_no" class="form-control"
+          [class.is-invalid]="addCalibForm.get('Calib_no').touched && addCalibForm.get('Calib_no').errors?.['required']"
+          placeholder="Calib_no">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Start Date</label>
+          <div  class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                  formControlName="Start_date" ngbDatepicker #d="ngbDatepicker"   [class.is-invalid]="addCalibForm.get('Start_date').touched && addCalibForm.get('Start_date').errors?.['required']">
+          <div class="input-group-prepend">
+            <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
+         </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">End Date</label>
+        <div  class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="End_date" formControlName="End_date" ngbDatepicker #s="ngbDatepicker"  [class.is-invalid]="addCalibForm.get('End_date').touched && addCalibForm.get('End_date').errors?.['required']">
+          <div class="input-group-prepend">
+            <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
+         </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Company Name</label>
+        <input type="text" formControlName="Company_name" class="form-control"
+          [class.is-invalid]="addCalibForm.get('Company_name').touched && addCalibForm.get('Company_name').errors?.['required']"
+          placeholder="Company_name">
+        <small class="invalid-feedback">
+          This field is required.
+        </small>
+      </div>
+    
+    </form>
+  </div>
+  <div class="modal-footer">
+     <button type="button" class="btn btn-primary" [disabled]="!addCalibForm.valid"
+      (click)="activeModal.dismiss('save'); this.createCalib()">Save</button>
+      <button type="button" class="btn btn-grey" (click)="activeModal.dismiss('cancel');">Cancel</button>
+   
+  </div>

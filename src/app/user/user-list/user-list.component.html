@@ -3,7 +3,7 @@
     <div class="card-header " >
     <h4>
         Users&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-        <button style=" padding:8px;margin:15px 10px;" class="float-sm-right btn btn-success btn-sm" (click)="openAddUserModal()"><i class="ion ion-md-add"></i>&nbsp;<b>+ Add New User</b></button>
+        <div *ngIf="userInfo == 'System Admin'"><button style=" padding:8px;margin:15px 10px;" class="float-sm-right btn btn-success btn-sm" (click)="openAddUserModal()"><i class="ion ion-md-add"></i>&nbsp;<b>+ Add New User</b></button></div>
        <input
           class = "float-sm-right form-control form-control-sm"
           type="text"
