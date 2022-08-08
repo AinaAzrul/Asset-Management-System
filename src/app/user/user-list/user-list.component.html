@@ -8,7 +8,7 @@
           class = "float-sm-right form-control form-control-sm"
           type="text"
           style=" padding:8px;margin:15px auto;width:20%;"
-          placeholder="Search by first name..."
+          placeholder="Search..."
           (keyup)="updateFilter($event)"
         />
 </h4>
@@ -48,8 +48,8 @@
            
             <!-- <div *ngIf="row.role != 'System Admin'" class="btn  btn-danger btn-sm" (click)="deleteUserRow(row, $event)"><i class="ion ion-md-close"></i>&nbsp;&nbsp;<b>DELETE</b></div>
              -->
-             <!-- <div *ngIf="row.role != 'System Admin'" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemodal">
-              <i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div> -->
+            <!-- <div *ngIf="row.role != 'System Admin'" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemodal">
+            <i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div> -->
               <div *ngIf="row.role!= 'System Admin'" class="btn btn-danger btn-sm" (click)="deleteUserRow(row)"><i class="ion ion-md-create"></i>&nbsp;&nbsp;<b>DELETE</b></div>
             </ng-template>
         </ngx-datatable-column>

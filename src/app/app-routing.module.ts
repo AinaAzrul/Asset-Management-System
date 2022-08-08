@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 // import { SidenavComponent } from './sidenav/sidenav.component';
 import {SidebarComponent} from './layout/sidebar/sidebar.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
+// import { MasterTableComponent } from './master/master-table/master-table.component';
 
 // Authentication
 import { AuthService } from './services/auth.service';
@@ -28,7 +29,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  
 ];
 
 

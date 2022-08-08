@@ -114,6 +114,7 @@ export class AssetTestComponent {
             });
             console.log(this.tab) 
             this.rows = this.tab;
+            // this.tab = [...this.temp];
             // this.valuePass.emit(this.rows);
           }
       },
@@ -241,6 +242,7 @@ export class AssetTestComponent {
     window.scroll(0,120);
   }
  
+
   Addcalib(row){
    console.log(row)
    let calibRow = row;
@@ -258,7 +260,7 @@ export class AssetTestComponent {
 
   //filter function
   searchMaster(event){
-    console.log(this.temp);
+    console.log(this.rows);
     const val = event.target.value.toLowerCase();
     const keys = Object.keys(this.temp[0]);
     const colsAmt = keys.length;
@@ -276,7 +278,7 @@ export class AssetTestComponent {
       }
   }
 }else if (!val){
-  this.rows = this.temp;
+  this.rows = this.tab;
   }
 }    
 
@@ -284,7 +286,7 @@ export class AssetTestComponent {
   searchThrough(colsAmt, colIdx, val){
     // filter our data
     // const temp = this.temp.filter(temp=>temp.firstname.toLowerCase().indexOf(val) !== -1 || !val);
-    const temp = this.temp.filter(function(item){
+    const temp = this.rows.filter(function(item){
       // iterate through each row's column data
       for (let i=0; i<colsAmt; i++){
         // check for a match
@@ -295,13 +297,12 @@ export class AssetTestComponent {
         }
       }
   });
+
+
   // update the rows
   this.rows = temp;
 
   // Whenever the filter changes, always go back to the first page
-  this.table.offset = 0;
+   this.table.offset = 0;
 }
-
-  
-
 }

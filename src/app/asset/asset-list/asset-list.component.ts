@@ -88,6 +88,10 @@ export class AssetListComponent implements OnInit {
     window.scroll(0,1000);
 }
 
+  test2() {
+    window.scroll(0,100);
+  }
+
   // calibAdd(event){
   //   console.log(event);
   // }

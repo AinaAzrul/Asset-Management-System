@@ -53,10 +53,10 @@ export class MasterTableComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getUsers();
+    this.getMaster();
   }
 
-  getUsers() {
+  getMaster() {
     this.loadingIndicator = true;
     // Get Assets
     this.restService.getPosts("read_master", this.authService.getToken())
@@ -72,8 +72,7 @@ export class MasterTableComponent implements OnInit {
       },
       error:err =>{
         this.errorMessage = err.error.message;
-      }}
-        );
+      }});
   }
 
   onActivate(event) {
@@ -96,7 +95,7 @@ export class MasterTableComponent implements OnInit {
     this.modifyMasterRef.componentInstance.row = this.selectedRow;
     this.modifyMasterRef.componentInstance.valueChange.subscribe((event) => {
       console.log(event);
-      this.getUsers(); 
+      this.getMaster(); 
     });
   }
 

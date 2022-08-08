@@ -97,4 +97,8 @@ export class MasterListComponent implements OnInit {
     window.scroll(0,1000);
 }
 
+  test2() {
+    window.scroll(0,100);
+  }
+
 }
