@@ -12,6 +12,8 @@ import { ModifyMasterModalComponent } from './modify-master-modal/modify-master-
 
 import { MaterialModule } from '../material/material.module';
 import { DeleteMasterModalComponent } from './delete-master-modal/delete-master-modal.component';
+import { Test1Component } from './test1/test1.component';
+import { Test2Component } from './test2/test2.component';
 @NgModule({
   declarations: [
     MasterComponent,
@@ -19,7 +21,9 @@ import { DeleteMasterModalComponent } from './delete-master-modal/delete-master-
     MasterTableComponent,
     MasterDatatableComponent,
     ModifyMasterModalComponent,
-    DeleteMasterModalComponent
+    DeleteMasterModalComponent,
+    Test1Component,
+    Test2Component
   ],
   imports: [
     CommonModule,

@@ -16,24 +16,24 @@
         <div class="col-6">
             <!-- First name -->
             <label for="assetNumber">Asset Number:</label>
-            <input type="text" formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no.">
+            <input type="text" #textInput formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no." (input)="SearchData(textInput.value)">
             <datalist id="codes">
-            <option *ngFor="let c of codeList" [value]="c.name" >{{c.name}}</option>
+            <option *ngFor="let c of assetNo" [value]="c" ></option>
             </datalist>
         </div>
     </div>
 
      <!-- E-mail -->
      <label for="assetDesc">Asset Description: </label>
-     <input type="text" id="assetDesc" formControlName="Asset_desc" class="form-control mb-4" placeholder="Asset name">
+     <input type="text" id="assetDesc" [readonly]="this.isEditable" formControlName="Asset_desc" class="form-control mb-4" placeholder="Asset name">
 
     <div class="form-row mb-4">
       <div class="col">
         <!-- First name -->
         <label for="takenBy">Taken By:</label>
-        <input type="text" id = "takenBy" formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
+        <input type="text" id = "takenBy"   formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
             <datalist id="names">
-            <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
+            <option *ngFor="let n of empName" [value]="n" >{{n}}</option>
           </datalist>
       </div>
       <div class="col">
@@ -41,7 +41,7 @@
         <label for="dateTaken">Date Taken:</label>
         <div  class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dateTaken" formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
+             name="dateTaken"  formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-prepend">
         <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
      </div>
@@ -57,9 +57,9 @@
         <div class="col">
           <!-- First name -->
           <label for="returnBy">Return By: </label>
-          <input type="text" id = "returnBy" formControlName="Return_by" list="names"   class="browser-default custom-select" placeholder="Return by">
+          <input type="text" id = "returnBy"  formControlName="Return_by" list="names"   class="browser-default custom-select" placeholder="Return by">
             <datalist id="names">
-            <option *ngFor="let n of nameList" [value]="n.name" >{{n.name}}</option>
+            <option *ngFor="let n of empName" [value]="n" >{{n}}</option>
           </datalist>
         </div>
         <div class="col">
@@ -67,7 +67,7 @@
           <label for="dateReturn">Date Return:</label>
           <div  class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
-                 name="dateReturn" formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
+                 name="dateReturn"  formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
           <div class="input-group-prepend">
             <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
          </div> 
@@ -79,13 +79,12 @@
     <!-- Category -->
     <div class="form-row mb-4">
     <label for="category">Category:</label>
-    <input type="text" id="category" formControlName="Category" class="form-control" placeholder="category">
+    <input type="text" id="category" [readonly]="this.isEditable" formControlName="Category" class="form-control" placeholder="category">
     </div>
 
     <!-- Category -->
     <label for="remarks">Remarks:</label>
-    <input type="long-text" id="remarks" formControlName="Remarks" class="form-control" placeholder="remarks">
-    
+    <input type="long-text" id="remarks"  formControlName="Remarks" class="form-control" placeholder="remarks">
     </div><br><br>
    
     <!-- Sign up button -->
@@ -100,6 +99,7 @@
 <br><br> 
 <hr>
 <br>
-
-<app-master-datatable></app-master-datatable>
+<ng-container *ngIf="isLoadTab">
+<app-master-datatable [rows]="rows" [empName]="empName" [assetNo]="assetNo" ></app-master-datatable>
+</ng-container>
 <!-- <app-master-table></app-master-table> -->

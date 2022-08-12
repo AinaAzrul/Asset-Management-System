@@ -260,12 +260,12 @@ export class AssetTestComponent {
 
   //filter function
   searchMaster(event){
-    console.log(this.rows);
     const val = event.target.value.toLowerCase();
     const keys = Object.keys(this.temp[0]);
     const colsAmt = keys.length;
     let form2 = Object.values(this.formControl.value);
-    console.log(val);
+    this.rows = [...this.tab];
+    
     if(val){
     //loop through the input form
     for (let i=0; i<colsAmt; i++){
@@ -278,7 +278,7 @@ export class AssetTestComponent {
       }
   }
 }else if (!val){
-  this.rows = this.tab;
+  this.rows = [...this.tab];
   }
 }    
 

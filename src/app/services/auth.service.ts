@@ -19,10 +19,10 @@ export class AuthService {
     return localStorage.getItem("token")
   }
 
+
   public getRole() {
     this.val_token();
      return sessionStorage.getItem("role");
-   
   }
 
 

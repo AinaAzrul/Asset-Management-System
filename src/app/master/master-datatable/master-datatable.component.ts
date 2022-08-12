@@ -1,12 +1,14 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild, Input} from '@angular/core';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
 import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { DeleteMasterModalComponent } from '../delete-master-modal/delete-master-modal.component';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import {FormBuilder, AbstractControl} from '@angular/forms'
+import { array } from '@amcharts/amcharts5';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 
 @Component({
@@ -17,16 +19,22 @@ import {FormBuilder, AbstractControl} from '@angular/forms'
 export class MasterDatatableComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('NgbdDatepicker') d: NgbDateStruct;
+  // @Output() senddata = new EventEmitter();
+  @Input() rows: any[];
+  @Input() assetNo: any[];
+  @Input() empName: any[];
+
 
   readonly formControl: AbstractControl;
 
   model: NgbDateStruct;
   editing = {};
   
-  rows = [];
-  assetNo = [];
-  empName = [];
-  temp: any;
+  // rows = [];
+  // assetNo = [];
+  // empName = [];
+  temp= [];
+  masterData = [];
   loadingIndicator = true;
   errorMessage: any;
   timeout: any;
@@ -42,7 +50,11 @@ export class MasterDatatableComponent implements OnInit {
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  constructor(formBuilder: FormBuilder,private router: Router, private datePipe: DatePipe, private restService: RestService, private authService: AuthService,private modalService: NgbModal) { 
+  constructor(formBuilder: FormBuilder, 
+    private datePipe: DatePipe, 
+    private restService: RestService, 
+    private authService: AuthService,
+    private modalService: NgbModal) { 
     this.formControl = formBuilder.group({
       entry_id: '',
       asset_no: '',
@@ -56,58 +68,36 @@ export class MasterDatatableComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getMaster();
+  ngOnInit():void {
+    // this.getMaster();
+    console.log(this.rows);
+    console.log(this.empName);
+    console.log(this.assetNo);
+    this.temp = this.rows;
   }
 
-  // updateFilter(event, prop) {
-  //   const val = event.target.value.toLowerCase();
-
-  //   // filter our data
-  //   const temp = this.temp.filter(function(d) {
-  //     return d[prop].toLowerCase().indexOf(val) !== -1 || !val;
-  //   });
-
-  //   // update the rows
-  //   this.rows = temp;
-  //   // Whenever the filter changes, always go back to the first page
-  //   // this.table.offset = 0;
+  // getMaster() {
+  //   this.loadingIndicator = true;
+   
+  //   // Get Assets
+  //   this.restService.getPosts("read_master", this.authService.getToken())
+  //     .subscribe({
+  //       next: data => {
+  //         // console.log(data)
+  //         if (data["status"] == 200) {
+  //           this.rows = data["data"].records;
+  //           console.log( this.rows )
+  //           this.temp = [...this.rows];
+  //           this.loadingIndicator = false;
+  //           this.assetNo = [...new Set(this.rows.map(item=>{return item.Asset_no}))];
+  //           this.empName = [...new Set(this.rows.map(item=>{return item.Taken_by}))]
+  //         }
+  //     },
+  //     error:err =>{
+  //       this.errorMessage = err.error.message;
+  //     }}
+  //     );
   // }
-
-  getMaster() {
-    this.loadingIndicator = true;
-    this.empName = [
-      "",
-      "Ehwan",
-      "Shah",
-      "Ali",
-      "Maya",
-      "Amirul",
-      "Muhsin",
-      "Adli"
-  ];
-    // Get Assets
-    this.restService.getPosts("read_master", this.authService.getToken())
-      .subscribe({
-        next: data => {
-          // console.log(data)
-          if (data["status"] == 200) {
-            this.rows = data["data"].records;
-            // console.log( this.rows )
-            this.temp = [...this.rows];
-            this.loadingIndicator = false;
-            this.assetNo = [...new Set(this.rows.map(item=>{return item.Asset_no}))];
-          }
-      },
-      error:err =>{
-        this.errorMessage = err.error.message;
-      }}
-      );
-  }
-  
-  // transformDate(date) {
-  //   var dateToDBthis.datePipe.transform(date('yyyy-MM-dd')); 
-  // };
 
   updateValue(event, cell, rowIndex) {
     console.log(event);
@@ -121,7 +111,7 @@ export class MasterDatatableComponent implements OnInit {
       val = this.datePipe.transform(this.newdate, 'yyyy-MM-dd');
     }
     
-    console.log(val);
+    console.log(this.rows);
     
     this.rows[rowIndex][cell] = val;
     this.rows = [...this.rows];
@@ -142,7 +132,7 @@ export class MasterDatatableComponent implements OnInit {
           next: data => {
             console.log(data)
             if (data["status"] == 200) {
-              this.getMaster();
+              // this.getMaster();
             }
         }}
        );
@@ -151,10 +141,6 @@ export class MasterDatatableComponent implements OnInit {
 
    //filter individual column function
    searchMaster(event){
-    // console.log(event.target.value);
-    // console.log(this.formControl.value);
-    // console.log(this.temp);
-
     const val = event.target.value.toLowerCase();
     const keys = Object.keys(this.temp[0]);
     const colsAmt = keys.length;
@@ -203,7 +189,7 @@ deleteRow(){
   this.deleteMasterModalRef.componentInstance.row = this.selected;
   this.deleteMasterModalRef.componentInstance.valueChange.subscribe((event) => {
     console.log(event);
-    this.getMaster(); 
+    // this.getMaster(); 
   });
 
 }
