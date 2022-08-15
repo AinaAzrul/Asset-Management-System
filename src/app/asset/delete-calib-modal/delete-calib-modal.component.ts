@@ -27,7 +27,7 @@ export class DeleteCalibModalComponent implements OnInit {
 
   deleteCalib(){
     // Get Assets
-    this.restService.getPosts("deleteCalib", this.authService.getToken(),  {id: this.row.id, asset_no:this.assetNumber, Calib_no: this.calibNumber})
+    this.restService.getPosts("delete_calib", this.authService.getToken(),  {id: this.row.id, asset_no:this.assetNumber, Calib_no: this.calibNumber})
       .subscribe({
         next: data => {
           if (data["status"] == 200) {

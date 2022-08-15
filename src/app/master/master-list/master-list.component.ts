@@ -29,6 +29,7 @@ export class MasterListComponent implements OnInit {
     errorMessage: any;
     isLoadTab = false;
     isEditable = true;
+    isError = false;
 
   constructor(private restService: RestService, 
               private authService: AuthService) { }
@@ -94,7 +95,7 @@ export class MasterListComponent implements OnInit {
               console.log( this.rows )
               this.temp = [...this.rows];
               this.loadingIndicator = false;
-              this.assetNo = [...new Set(this.rows.map(item=>{return item.Asset_no}))];
+             
               this.empName = [...new Set(this.rows.map(item=>{return item.Taken_by}))]
               this.isLoadTab = true;
             }
@@ -116,6 +117,7 @@ export class MasterListComponent implements OnInit {
             if (data["status"] == 200) {
               this.assetRows = data["data"].records;
               console.log( this.assetRows )
+              this.assetNo = [...new Set(this.assetRows.map(item=>{return item.Asset_no}))];
               this.temp2 = [...this.assetRows];
             }
         },
@@ -148,34 +150,48 @@ export class MasterListComponent implements OnInit {
     console.log(val);
     let data2 = this.rows.length;
     let statArr: string[]=[];
-//function to check asset no has been return or not
-for(let i=data2-1; i>=0 ;i--){
-    if(this.rows[i].Return_by !== ''){
-    //Array of items borrowed
-    statArr.push(this.rows[i].Asset_no)
-    //to input form, if item_no not listed in the array, can input
-}
+    //function to check asset num has been return or not
+    //if no return_by in asset, insert in array (borrowing)
+    for(let i=data2-1; i>=0 ;i--){
+        if(this.rows[i].Return_by == '' && this.rows[i].Taken_by !== ''){
+        //Array of items borrowed
+        statArr.push(this.rows[i].Asset_no)
+        //to input form, if item_no not listed in the array, can input
+    }
 };
 
 console.log(statArr)
-//search for val in statArr, if exist, call patchValue, else, show error 
+//search for val in statArr, if not exist,enable input field, else, show alert and disable input
 const search = statArr.find(elem => elem == val);
 console.log(search);
-if (search){
+this.isError = false;
 
+
+if (!search){ 
+  let idx = this.assetNo.indexOf(val);
+  console.log(idx)
+  console.log(this.assetRows[idx].Asset_desc)
   this.addMasterForm.patchValue({
-  	  Asset_desc: 'test'//this.assetrows[x].Asset_desc
+  	  Asset_desc: this.assetRows[idx].Asset_desc,
+      Category: this.assetRows[idx].Category
   	});
+}else{
+  this.isError = true;
+  this.errorMessage = 'Asset number ' + val + ' is borrowed';
+  this.addMasterForm.reset({
+    Asset_no:this.addMasterForm.get('Asset_no').value
+  });
+  
 }
-    
-  }
+}
 
-  test() {
+test() {
     window.scroll(0,1000);
 }
 
   test2() {
     window.scroll(0,100);
   }
+
 
 }

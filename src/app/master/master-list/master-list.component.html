@@ -1,6 +1,7 @@
 <!-- Page Header -->
+
 <h4 class="font-weight-bold">
-  <span >Master List</span> 
+ <span >Master List</span> 
    <a type="button" class="btn btn-link" href="/dashboard">Main Dashboard</a> |
   <button type="button" class="btn btn-link" (click)="this.test()">Master Table</button> |
   <button type="button" class="btn btn-link" (click)="this.test2()">Entry Form</button>
@@ -9,20 +10,30 @@
 <!--ASSET ENTRY FORM -->
 <div class="col-md-6 mx-auto"> 
 <form [formGroup]="addMasterForm" class="border border-grey p-5">
-    <p class="h4 mb-4">Entry Form</p><hr>
+    
+            
+            <p class="h4 mb-4">Entry Form</p><hr>
     <div class="container">
 
     <div class="form-row mb-4">
         <div class="col-6">
             <!-- First name -->
             <label for="assetNumber">Asset Number:</label>
-            <input type="text" #textInput formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no." (input)="SearchData(textInput.value)">
-            <datalist id="codes">
-            <option *ngFor="let c of assetNo" [value]="c" ></option>
-            </datalist>
+            <!-- <input type="text" #textInput formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no." (input)="SearchData(textInput.value)"> -->
+            <select class="form-select" aria-label="Default select example" id="codes"  #textInput  (input)="SearchData(textInput.value)">
+            <option>Select...</option>
+            <option *ngFor="let c of assetNo"[ngValue]="c">
+              {{c}}
+            </option>
+            </select>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-danger" role="alert" *ngIf="isError">
+              {{errorMessage}}
+          </div>
         </div>
     </div>
-
+ 
      <!-- E-mail -->
      <label for="assetDesc">Asset Description: </label>
      <input type="text" id="assetDesc" [readonly]="this.isEditable" formControlName="Asset_desc" class="form-control mb-4" placeholder="Asset name">
@@ -49,9 +60,6 @@
   </div> 
 </div> 
     
-     <!-- <hr/>
-      <pre>Model: {{ model | json }}</pre> class='fas fa-calendar-alt'  -->
-   
 
     <div class="form-row mb-4">
         <div class="col">
@@ -65,9 +73,9 @@
         <div class="col">
           <!-- Last name -->
           <label for="dateReturn">Date Return:</label>
-          <div  class="input-group">
+          <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
-                 name="dateReturn"  formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
+                 name="dateReturn" formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
           <div class="input-group-prepend">
             <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
          </div> 

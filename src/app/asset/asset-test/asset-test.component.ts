@@ -200,7 +200,6 @@ export class AssetTestComponent {
               }
           }}
          );
-
     }
 
     updateCalib(event, cell, rowIndex){
