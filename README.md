@@ -2,6 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
+## Requirement
+
+Angular CLI: 14.0.4
+Angular: 14.0.4
+Node: 16.14.2
+Node Package Manager: 8.5.0
+
+## How to run
+
+- Clone Repo
+- Install npm packages
+- Setup and run docker
+- run 'ng-serve'
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
