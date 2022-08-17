@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, Input} from '@angular/core';
+import { Component, OnInit,ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
@@ -19,7 +19,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 export class MasterDatatableComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('NgbdDatepicker') d: NgbDateStruct;
-  // @Output() senddata = new EventEmitter();
+  @Output() sendData = new EventEmitter();
   @Input() rows: any[];
   @Input() assetNo: any[];
   @Input() empName: any[];
@@ -133,10 +133,10 @@ export class MasterDatatableComponent implements OnInit {
             console.log(data)
             if (data["status"] == 200) {
               // this.getMaster();
+              // this.sendData.emit('some data...');
             }
         }}
-       );
-
+        );
   }
 
    //filter individual column function
@@ -189,7 +189,8 @@ deleteRow(){
   this.deleteMasterModalRef.componentInstance.row = this.selected;
   this.deleteMasterModalRef.componentInstance.valueChange.subscribe((event) => {
     console.log(event);
-    // this.getMaster(); 
+    // this.getMaster();
+    this.sendData.emit('some data...');
   });
 
 }

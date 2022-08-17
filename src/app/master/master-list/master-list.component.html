@@ -19,16 +19,15 @@
         <div class="col-6">
             <!-- First name -->
             <label for="assetNumber">Asset Number:</label>
-            <!-- <input type="text" #textInput formControlName="Asset_no" id="assetNumber"  list="codes"  class="browser-default custom-select" placeholder="Asset no." (input)="SearchData(textInput.value)"> -->
-            <select class="form-select" aria-label="Default select example" id="codes"  #textInput  (input)="SearchData(textInput.value)">
-            <option>Select...</option>
-            <option *ngFor="let c of assetNo"[ngValue]="c">
-              {{c}}
+            <select aria-label="Default select example" class="form-select" formControlName = "Asset_no"  (change)="SearchData($event.target.value)">
+            <option selected>Select...</option>
+            <option *ngFor="let textInput of assetNo">
+              {{textInput}}
             </option>
             </select>
         </div>
         <div class="col-6">
-          <div class="alert alert-danger" role="alert" *ngIf="isError">
+          <div class="alert alert-warning" role="alert" *ngIf="isError">
               {{errorMessage}}
           </div>
         </div>
@@ -42,7 +41,7 @@
       <div class="col">
         <!-- First name -->
         <label for="takenBy">Taken By:</label>
-        <input type="text" id = "takenBy"   formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
+        <input type="text" id = "takenBy" formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
             <datalist id="names">
             <option *ngFor="let n of empName" [value]="n" >{{n}}</option>
           </datalist>
@@ -52,7 +51,7 @@
         <label for="dateTaken">Date Taken:</label>
         <div  class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dateTaken"  formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
+         name="dateTaken"  formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-prepend">
         <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
      </div>
@@ -98,16 +97,17 @@
     <!-- Sign up button -->
     <div class="text-center">
     <button type="button" class="btn btn-grey" (click)="this.addMasterForm.reset()">Clear All</button>
-    <button type="submit" class="btn btn-primary" (click)="this.addMaster()">Save</button>
+    <button type="submit"  class="btn btn-primary" (click)="this.addMaster()">Save</button>
     <!-- <button type="button" class="btn btn-grey">Cancel</button> -->
     </div>
-    
+
   </form>
 </div>
+
 <br><br> 
 <hr>
 <br>
 <ng-container *ngIf="isLoadTab">
-<app-master-datatable [rows]="rows" [empName]="empName" [assetNo]="assetNo" ></app-master-datatable>
+<app-master-datatable [rows]="rows" [empName]="empName" [assetNo]="assetNo" (sendData)="getMaster()"></app-master-datatable>
 </ng-container>
 <!-- <app-master-table></app-master-table> -->

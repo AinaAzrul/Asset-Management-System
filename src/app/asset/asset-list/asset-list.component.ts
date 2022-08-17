@@ -55,7 +55,6 @@ export class AssetListComponent implements OnInit {
   ];
   private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
 
-
   addCalib(){
     console.log(this.addCalibForm.value.Company_name);
     console.log(typeof(this.addCalibForm.value.Company_name));
@@ -69,7 +68,6 @@ export class AssetListComponent implements OnInit {
     this.addCalibForm.value.End_date = this.dateToString(this.addCalibForm.value.End_date);
     // console.log(this.addCalibForm.value.End_date);
     // console.log(typeof(this.addCalibForm.value.End_date));
-
   }
     this.restService.getPosts("create_asset", this.authService.getToken(),  this.addCalibForm.value)
         .subscribe({
@@ -81,9 +79,9 @@ export class AssetListComponent implements OnInit {
               this.test();
             }
         }}
-          );
-   
+        );
   }
+  
   test() {
     window.scroll(0,1000);
 }
@@ -92,7 +90,4 @@ export class AssetListComponent implements OnInit {
     window.scroll(0,100);
   }
 
-  // calibAdd(event){
-  //   console.log(event);
-  // }
 }

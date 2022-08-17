@@ -202,6 +202,7 @@ export class AssetTestComponent {
          );
     }
 
+    //Function edit calibration.
     updateCalib(event, cell, rowIndex){
       console.log(event);
       console.log(cell);
@@ -231,24 +232,23 @@ export class AssetTestComponent {
               next: data => {
                 console.log(data)
                 if (data["status"] == 200) {
-                  this.getAsset();
+                  console.log(data);
               }
-            }}
-           );
+        }}
+        );
     }
 
   test(){
     window.scroll(0,120);
   }
- 
-
+  
   Addcalib(row){
    console.log(row)
    let calibRow = row;
    this.addCalibModalRef = this.modalService.open(AddCalibModalComponent);
    this.addCalibModalRef.componentInstance.row = calibRow;
    this.addCalibModalRef.componentInstance.valueChange.subscribe((event) => {
-    console.log(event);
+   console.log(event);
    this.getAsset(); 
   });
   }
@@ -279,8 +279,7 @@ export class AssetTestComponent {
 }else if (!val){
   this.rows = [...this.tab];
   }
-}    
-
+}   
 
   searchThrough(colsAmt, colIdx, val){
     // filter our data

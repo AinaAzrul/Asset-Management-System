@@ -1,8 +1,9 @@
 import { Component, OnInit,ViewChild,VERSION} from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl,Validators, ReactiveFormsModule, FormControlName } from '@angular/forms';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-master-list',
@@ -32,7 +33,8 @@ export class MasterListComponent implements OnInit {
     isError = false;
 
   constructor(private restService: RestService, 
-              private authService: AuthService) { }
+              private authService: AuthService) { 
+              }
 
   // Form input (defaults)
   addMasterForm = new FormGroup({
@@ -50,38 +52,10 @@ export class MasterListComponent implements OnInit {
   ngOnInit(){
      this.getMaster();
      this.getAssetList();
-
   }
 
   public codeValue: string;
-
-  //Based on the available asset_no.
-  public codeList = [
-    { id: '2013/002', name: '2013/002' },
-    { id: '2015/071', name: '2015/071' },
-    { id: '2013/004', name: '2013/004' },
-    { id: '2015/092', name: '2015/092' },
-    { id: '2015/089', name: '2015/089' },
-    { id: '2013/027', name: '2013/027' },
-    { id: '2015/067', name: '2015/067' },
-    { id: '2019/101', name: '2019/101' },
-    { id: '2020/103', name: '2020/103' },
-  ];
-
-  public nameList = [
-    { id: 'Aiman', name: 'Aiman' },
-    { id: 'Ehwan', name: 'Ehwan' },
-    { id: 'Shah', name: 'Shah' },
-    { id: 'Nik', name: 'Nik' },
-    { id: 'Muhsin', name: 'Muhsin' },
-    { id: 'Mazrul', name: 'Mazrul' },
-    { id: 'Adli', name: 'Adli' },
-    { id: 'Alan', name: 'Alan' },
-    { id: 'Azman', name: 'Azman' },
-    { id: 'Hafiz', name: 'Hafiz' },
-    { id: 'Amirul2', name: 'Amirul2' },
-  ];
-
+ public cdodeignatoe : string;
   getMaster() {
       this.loadingIndicator = true;
      
@@ -95,7 +69,7 @@ export class MasterListComponent implements OnInit {
               console.log( this.rows )
               this.temp = [...this.rows];
               this.loadingIndicator = false;
-             
+              
               this.empName = [...new Set(this.rows.map(item=>{return item.Taken_by}))]
               this.isLoadTab = true;
             }
@@ -127,30 +101,46 @@ export class MasterListComponent implements OnInit {
         );
     }
 
-  private dateToString = (date) => `${date.year}-${date.month}-${date.day}`; 
   
+  // Convert date format
+  dateToString(date) {
+    console.log(date)
+    console.log("test");
+    if(date==='' || date === null){
+      return "";
+    }
+    return `${date.year}-${date.month}-${date.day}`;
+}
+
   addMaster(){
     console.log( this.addMasterForm.value);
-    this.addMasterForm.value.Date_taken = this.dateToString(this.addMasterForm.value.Date_taken);
-    this.addMasterForm.value.Date_return = this.dateToString(this.addMasterForm.value.Date_return);
+    console.log( this.addMasterForm.value?.Date_taken);
+
+    this.addMasterForm.value.Date_taken = this.dateToString(this.addMasterForm.value?.Date_taken);
+    this.addMasterForm.value.Date_return = this.dateToString(this.addMasterForm.value?.Date_return);
     console.log( this.addMasterForm.value);
-    this.restService.getPosts("create_master", this.authService.getToken(),  this.addMasterForm.value)
+    this.restService.getPosts("create_master", 
+              this.authService.getToken(),  
+              this.addMasterForm.value)
         .subscribe({
           next: data => {
             console.log(data)
             if (data["status"] == 200) { 
               this.getMaster();
               this.addMasterForm.reset();
-              this.test();
             }
-          }});
+          }
+        });
   }
 
+
+  //Check for unavailable asset
   SearchData(val){
     console.log(val);
     let data2 = this.rows.length;
     let statArr: string[]=[];
     //function to check asset num has been return or not
+
     //if no return_by in asset, insert in array (borrowing)
     for(let i=data2-1; i>=0 ;i--){
         if(this.rows[i].Return_by == '' && this.rows[i].Taken_by !== ''){
@@ -158,31 +148,33 @@ export class MasterListComponent implements OnInit {
         statArr.push(this.rows[i].Asset_no)
         //to input form, if item_no not listed in the array, can input
     }
-};
+    };
 
-console.log(statArr)
-//search for val in statArr, if not exist,enable input field, else, show alert and disable input
-const search = statArr.find(elem => elem == val);
-console.log(search);
-this.isError = false;
+      console.log(statArr)
+      //search for val in statArr, if not exist,enable input field, else, show alert and disable input
+      const search = statArr.find(elem => elem == val);
+      console.log(search);
+      this.isError = false;
+      let idx = this.assetNo.indexOf(val); 
+      console.log(idx);
 
-
-if (!search){ 
-  let idx = this.assetNo.indexOf(val);
-  console.log(idx)
-  console.log(this.assetRows[idx].Asset_desc)
-  this.addMasterForm.patchValue({
-  	  Asset_desc: this.assetRows[idx].Asset_desc,
-      Category: this.assetRows[idx].Category
-  	});
-}else{
-  this.isError = true;
-  this.errorMessage = 'Asset number ' + val + ' is borrowed';
-  this.addMasterForm.reset({
-    Asset_no:this.addMasterForm.get('Asset_no').value
-  });
-  
-}
+      if(idx==-1){
+        this.addMasterForm.reset({
+          Asset_no:this.addMasterForm.get('Asset_no').value
+        });
+        }else if(!search){ 
+        console.log(this.assetRows[idx].Asset_desc)
+        this.addMasterForm.patchValue({
+            Asset_desc: this.assetRows[idx].Asset_desc,
+            Category: this.assetRows[idx].Category
+          });
+      }else{
+        this.isError = true;
+        this.errorMessage = 'Asset number ' + val + ' is borrowed';
+        this.addMasterForm.reset({
+          Asset_no:this.addMasterForm.get('Asset_no').value
+        });
+      }
 }
 
 test() {
