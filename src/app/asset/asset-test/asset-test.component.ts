@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild,Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild,Output, EventEmitter } from '@angular/core';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { RestService } from '../../services/rest.service';
 import { AuthService } from '../../services/auth.service';
@@ -8,6 +8,9 @@ import { DatePipe } from '@angular/common';
 import { AddCalibModalComponent } from '../add-calib-modal/add-calib-modal.component';
 import { DeleteCalibModalComponent } from '../delete-calib-modal/delete-calib-modal.component';
 import {FormBuilder, AbstractControl} from '@angular/forms'
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -16,14 +19,20 @@ import {FormBuilder, AbstractControl} from '@angular/forms'
   styleUrls: ['./asset-test.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AssetTestComponent {
+export class AssetTestComponent implements OnInit {
 
+  private _success = new Subject<string>();
   readonly formControl: AbstractControl;
 
   @ViewChild('NgbdDatepicker') c: NgbDateStruct;
   @ViewChild('myTable') table: any;
+  @ViewChild('staticAlert', {static: false}) staticAlert: NgbAlert;
+  @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert: NgbAlert;
   //@Output() valuePass = new EventEmitter();
 
+  //Alert self-close
+  staticAlertClosed = false;
+  successMessage = '';
 
   //Date input
   model: NgbDateStruct;
@@ -59,7 +68,7 @@ export class AssetTestComponent {
 
   constructor(formBuilder: FormBuilder,private restService: RestService, private authService: AuthService,private modalService: NgbModal, private datePipe: DatePipe) {
 
-    this.getAsset();
+   
 
     this.formControl = formBuilder.group({
       Asset_no: '',
@@ -70,6 +79,23 @@ export class AssetTestComponent {
       End_date: '',
     });
   }
+
+  ngOnInit():void{
+    
+    this.getAsset();
+    // setTimeout(() => this.staticAlert.close(), 20000);
+
+    //Set alert timer to 3sec
+    this._success.subscribe(message => this.successMessage = message);
+    this._success.pipe(debounceTime(3000)).subscribe(() => {
+      if (this.selfClosingAlert) {
+        this.selfClosingAlert.close();
+      }
+    });
+  }
+
+  public changeSuccessMessage() { this._success.next(`New calibration added.`); }
+  
 
   onPage(event) {
     clearTimeout(this.timeout);
@@ -250,6 +276,7 @@ export class AssetTestComponent {
    this.addCalibModalRef.componentInstance.valueChange.subscribe((event) => {
    console.log(event);
    this.getAsset(); 
+   this.changeSuccessMessage();
   });
   }
 
@@ -303,4 +330,5 @@ export class AssetTestComponent {
   // Whenever the filter changes, always go back to the first page
    this.table.offset = 0;
 }
+
 }

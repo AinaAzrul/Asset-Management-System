@@ -8,7 +8,6 @@ import { DeleteMasterModalComponent } from '../delete-master-modal/delete-master
 // import { Router } from '@angular/router';
 import {FormBuilder, AbstractControl} from '@angular/forms'
 import { array } from '@amcharts/amcharts5';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 
 @Component({
@@ -192,12 +191,10 @@ deleteRow(){
     // this.getMaster();
     this.sendData.emit('some data...');
   });
-
 }
 
 onActivate(event){
-  // console.log(event);
-    
+    // console.log(event);
     if (event.type === "click") {
       this.selectedRow = event.row;
       this.disabledEditButton = true;

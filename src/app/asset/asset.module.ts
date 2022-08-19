@@ -14,6 +14,7 @@ import { MaterialModule } from '../material/material.module';
 import { AddCalibModalComponent } from './add-calib-modal/add-calib-modal.component';
 import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-modal.component';
 
+
 @NgModule({
   declarations: [
     AssetComponent,
@@ -34,6 +35,6 @@ import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-mod
     ReactiveFormsModule,
     MaterialModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class AssetModule { }

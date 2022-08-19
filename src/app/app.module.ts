@@ -13,7 +13,6 @@ import { MDBBootstrapModule,  IconsModule,CardsModule } from 'angular-bootstrap-
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-
 //component
 import { LoginComponent } from './login/login.component';
 import { LayoutModule } from './layout/layout.module';
@@ -21,8 +20,6 @@ import { LayoutModule } from './layout/layout.module';
 import { SidenavModule } from './sidenav/sidenav.module';
 // import { MasterListComponent } from './master-list/master-list.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-
-
 
 
 @NgModule({
@@ -33,7 +30,6 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     // DashboardComponent
     // MasterListComponent,
     // HomeComponent,
-    
   ],
   imports: [
     BrowserModule,

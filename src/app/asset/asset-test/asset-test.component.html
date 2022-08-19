@@ -1,11 +1,17 @@
-    <div class="card">
+<div class="d-flex align-items-center">
+<ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}
+</ngb-alert>
+</div>
+
+<div class="card">
 <div>
     <div class="card-header">
     <h4>
       Asset Table&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
       <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledDelButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
       <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Asset&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
-      
+      (REQUIREMENTS)
+      //Code and annotations 
     </h4><small>
         <a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a>
         |
@@ -31,7 +37,10 @@
             <input matInput formControlName="Location" (keyup)="searchMaster($event)">
             <mat-placeholder>Location</mat-placeholder>
           </mat-form-field>
-        <!--  <mat-form-field>
+
+        
+
+      <!--  <mat-form-field>
             <input matInput formControlName="Start_date" (keyup)="searchMaster($event)">
             <mat-placeholder>search by start date</mat-placeholder>
             </mat-form-field>
@@ -39,6 +48,7 @@
             <input matInput formControlName="End_date" (keyup)="searchMaster($event)">
             <mat-placeholder>search by end date</mat-placeholder>
             </mat-form-field> -->
+            
         </form>
       </div> 
     </ng-container>
@@ -61,8 +71,7 @@
       <!-- Row Detail Template -->
       <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>                    
-         
-                  
+                   
                     <ngx-datatable 
                       #myDaughter 
                       class="material striped" 
@@ -86,6 +95,7 @@
                             </span>
                             <input
                               autofocus
+                              class="form-control form-control-sm"
                               (blur)="updateCalib($event, 'Calib_no', rowIndex)"
                               *ngIf="editing[rowIndex + '-Calib_no']"
                               type="number"
@@ -104,7 +114,7 @@
                                 <p  *ngIf="value!=='0000-00-00'" >{{value}}</p>
                             </span>
                             <mat-form-field *ngIf="editing[rowIndex + '-Start_date']" (blur)="editing[rowIndex + '-Start_date'] = false" style="width:90%">
-                              <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateCalib($event, 'Start_date', rowIndex)" />
+                              <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateCalib($event, 'Start_date', rowIndex)" />
                               <mat-hint>MM/DD/YYYY</mat-hint>  
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker ></mat-datepicker>
@@ -140,6 +150,7 @@
                               {{ value }}
                             </span>
                             <input
+                              class="form-control form-control-sm"
                               autofocus
                               (blur)="updateCalib($event, 'Company_name', rowIndex)"
                               *ngIf="editing[rowIndex + '-Company_name']"
@@ -205,12 +216,10 @@
         </ng-template>
       </ngx-datatable-column> -->
 
-      <!-- INLINE EDIT!! -->
+      <!-- INLINE EDIT -->
       <ngx-datatable-column name="Asset Number" prop="Asset_no">
        
        </ngx-datatable-column>
-
-      
       <ngx-datatable-column name="Asset Description" prop="Asset_desc">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
@@ -221,8 +230,8 @@
             {{ value }}
           </span>
           <input
-            autofocus
-            matInput
+            autofocus   
+            class="form-control form-control-sm"         
             (blur)="updateValue($event, 'Asset_desc', rowIndex)"
             *ngIf="editing[rowIndex + '-Asset_desc']"
             type="text"
@@ -242,6 +251,7 @@
           </span>
           <input
             autofocus
+            class="form-control form-control-sm"
             (blur)="updateValue($event, 'Category', rowIndex)"
             *ngIf="editing[rowIndex + '-Category']"
             type="text"
@@ -261,6 +271,7 @@
           </span>
           <input
             autofocus
+            class="form-control form-control-sm"
             (blur)="updateValue($event, 'Location', rowIndex)"
             *ngIf="editing[rowIndex + '-Location']"
             type="text"

@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Component
 import { LoginComponent } from './login/login.component';
-// import { SidenavComponent } from './sidenav/sidenav.component';
 import {SidebarComponent} from './layout/sidebar/sidebar.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 // import { MasterTableComponent } from './master/master-table/master-table.component';
+// import { SidenavComponent } from './sidenav/sidenav.component';
 
 // Authentication
 import { AuthService } from './services/auth.service';
