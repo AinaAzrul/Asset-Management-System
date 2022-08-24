@@ -4,17 +4,36 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Requirement
 
-Angular CLI: 14.0.4
-Angular: 14.0.4
-Node: 16.14.2
-Node Package Manager: 8.5.0
+- Angular CLI: 14.0.4
+- Angular: 14.0.4
+- Node: 16.14.2
+- Node Package Manager (NPM): 8.5.0
 
 ## How to run
 
-- Clone Repo
+- Clone Repo using this line of code:
+
+```
+git clone https://github.com/shahbaz17/php-rest-api.git
+cd php-rest-api
+``` 
+
 - Install npm packages
+```
+npm i 
+```
+or
+
+```
+npm install
+```
+
 - Setup and run docker
 - run 'ng-serve'
+```
+cd /root/project/folder
+ng serve
+```
 
 ## Development server
 
