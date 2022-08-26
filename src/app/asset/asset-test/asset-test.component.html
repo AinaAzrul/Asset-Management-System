@@ -82,7 +82,7 @@
                       <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
                     </span>
                     <mat-form-field *ngIf="editing[rowIndex + '-Start_date']"
-                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 90%">
+                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 50%">
                       <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="
                           updateCalib($event, 'Start_date', rowIndex)
                         " />
@@ -101,7 +101,7 @@
                       <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
                     </span>
                     <mat-form-field *ngIf="editing[rowIndex + '-End_date']"
-                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 90%">
+                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 50%">
                       <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"
                         (dateInput)="updateCalib($event, 'End_date', rowIndex)" />
                       <mat-hint>MM/DD/YYYY</mat-hint>
