@@ -10,14 +10,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { DeleteUserModalComponent } from './delete-user-modal/delete-user-modal.component';
 import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 
-
 @NgModule({
   declarations: [
     UserComponent,
     UserListComponent,
     ModifyUserModalComponent,
     DeleteUserModalComponent,
-    AddUserModalComponent
+    AddUserModalComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +24,7 @@ import { AddUserModalComponent } from './add-user-modal/add-user-modal.component
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
-  ]
+    NgSelectModule,
+  ],
 })
-export class UserModule { }
+export class UserModule {}

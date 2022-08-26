@@ -8,9 +8,8 @@ describe('AddCalibModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddCalibModalComponent ]
-    })
-    .compileComponents();
+      declarations: [AddCalibModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddCalibModalComponent);
     component = fixture.componentInstance;

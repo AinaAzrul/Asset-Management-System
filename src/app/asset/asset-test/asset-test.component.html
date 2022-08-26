@@ -1,297 +1,219 @@
 <div class="d-flex align-items-center">
-<ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}
-</ngb-alert>
+  <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}
+  </ngb-alert>
 </div>
 
 <div class="card">
-<div>
+  <div>
     <div class="card-header">
-    <h4>
-      Asset Table&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-      <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledDelButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
-      <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Asset&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
-      (REQUIREMENTS)
-      //Code and annotations 
-    </h4><small>
+      <h4>
+        Asset Table&nbsp;<span class="badge badge-primary">{{
+          rows.length
+          }}</span>
+        <button style="padding: 8px; margin: 15px auto; width: 10%" [disabled]="!disabledDelButton"
+          class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()">
+          <b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i>
+        </button>
+        <button style="padding: 8px; margin: 15px 10px; width: 10%" (click)="test()"
+          class="float-sm-right btn btn-green btn-sm">
+          <b>Add Asset&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i>
+        </button>
+      </h4>
+      <small>
         <a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a>
         |
         <a href="javascript:void(0)" (click)="table.rowDetail.collapseAllRows()">Collapse All</a>
       </small>
-<ng-container style="text-align: center">
-      <div class="filter">
-       
-        <form style="text-align:center" [formGroup]="formControl">
-          <mat-form-field>
-            <input matInput formControlName="Asset_no"  (keyup)="searchMaster($event)">
-            <mat-placeholder>Asset number</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="Asset_desc" (keyup)="searchMaster($event)">
-            <mat-placeholder>Asset description</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="Category" (keyup)="searchMaster($event)">
-            <mat-placeholder>Category</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="Location" (keyup)="searchMaster($event)">
-            <mat-placeholder>Location</mat-placeholder>
-          </mat-form-field>
 
-        
-
-      <!--  <mat-form-field>
-            <input matInput formControlName="Start_date" (keyup)="searchMaster($event)">
-            <mat-placeholder>search by start date</mat-placeholder>
+      <ng-container style="text-align: center">
+        <div class="filter">
+          <form style="text-align: center" [formGroup]="formControl">
+            <mat-form-field>
+              <input matInput formControlName="Asset_no" (keyup)="searchMaster($event)" />
+              <mat-placeholder>Asset number</mat-placeholder>
             </mat-form-field>
             <mat-form-field>
-            <input matInput formControlName="End_date" (keyup)="searchMaster($event)">
-            <mat-placeholder>search by end date</mat-placeholder>
-            </mat-form-field> -->
-            
-        </form>
-      </div> 
-    </ng-container>
-</div>
-      <div class="card-ngx-datatable table-responsive">
-    <ngx-datatable
-      #myTable
-      class="material expandable striped"
-      [columnMode]="ColumnMode.force"
-      [headerHeight]="50"
-      [footerHeight]="50"
-      [rowHeight]="'auto'"
-      [rows]="rows"
-      [limit]="10"
-      [selected]="selected"
-      [selectionType]="SelectionType.single"
-      (activate)="onActivate($event)"
-      (page)="onPage($event)"
-    >
-      <!-- Row Detail Template -->
-      <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
-        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>                    
-                   
-                    <ngx-datatable 
-                      #myDaughter 
-                      class="material striped" 
-                      [columnMode]="ColumnMode.force" 
-                      [headerHeight]="40" 
-                      [rows]="getDetailRows(row)"
-                      [rowHeight]="'auto'"
-                      [loadingIndicator]="loadingIndicator" 
-                      [externalPaging]="false"
-                      >
-                      <ng-container [ngTemplateOutlet]= "calib>0 ? mul : single"></ng-container>
-                       <ng-template #mul>
-                        <ngx-datatable-column name="Calibration Number" prop="Calib_no">
-                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                            <span
-                              title="click to edit"
-                              (click)="editing[rowIndex + '-Calib_no'] = true"
-                              *ngIf="!editing[rowIndex + '-Calib_no']"
-                            ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
-                              {{ value }}
-                            </span>
-                            <input
-                              autofocus
-                              class="form-control form-control-sm"
-                              (blur)="updateCalib($event, 'Calib_no', rowIndex)"
-                              *ngIf="editing[rowIndex + '-Calib_no']"
-                              type="number"
-                              [value]="value"
-                            />
-                          </ng-template>
-                        </ngx-datatable-column>
+              <input matInput formControlName="Asset_desc" (keyup)="searchMaster($event)" />
+              <mat-placeholder>Asset description</mat-placeholder>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Category" (keyup)="searchMaster($event)" />
+              <mat-placeholder>Category</mat-placeholder>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Location" (keyup)="searchMaster($event)" />
+              <mat-placeholder>Location</mat-placeholder>
+            </mat-form-field>
+          </form>
+        </div>
+      </ng-container>
+    </div>
 
-                        <ngx-datatable-column name="Start Date" prop="Start_date" >
-                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
-                            <span
-                                title="click to edit"
-                                (click)="editing[rowIndex + '-Start_date'] = true" 
-                                *ngIf="!editing[rowIndex + '-Start_date']">
-                                <i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
-                                <p  *ngIf="value!=='0000-00-00'" >{{value}}</p>
-                            </span>
-                            <mat-form-field *ngIf="editing[rowIndex + '-Start_date']" (blur)="editing[rowIndex + '-Start_date'] = false" style="width:90%">
-                              <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateCalib($event, 'Start_date', rowIndex)" />
-                              <mat-hint>MM/DD/YYYY</mat-hint>  
-                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                              <mat-datepicker #picker ></mat-datepicker>
-                            </mat-form-field>
-                          </ng-template>
-                        </ngx-datatable-column>
+    <div class="card-ngx-datatable table-responsive">
+      <ngx-datatable #myTable class="material expandable striped" [columnMode]="ColumnMode.force"
+        [loadingIndicator]="loadingIndicator" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows"
+        [limit]="10" [selected]="selected" [selectionType]="SelectionType.single" (activate)="onActivate($event)"
+        (page)="onPage($event)">
+        <!-- Row Detail Template -->
+        <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+            <ngx-datatable #myDaughter class="material striped" [columnMode]="ColumnMode.force" [headerHeight]="40"
+              [rows]="getDetailRows(row)" [rowHeight]="'auto'" [loadingIndicator]="loadingIndicator"
+              [externalPaging]="false">
+              <ng-container [ngTemplateOutlet]="calib > 0 ? mul : single"></ng-container>
+              <ng-template #mul>
+                <ngx-datatable-column name="Calibration Number" prop="Calib_no">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span title="click to edit" (click)="editing[rowIndex + '-Calib_no'] = true"
+                      *ngIf="!editing[rowIndex + '-Calib_no']"><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
+                      {{ value }}
+                    </span>
+                    <input autofocus class="form-control form-control-sm"
+                      (blur)="updateCalib($event, 'Calib_no', rowIndex)" *ngIf="editing[rowIndex + '-Calib_no']"
+                      type="number" [value]="value" />
+                  </ng-template>
+                </ngx-datatable-column>
 
-                        <ngx-datatable-column name="End Date" prop="End_date" >
-                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
-                            <span
-                                title="click to edit"
-                                (click)="editing[rowIndex + '-End_date'] = true" 
-                                *ngIf="!editing[rowIndex + '-End_date']">
-                                <i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
-                                <p  *ngIf="value!=='0000-00-00'" >{{value}}</p>
-                            </span>
-                            <mat-form-field *ngIf="editing[rowIndex + '-End_date']" (blur)="editing[rowIndex + '-Start_date'] = false" style="width:90%">
-                              <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateCalib($event, 'End_date', rowIndex)" />
-                              <mat-hint>MM/DD/YYYY</mat-hint>  
-                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                              <mat-datepicker #picker ></mat-datepicker>
-                            </mat-form-field>
-                          </ng-template>
-                        </ngx-datatable-column>
+                <ngx-datatable-column name="Start Date" prop="Start_date">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span title="click to edit" (click)="editing[rowIndex + '-Start_date'] = true"
+                      *ngIf="!editing[rowIndex + '-Start_date']">
+                      <i *ngIf="!value || value === '0000-00-00'" class="fa-solid fa-pen-to-square"></i>
+                      <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
+                    </span>
+                    <mat-form-field *ngIf="editing[rowIndex + '-Start_date']"
+                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 90%">
+                      <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="
+                          updateCalib($event, 'Start_date', rowIndex)
+                        " />
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </ng-template>
+                </ngx-datatable-column>
 
-                        <ngx-datatable-column name="Company Name" prop="Company_name">
-                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                            <span
-                              title="click to edit"
-                              (click)="editing[rowIndex + '-Company_name'] = true"
-                              *ngIf="!editing[rowIndex + '-Company_name']"
-                            ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
-                              {{ value }}
-                            </span>
-                            <input
-                              class="form-control form-control-sm"
-                              autofocus
-                              (blur)="updateCalib($event, 'Company_name', rowIndex)"
-                              *ngIf="editing[rowIndex + '-Company_name']"
-                              type="text"
-                              [value]="value"
-                            />
-                          </ng-template>
-                        </ngx-datatable-column>
+                <ngx-datatable-column name="End Date" prop="End_date">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span title="click to edit" (click)="editing[rowIndex + '-End_date'] = true"
+                      *ngIf="!editing[rowIndex + '-End_date']">
+                      <i *ngIf="!value || value === '0000-00-00'" class="fa-solid fa-pen-to-square"></i>
+                      <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
+                    </span>
+                    <mat-form-field *ngIf="editing[rowIndex + '-End_date']"
+                      (blur)="editing[rowIndex + '-Start_date'] = false" style="width: 90%">
+                      <input matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"
+                        (dateInput)="updateCalib($event, 'End_date', rowIndex)" />
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </ng-template>
+                </ngx-datatable-column>
 
-                        <ngx-datatable-column name="Actions">
-                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"  let-row="row">
-                            <span>
-                               <i (click)="deleteCalib(row, $event, 'delete_calib')" class="fa-solid fa-trash" style="cursor:pointer;"></i>
-                             </span>
-                        </ng-template>
-                        </ngx-datatable-column>
-                      </ng-template>
+                <ngx-datatable-column name="Company Name" prop="Company_name">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span title="click to edit" (click)="editing[rowIndex + '-Company_name'] = true"
+                      *ngIf="!editing[rowIndex + '-Company_name']"><i *ngIf="!value"
+                        class="fa-solid fa-pen-to-square"></i>
+                      {{ value }}
+                    </span>
+                    <input class="form-control form-control-sm" autofocus
+                      (blur)="updateCalib($event, 'Company_name', rowIndex)" *ngIf="editing[rowIndex + '-Company_name']"
+                      type="text" [value]="value" />
+                  </ng-template>
+                </ngx-datatable-column>
 
+                <ngx-datatable-column name="Actions">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span>
+                      <i (click)="deleteCalib(row, $event, 'delete_calib')" class="fa-solid fa-trash"
+                        style="cursor: pointer"></i>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ng-template>
 
-                      <!-- add-calib if no data -->
-                      <ng-template #single>
-                        <ngx-datatable-column>
-                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                            <span>No Calibration</span>
-                            <!-- <button (click)="Addcalib(row)" style=" padding:8px;margin:15px auto;width:15%;" class="float-sm-right btn-green btn-sm" ><b>Add Calibration&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button> -->
-                            </ng-template>
-                          </ngx-datatable-column>
-                      </ng-template> 
+              <!-- add-calib if no data -->
+              <ng-template #single>
+                <ngx-datatable-column>
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span>No Calibration</span>
+                    <!-- <button (click)="Addcalib(row)" style=" padding:8px;margin:15px auto;width:15%;" class="float-sm-right btn-green btn-sm" ><b>Add Calibration&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button> -->
+                  </ng-template>
+                </ngx-datatable-column>
+              </ng-template>
+            </ngx-datatable>
+          </ng-template>
+        </ngx-datatable-row-detail>
 
-                      </ngx-datatable>
-                </ng-template>
-               
-      </ngx-datatable-row-detail>
+        <!-- Column Templates -->
+        <ngx-datatable-column [width]="20" [resizeable]="false" [sortable]="false" [draggable]="false"
+          [canAutoResize]="true">
+          <ng-template let-column="column" ngx-datatable-header-template>
+            <i class="fa fa-maximize"></i>
+          </ng-template>
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+              title="Expand/Collapse Row" (click)="toggleExpandRow(row)">
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
 
-      <!-- Column Templates -->
-      <ngx-datatable-column
-        [width]="20"
-        [resizeable]="false"
-        [sortable]="false"
-        [draggable]="false"
-        [canAutoResize]="true"
-      >
-      <ng-template
-          let-column="column"
-          ngx-datatable-header-template>
-          <i class="fa fa-maximize"></i>
-        </ng-template>
-        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-          <a
-            href="javascript:void(0)"
-            [class.datatable-icon-right]="!expanded"
-            [class.datatable-icon-down]="expanded"
-            title="Expand/Collapse Row"
-            (click)="toggleExpandRow(row)"
-          >
-          </a>
-        </ng-template>
-      </ngx-datatable-column>
-      
-      <!-- <ngx-datatable-column name="Asset Number" prop="Asset_no">
+        <!-- <ngx-datatable-column name="Asset Number" prop="Asset_no">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <p>{{ value }}</p>
         </ng-template>
       </ngx-datatable-column> -->
 
-      <!-- INLINE EDIT -->
-      <ngx-datatable-column name="Asset Number" prop="Asset_no">
-       
-       </ngx-datatable-column>
-      <ngx-datatable-column name="Asset Description" prop="Asset_desc">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <span
-            title="click to edit"
-            (click)="editing[rowIndex + '-Asset_desc'] = true"
-            *ngIf="!editing[rowIndex + '-Asset_desc']"
-          ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
-            {{ value }}
-          </span>
-          <input
-            autofocus   
-            class="form-control form-control-sm"         
-            (blur)="updateValue($event, 'Asset_desc', rowIndex)"
-            *ngIf="editing[rowIndex + '-Asset_desc']"
-            type="text"
-            [value]="value"
-          />
-        </ng-template>
-      </ngx-datatable-column>
+        <!-- INLINE EDIT -->
+        <ngx-datatable-column name="Asset Number" prop="Asset_no">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Asset Description" prop="Asset_desc">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span title="click to edit" (click)="editing[rowIndex + '-Asset_desc'] = true"
+              *ngIf="!editing[rowIndex + '-Asset_desc']"><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
+              {{ value }}
+            </span>
+            <input autofocus class="form-control form-control-sm" (blur)="updateValue($event, 'Asset_desc', rowIndex)"
+              *ngIf="editing[rowIndex + '-Asset_desc']" type="text" [value]="value" />
+          </ng-template>
+        </ngx-datatable-column>
 
-      <ngx-datatable-column name="Category" prop="Category">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <span
-            title="click to edit"
-            (click)="editing[rowIndex + '-Category'] = true"
-            *ngIf="!editing[rowIndex + '-Category']"
-          ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
-            {{ value }}
-          </span>
-          <input
-            autofocus
-            class="form-control form-control-sm"
-            (blur)="updateValue($event, 'Category', rowIndex)"
-            *ngIf="editing[rowIndex + '-Category']"
-            type="text"
-            [value]="value"
-          />
-        </ng-template>
-      </ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="Category">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span title="click to edit" (click)="editing[rowIndex + '-Category'] = true"
+              *ngIf="!editing[rowIndex + '-Category']"><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
+              {{ value }}
+            </span>
+            <input autofocus class="form-control form-control-sm" (blur)="updateValue($event, 'Category', rowIndex)"
+              *ngIf="editing[rowIndex + '-Category']" type="text" [value]="value" />
+          </ng-template>
+        </ngx-datatable-column>
 
-      <ngx-datatable-column name="Location" prop="Location">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <span
-            title="click to edit"
-            (click)="editing[rowIndex + '-Location'] = true"
-            *ngIf="!editing[rowIndex + '-Location']"
-          ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
-            {{ value }}
-          </span>
-          <input
-            autofocus
-            class="form-control form-control-sm"
-            (blur)="updateValue($event, 'Location', rowIndex)"
-            *ngIf="editing[rowIndex + '-Location']"
-            type="text"
-            [value]="value"
-          />
-        </ng-template>
-      </ngx-datatable-column>
+        <ngx-datatable-column name="Location" prop="Location">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span title="click to edit" (click)="editing[rowIndex + '-Location'] = true"
+              *ngIf="!editing[rowIndex + '-Location']"><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
+              {{ value }}
+            </span>
+            <input autofocus class="form-control form-control-sm" (blur)="updateValue($event, 'Location', rowIndex)"
+              *ngIf="editing[rowIndex + '-Location']" type="text" [value]="value" />
+          </ng-template>
+        </ngx-datatable-column>
 
-      <ngx-datatable-column name="Actions">
-        <ng-template ngx-datatable-cell-template let-value="value"  let-row="row">
-          <span>
-             <button (click)="Addcalib(row)"  class="float-sm-right btn btn-primary btn-sm" ><b>Add Calibration&nbsp;&nbsp;</b>
-              <i class="fa fa-circle-plus"></i></button>
-           </span>
-      </ng-template>
-      </ngx-datatable-column>
-
-     
-    </ngx-datatable>
+        <ngx-datatable-column name="Actions">
+          <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+            <span>
+              <button (click)="Addcalib(row)" class="float-sm-right btn btn-primary btn-sm">
+                <b>Add Calibration&nbsp;&nbsp;</b>
+                <i class="fa fa-circle-plus"></i>
+              </button>
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
   </div>
 </div>
-</div><br><br>
-  
+<br /><br />

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
- 
+
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
@@ -7,12 +7,12 @@
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 //Import material core theme
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-body { 
+body {
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
 }
@@ -26,61 +26,67 @@ body {
   float: right;
 }
 
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/material.scss';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
-@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/material.scss";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+@import "~@swimlane/ngx-datatable/themes/bootstrap.scss";
 
 // @import '~@swimlane/ngx-datatable/themes/dark.scss';
 // @import './package/themes/material.scss';
 //Custom Styling
 
-.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+.ngx-datatable.fixed-header
+  .datatable-header
+  .datatable-header-inner
+  .datatable-header-cell {
   white-space: normal !important;
   word-break: break-word !important;
-  display:block;
-
+  display: block;
 }
 
-
-::ng-deep .ngx-datatable.bootstrap .datatable-body .datatable-body-
-   row.active {
-     background-color: #53f89d;
-     color: #FFF;
-   }
+::ng-deep .ngx-datatable.bootstrap .datatable-body .datatable-body- row.active {
+  background-color: #53f89d;
+  color: #fff;
+}
 
 .ngx-datatable .datatable-body-cell {
-  font-size: .8rem;
-  
+  font-size: 0.8rem;
 }
 
-.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-header-cell:first-child {
+.default-style:not([dir="rtl"])
+  .card-ngx-datatable
+  .datatable-header-cell:first-child {
   padding-left: 0.625rem;
 }
-.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-header-cell:last-child {
+.default-style:not([dir="rtl"])
+  .card-ngx-datatable
+  .datatable-header-cell:last-child {
   padding-right: 0.625rem;
 }
-.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-body-cell:first-child {
+.default-style:not([dir="rtl"])
+  .card-ngx-datatable
+  .datatable-body-cell:first-child {
   padding-left: 0.625rem;
 }
-.default-style:not([dir=rtl]) .card-ngx-datatable .datatable-body-cell:last-child {
+.default-style:not([dir="rtl"])
+  .card-ngx-datatable
+  .datatable-body-cell:last-child {
   padding-right: 0.625rem;
 }
 
-button.calendar, button.calendar:active {
+button.calendar,
+button.calendar:active {
   width: 2.75rem;
   background-repeat: no-repeat;
   background-size: 23px;
   background-position: center;
 }
 
-.tableHeader{
-  display:inline-block;
+.tableHeader {
+  display: inline-block;
 }
 
-.wrapper_test { 
-  padding:8px;
-  margin:15px auto;
-   }
-
-  
+.wrapper_test {
+  padding: 8px;
+  margin: 15px auto;
+}

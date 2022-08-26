@@ -1,8 +1,8 @@
 // impangularort './polyfills';
 
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
-import {NgModule} from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -35,12 +35,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule,MatTableDataSource } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatTreeModule} from '@angular/material/tree';
-
+import { MatTreeModule } from '@angular/material/tree';
 
 // import {
 //   MatAutocompleteModule,
@@ -82,14 +81,14 @@ import {MatTreeModule} from '@angular/material/tree';
 
 export const MY_FORMATS = {
   parse: {
-      dateInput: 'LL'
+    dateInput: 'LL',
   },
   display: {
-      dateInput: 'YYYY-MM-DD',
-      monthYearLabel: 'YYYY',
-      dateA11yLabel: 'LL',
-      monthYearA11yLabel: 'YYYY'
-  }
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
 };
 
 @NgModule({
@@ -97,23 +96,23 @@ export const MY_FORMATS = {
     CdkTableModule,
     CdkTreeModule,
     MatButtonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatBadgeModule,
-        MatListModule,
-        MatGridListModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatDatepickerModule,
-        MatChipsModule,
-        MatTooltipModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatNativeDateModule,
-        MatTreeModule
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatBadgeModule,
+    MatListModule,
+    MatGridListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatNativeDateModule,
+    MatTreeModule,
     // MatAutocompleteModule,
     // MatBadgeModule,
     // MatBottomSheetModule,
@@ -184,7 +183,7 @@ export const MY_FORMATS = {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatTreeModule
+    MatTreeModule,
     // FormsModule,
     // MaterialModule,
     // ReactiveFormsModule,
@@ -192,8 +191,8 @@ export const MY_FORMATS = {
   entryComponents: [],
   declarations: [],
   bootstrap: [],
-  providers: [MatDatepickerModule,MatTableDataSource ]
+  providers: [MatDatepickerModule, MatTableDataSource],
 })
-export class MaterialModule { }
+export class MaterialModule {}
 // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
 //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }

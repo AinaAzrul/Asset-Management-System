@@ -8,9 +8,8 @@ describe('ModifyMasterModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModifyMasterModalComponent ]
-    })
-    .compileComponents();
+      declarations: [ModifyMasterModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModifyMasterModalComponent);
     component = fixture.componentInstance;

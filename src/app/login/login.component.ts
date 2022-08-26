@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl,Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RestService } from '../services/rest.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -7,24 +7,27 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   userInfo: any;
 
-  constructor(private restService: RestService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private restService: RestService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-   // Form input (defaults)
-   loginForm = new FormGroup({
+  // Form input (defaults)
+  loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+      Validators.pattern(
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      ),
     ]),
-    password: new FormControl('',[
-      Validators.required
-    ]),
-    rememberMe: new FormControl(false)
+    password: new FormControl('', [Validators.required]),
+    rememberMe: new FormControl(false),
   });
 
   isLoggedIn = false;
@@ -39,28 +42,29 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // Attempt to login
     this.isLoginFailed = false;
-    this.restService.getPosts("login", null, {email: this.loginForm.value.email, password: this.loginForm.value.password})
-    .subscribe({
-      next: data => {
-      // Successful login
-        console.log("yess login");
-        // Save token to localstorage
-        this.authService.setToken(data["jwt"]);
+    this.restService
+      .getPosts('login', null, {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      })
+      .subscribe({
+        next: (data) => {
+          // Successful login
+          console.log('yess login');
+          // Save token to localstorage
+          this.authService.setToken(data['jwt']);
 
-        //auth token
-        this.authService.val_token();
-        // // Navigate to home page
-        this.router.navigate(['/']);
-        //set login true
-        this.isLoggedIn = true;
-
-      
-    },
-    error:err =>{
-      this.errorMessage = err.error.message;
-      this.isLoginFailed = true;
-    }}
-      );
+          //auth token
+          this.authService.val_token();
+          // // Navigate to home page
+          this.router.navigate(['/']);
+          //set login true
+          this.isLoggedIn = true;
+        },
+        error: (err) => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        },
+      });
   }
-
 }

@@ -1,9 +1,10 @@
-
 <div class="card">
   <div class="card-header">
     <h4>
-        Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-        <!-- <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button>
+      Master list&nbsp;<span class="badge badge-primary">{{
+        rows.length
+      }}</span>
+      <!-- <button  style=" padding:8px;margin:15px auto;width:7%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-primary btn-sm" (click)="updateRow()"><b>Edit</b></button>
         <input
            class = "float-sm-right form-control form-control-sm"
            type="text"
@@ -11,75 +12,142 @@
            placeholder="Global search..."
            (keyup)="searchMaster($event)"
          /> -->
-</h4>
+    </h4>
 
-      <form style="display: flex " [formGroup]="formControl">
-          <mat-form-field>
-            <input matInput formControlName="entry_id" type="number" min="0" (keyup)="searchMaster($event)">
-            <mat-placeholder>Entry id</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="asset_no"  (keyup)="searchMaster($event)">
-            <mat-placeholder>Asset number</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="asset_desc" (keyup)="searchMaster($event)">
-            <mat-placeholder>Asset description</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="taken_by" (keyup)="searchMaster($event)">
-            <mat-placeholder>Taken by</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="date_taken" (keyup)="searchMaster($event)">
-            <mat-placeholder>Date taken</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="return_by" (keyup)="searchMaster($event)">
-            <mat-placeholder>Return by</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="date_return" (keyup)="searchMaster($event)">
-            <mat-placeholder>Date return</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="remarks" (keyup)="searchMaster($event)">
-            <mat-placeholder>Remarks</mat-placeholder>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="category" (keyup)="searchMaster($event)">
-            <mat-placeholder>Category</mat-placeholder>
-          </mat-form-field>  
-        </form>
-    </div>
+    <form style="display: flex" [formGroup]="formControl">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="entry_id"
+          type="number"
+          min="0"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Entry id</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="asset_no"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Asset number</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="asset_desc"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Asset description</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="taken_by"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Taken by</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="date_taken"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Date taken</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="return_by"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Return by</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="date_return"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Date return</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="remarks"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Remarks</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="category"
+          (keyup)="searchMaster($event)"
+        />
+        <mat-placeholder>Category</mat-placeholder>
+      </mat-form-field>
+    </form>
+  </div>
 
-    <div class="card-ngx-datatable table-responsive">
-      <ngx-datatable #table style="min-width: 550px"
-        class="material striped"
-        [rows]="rows"
-        [loadingIndicator]="loadingIndicator"
-        [columnMode]="ColumnMode.force"
-        [headerHeight]="45"
-        [footerHeight]="'auto'"
-        [rowHeight]="'auto'"
-        [reorderable]="false"
-        [selected]="selected"
-        [selectionType]="SelectionType.single"
-        [limit]="10"
-        (activate)="onActivate($event)"
-        > 
-        <ngx-datatable-column name="Entry id"  prop="Entry_id"></ngx-datatable-column>
-        <ngx-datatable-column name="Asset number"  prop="Asset_no"></ngx-datatable-column>
-        <ngx-datatable-column name="Asset description"  prop="Asset_desc"></ngx-datatable-column>
-        <ngx-datatable-column name="Taken by" prop="Taken_by"></ngx-datatable-column>
-        <ngx-datatable-column name="Date taken" prop="Date_taken"></ngx-datatable-column>
-        <ngx-datatable-column name="Return by" prop="Return_by"></ngx-datatable-column>
-        <ngx-datatable-column name="Date return" prop="Date_return"></ngx-datatable-column>
-        <ngx-datatable-column name="Remarks" prop="Remarks"></ngx-datatable-column>
-        <ngx-datatable-column name="Category" [maxWidth]="200" prop="Category"></ngx-datatable-column>
-        
-      </ngx-datatable>
-      
-    </div>
-</div><br>
+  <div class="card-ngx-datatable table-responsive">
+    <ngx-datatable
+      #table
+      style="min-width: 550px"
+      class="material striped"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="45"
+      [footerHeight]="'auto'"
+      [rowHeight]="'auto'"
+      [reorderable]="false"
+      [selected]="selected"
+      [selectionType]="SelectionType.single"
+      [limit]="10"
+      (activate)="onActivate($event)"
+    >
+      <ngx-datatable-column
+        name="Entry id"
+        prop="Entry_id"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Asset number"
+        prop="Asset_no"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Asset description"
+        prop="Asset_desc"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Taken by"
+        prop="Taken_by"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Date taken"
+        prop="Date_taken"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Return by"
+        prop="Return_by"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Date return"
+        prop="Date_return"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Remarks"
+        prop="Remarks"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Category"
+        [maxWidth]="200"
+        prop="Category"
+      ></ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
+<br />
 <!-- <app-master-datatable></app-master-datatable> -->

@@ -1,113 +1,187 @@
 <!-- Page Header -->
 
 <h4 class="font-weight-bold">
- <span >Master List</span> 
-   <a type="button" class="btn btn-link" href="/dashboard">Main Dashboard</a> |
-  <button type="button" class="btn btn-link" (click)="this.test()">Master Table</button> |
-  <button type="button" class="btn btn-link" (click)="this.test2()">Entry Form</button>
+  <span>Master List</span>
+  <a type="button" class="btn btn-link" href="/dashboard">Main Dashboard</a> |
+  <button type="button" class="btn btn-link" (click)="this.test()">
+    Master Table
+  </button>
+  |
+  <button type="button" class="btn btn-link" (click)="this.test2()">
+    Entry Form
+  </button>
 </h4>
-<hr><br>
+<hr />
+<br />
 <!--ASSET ENTRY FORM -->
-<div class="col-md-6 mx-auto"> 
-<form [formGroup]="addMasterForm" class="border border-grey p-5">
-    
-            
-            <p class="h4 mb-4">Entry Form</p><hr>
+<div class="col-md-6 mx-auto">
+  <form [formGroup]="addMasterForm" class="border border-grey p-5">
+    <p class="h4 mb-4">Entry Form</p>
+    <hr />
     <div class="container">
-
-    <div class="form-row mb-4">
+      <div class="form-row mb-4">
         <div class="col-6">
-            <!-- First name -->
-            <label for="assetNumber">Asset Number:</label>
-            <select aria-label="Default select example" class="form-select" formControlName = "Asset_no"  (change)="SearchData($event.target.value)">
+          <!-- First name -->
+          <label for="assetNumber">Asset Number:</label>
+          <select
+            aria-label="Default select example"
+            class="form-select"
+            formControlName="Asset_no"
+            (change)="SearchData($event.target.value)"
+          >
             <option selected>Select...</option>
             <option *ngFor="let textInput of assetNo">
-              {{textInput}}
+              {{ textInput }}
             </option>
-            </select>
+          </select>
         </div>
         <div class="col-6">
           <div class="alert alert-warning" role="alert" *ngIf="isError">
-              {{errorMessage}}
+            {{ errorMessage }}
           </div>
         </div>
-    </div>
- 
-     <!-- E-mail -->
-     <label for="assetDesc">Asset Description: </label>
-     <input type="text" id="assetDesc" [readonly]="this.isEditable" formControlName="Asset_desc" class="form-control mb-4" placeholder="Asset name">
-
-    <div class="form-row mb-4">
-      <div class="col">
-        <!-- First name -->
-        <label for="takenBy">Taken By:</label>
-        <input type="text" id = "takenBy" formControlName="Taken_by"  list="names"  class="browser-default custom-select" placeholder="Taken by">
-            <datalist id="names">
-            <option *ngFor="let n of empName" [value]="n" >{{n}}</option>
-          </datalist>
       </div>
-      <div class="col">
-        <!-- Last name -->
-        <label for="dateTaken">Date Taken:</label>
-        <div  class="input-group">
-        <input class="form-control" placeholder="yyyy-mm-dd"
-         name="dateTaken"  formControlName="Date_taken" ngbDatepicker #d="ngbDatepicker">
-      <div class="input-group-prepend">
-        <button class="btn-primary calendar fas fa-calendar-alt" (click)="d.toggle()" type="button"></button>
-     </div>
-    </div>
-  </div> 
-</div> 
-    
 
-    <div class="form-row mb-4">
+      <!-- E-mail -->
+      <label for="assetDesc">Asset Description: </label>
+      <input
+        type="text"
+        id="assetDesc"
+        [readonly]="this.isEditable"
+        formControlName="Asset_desc"
+        class="form-control mb-4"
+        placeholder="Asset name"
+      />
+
+      <div class="form-row mb-4">
+        <div class="col">
+          <!-- First name -->
+          <label for="takenBy">Taken By:</label>
+          <input
+            type="text"
+            id="takenBy"
+            formControlName="Taken_by"
+            list="names"
+            class="browser-default custom-select"
+            placeholder="Taken by"
+          />
+          <datalist id="names">
+            <option *ngFor="let n of empName" [value]="n">{{ n }}</option>
+          </datalist>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <label for="dateTaken">Date Taken:</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dateTaken"
+              formControlName="Date_taken"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <div class="input-group-prepend">
+              <button
+                class="btn-primary calendar fas fa-calendar-alt"
+                (click)="d.toggle()"
+                type="button"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row mb-4">
         <div class="col">
           <!-- First name -->
           <label for="returnBy">Return By: </label>
-          <input type="text" id = "returnBy"  formControlName="Return_by" list="names"   class="browser-default custom-select" placeholder="Return by">
-            <datalist id="names">
-            <option *ngFor="let n of empName" [value]="n" >{{n}}</option>
+          <input
+            type="text"
+            id="returnBy"
+            formControlName="Return_by"
+            list="names"
+            class="browser-default custom-select"
+            placeholder="Return by"
+          />
+          <datalist id="names">
+            <option *ngFor="let n of empName" [value]="n">{{ n }}</option>
           </datalist>
         </div>
         <div class="col">
           <!-- Last name -->
           <label for="dateReturn">Date Return:</label>
           <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd"
-                 name="dateReturn" formControlName="Date_return" ngbDatepicker #s="ngbDatepicker">
-          <div class="input-group-prepend">
-            <button class="btn-primary calendar fas fa-calendar-alt" (click)="s.toggle()" type="button"></button>
-         </div> 
-        </div>
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dateReturn"
+              formControlName="Date_return"
+              ngbDatepicker
+              #s="ngbDatepicker"
+            />
+            <div class="input-group-prepend">
+              <button
+                class="btn-primary calendar fas fa-calendar-alt"
+                (click)="s.toggle()"
+                type="button"
+              ></button>
+            </div>
+          </div>
         </div>
       </div>
 
-   
-    <!-- Category -->
-    <div class="form-row mb-4">
-    <label for="category">Category:</label>
-    <input type="text" id="category" [readonly]="this.isEditable" formControlName="Category" class="form-control" placeholder="category">
-    </div>
+      <!-- Category -->
+      <div class="form-row mb-4">
+        <label for="category">Category:</label>
+        <input
+          type="text"
+          id="category"
+          [readonly]="this.isEditable"
+          formControlName="Category"
+          class="form-control"
+          placeholder="category"
+        />
+      </div>
 
-    <!-- Category -->
-    <label for="remarks">Remarks:</label>
-    <input type="long-text" id="remarks"  formControlName="Remarks" class="form-control" placeholder="remarks">
-    </div><br><br>
-   
+      <!-- Category -->
+      <label for="remarks">Remarks:</label>
+      <input
+        type="long-text"
+        id="remarks"
+        formControlName="Remarks"
+        class="form-control"
+        placeholder="remarks"
+      />
+    </div>
+    <br /><br />
+
     <!-- Sign up button -->
     <div class="text-center">
-    <button type="button" class="btn btn-grey" (click)="this.addMasterForm.reset()">Clear All</button>
-    <button type="submit"  class="btn btn-primary" (click)="this.addMaster()">Save</button>
-    <!-- <button type="button" class="btn btn-grey">Cancel</button> -->
+      <button
+        type="button"
+        class="btn btn-grey"
+        (click)="this.addMasterForm.reset()"
+      >
+        Clear All
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="this.addMaster()">
+        Save
+      </button>
+      <!-- <button type="button" class="btn btn-grey">Cancel</button> -->
     </div>
-
   </form>
 </div>
 
-<br><br> 
-<hr>
-<br>
+<br /><br />
+<hr />
+<br />
 <ng-container *ngIf="isLoadTab">
-<app-master-datatable [rows]="rows" [empName]="empName" [assetNo]="assetNo" (sendData)="getMaster()"></app-master-datatable>
+  <app-master-datatable
+    [rows]="rows"
+    [empName]="empName"
+    [assetNo]="assetNo"
+    (sendData)="getMaster()"
+  ></app-master-datatable>
 </ng-container>
 <!-- <app-master-table></app-master-table> -->

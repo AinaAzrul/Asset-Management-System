@@ -1,4 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 
@@ -15,17 +19,13 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     // SidenavComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule,
-  ],
+  imports: [CommonModule, RouterModule, MaterialModule],
   exports: [
     FooterComponent,
     HeaderComponent,
     // SidebarComponent,
     // SidenavComponent
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class LayoutModule { }
+export class LayoutModule {}

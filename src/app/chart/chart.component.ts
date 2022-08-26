@@ -7,18 +7,16 @@ import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
 //amCharts pie chart
-import * as am5percent from "@amcharts/amcharts5/percent"; 
+import * as am5percent from '@amcharts/amcharts5/percent';
 import { any } from '@amcharts/amcharts5/.internal/core/util/Array';
 // import { rootCertificates } from 'tls';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  styleUrls: ['./chart.component.scss'],
 })
-
 export class ChartComponent {
-
   private root: am5.Root;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {}
@@ -35,40 +33,40 @@ export class ChartComponent {
   ngAfterViewInit() {
     // Chart code goes in here
     this.browserOnly(() => {
-      let root = am5.Root.new("chartdiv");
+      let root = am5.Root.new('chartdiv');
 
       root.setThemes([am5themes_Animated.new(root)]);
 
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panY: false,
-          layout: root.verticalLayout
+          layout: root.verticalLayout,
         })
       );
 
       // Define data
       let data = [
         {
-          category: "Research",
+          category: 'Research',
           value1: 1000,
-          value2: 588
+          value2: 588,
         },
         {
-          category: "Marketing",
+          category: 'Marketing',
           value1: 1200,
-          value2: 1800
+          value2: 1800,
         },
         {
-          category: "Sales",
+          category: 'Sales',
           value1: 850,
-          value2: 1230
-        }
+          value2: 1230,
+        },
       ];
 
       // Create Y-axis
       let yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
-          renderer: am5xy.AxisRendererY.new(root, {})
+          renderer: am5xy.AxisRendererY.new(root, {}),
         })
       );
 
@@ -76,7 +74,7 @@ export class ChartComponent {
       let xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
           renderer: am5xy.AxisRendererX.new(root, {}),
-          categoryField: "category"
+          categoryField: 'category',
         })
       );
       xAxis.data.setAll(data);
@@ -84,22 +82,22 @@ export class ChartComponent {
       // Create series
       let series1 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: "Series",
+          name: 'Series',
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "value1",
-          categoryXField: "category"
+          valueYField: 'value1',
+          categoryXField: 'category',
         })
       );
       series1.data.setAll(data);
 
       let series2 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: "Series",
+          name: 'Series',
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "value2",
-          categoryXField: "category"
+          valueYField: 'value2',
+          categoryXField: 'category',
         })
       );
       series2.data.setAll(data);
@@ -109,7 +107,7 @@ export class ChartComponent {
       legend.data.setAll(chart.series.values);
 
       // Add cursor
-      chart.set("cursor", am5xy.XYCursor.new(root, {}));
+      chart.set('cursor', am5xy.XYCursor.new(root, {}));
 
       this.root = root;
     });

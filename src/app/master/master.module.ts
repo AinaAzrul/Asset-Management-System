@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe  } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MasterRoutingModule } from './master-routing.module';
 import { MasterComponent } from './master.component';
 import { MasterListComponent } from './master-list/master-list.component';
 import { MasterTableComponent } from './master-table/master-table.component';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MasterDatatableComponent } from './master-datatable/master-datatable.component';
@@ -19,7 +19,7 @@ import { DeleteMasterModalComponent } from './delete-master-modal/delete-master-
     MasterTableComponent,
     MasterDatatableComponent,
     ModifyMasterModalComponent,
-    DeleteMasterModalComponent
+    DeleteMasterModalComponent,
   ],
   imports: [
     CommonModule,
@@ -28,9 +28,8 @@ import { DeleteMasterModalComponent } from './delete-master-modal/delete-master-
     NgbModule,
     NgxDatatableModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [DatePipe],
-  
 })
-export class MasterModule { }
+export class MasterModule {}

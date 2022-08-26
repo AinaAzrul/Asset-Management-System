@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe  } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AssetRoutingModule } from './asset-routing.module';
 import { AssetComponent } from './asset.component';
@@ -14,7 +14,6 @@ import { MaterialModule } from '../material/material.module';
 import { AddCalibModalComponent } from './add-calib-modal/add-calib-modal.component';
 import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-modal.component';
 
-
 @NgModule({
   declarations: [
     AssetComponent,
@@ -23,8 +22,7 @@ import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-mod
     AssetTestComponent,
     DeleteAssetModalComponent,
     AddCalibModalComponent,
-    DeleteCalibModalComponent
-   
+    DeleteCalibModalComponent,
   ],
   imports: [
     CommonModule,
@@ -33,8 +31,8 @@ import { DeleteCalibModalComponent } from './delete-calib-modal/delete-calib-mod
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
-export class AssetModule { }
+export class AssetModule {}

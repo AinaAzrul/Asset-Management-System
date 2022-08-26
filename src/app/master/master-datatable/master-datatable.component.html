@@ -1,56 +1,105 @@
- 
-    <div class="card ng-deep">
-      <div class="card-header">
-  <h4>
-      Master list&nbsp;<span class="badge badge-primary">{{ rows.length }}</span>
-      <button  style=" padding:8px;margin:15px auto;width:10%;" [disabled]="!disabledEditButton" class="float-sm-right btn btn-danger btn-sm" (click)="deleteRow()"><b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i></button>
-      <button style=" padding:8px;margin:15px 10px;width:10%;" (click)="test()" class="float-sm-right btn btn-green btn-sm" ><b>Add Entry&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i></button>
-      
-  </h4>
-  <div class="filter">
-  <form style="display: flex " [formGroup]="formControl">
-    
-    <mat-form-field>
-      <input matInput formControlName="entry_id" type="number" min="0" (keyup)="searchMaster($event)">
-      <mat-placeholder>Entry id</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="asset_no"  (keyup)="searchMaster($event)">
-      <mat-placeholder>Asset number</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="asset_desc" (keyup)="searchMaster($event)">
-      <mat-placeholder>Asset description</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="taken_by" (keyup)="searchMaster($event)">
-      <mat-placeholder>Taken by</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="date_taken" (keyup)="searchMaster($event)">
-      <mat-placeholder>Date taken</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="return_by" (keyup)="searchMaster($event)">
-      <mat-placeholder>Return by</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="date_return" (keyup)="searchMaster($event)">
-      <mat-placeholder>Date return</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="remarks" (keyup)="searchMaster($event)">
-      <mat-placeholder>Remarks</mat-placeholder>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="category" (keyup)="searchMaster($event)">
-      <mat-placeholder>Category</mat-placeholder>
-    </mat-form-field>
-  </form>
-</div> 
-</div>
-<div>
-  
+<div class="card ng-deep">
+  <div class="card-header">
+    <h4>
+      Master list&nbsp;<span class="badge badge-primary">{{
+        rows.length
+      }}</span>
+      <button
+        style="padding: 8px; margin: 15px auto; width: 10%"
+        [disabled]="!disabledEditButton"
+        class="float-sm-right btn btn-danger btn-sm"
+        (click)="deleteRow()"
+      >
+        <b>Delete Row &nbsp;&nbsp;</b><i class="fa fa-trash-can"></i>
+      </button>
+      <button
+        style="padding: 8px; margin: 15px 10px; width: 10%"
+        (click)="test()"
+        class="float-sm-right btn btn-green btn-sm"
+      >
+        <b>Add Entry&nbsp;&nbsp;</b><i class="fa fa-circle-plus"></i>
+      </button>
+    </h4>
+    <div class="filter">
+      <form style="display: flex" [formGroup]="formControl">
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="entry_id"
+            type="number"
+            min="0"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Entry id</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="asset_no"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Asset number</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="asset_desc"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Asset description</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="taken_by"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Taken by</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="date_taken"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Date taken</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="return_by"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Return by</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="date_return"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Date return</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="remarks"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Remarks</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="category"
+            (keyup)="searchMaster($event)"
+          />
+          <mat-placeholder>Category</mat-placeholder>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div>
     <ngx-datatable
       #table
       class="material striped"
@@ -69,8 +118,12 @@
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Asset Number" prop="Asset_no">
-       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-          
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-row="row"
+          let-value="value"
+        >
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Asset_no'] = true"
@@ -84,18 +137,21 @@
             (change)="updateValue($event, 'Asset_no', rowIndex)"
             [value]="value"
           >
-          <option >
-            Select..
-           </option>
-             <option [ngValue]="value" *ngFor="let assetno of assetNo">
-              {{assetno}}
-             </option>
+            <option>Select..</option>
+            <option [ngValue]="value" *ngFor="let assetno of assetNo">
+              {{ assetno }}
+            </option>
           </select>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Asset Description" prop="Asset_desc">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+        >
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Asset_desc'] = true"
@@ -114,12 +170,17 @@
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Taken By" prop="Taken_by">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-row="row"
+          let-value="value"
+        >
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Taken_by'] = true"
             *ngIf="!editing[rowIndex + '-Taken_by']"
-          ><i  *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
+            ><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <select
@@ -128,91 +189,135 @@
             (change)="updateValue($event, 'Taken_by', rowIndex)"
             [value]="value"
           >
-          <option >
-            Select..
-           </option>
-             <option [ngValue]="value" *ngFor="let empname of empName">
-              {{empname}}
-             </option>
-            
+            <option>Select..</option>
+            <option [ngValue]="value" *ngFor="let empname of empName">
+              {{ empname }}
+            </option>
           </select>
         </ng-template>
       </ngx-datatable-column>
 
-
-      <ngx-datatable-column name="Date Taken" prop="Date_taken" >
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
+      <ngx-datatable-column name="Date Taken" prop="Date_taken">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+        >
           <span
-              title="click to edit"
-              (click)="editing[rowIndex + '-Date_taken'] = true" 
-              *ngIf="!editing[rowIndex + '-Date_taken']"><i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
-              
-              <p *ngIf="value!=='0000-00-00'" >{{value}}</p>
+            title="click to edit"
+            (click)="editing[rowIndex + '-Date_taken'] = true"
+            *ngIf="!editing[rowIndex + '-Date_taken']"
+            ><i
+              *ngIf="!value || value === '0000-00-00'"
+              class="fa-solid fa-pen-to-square"
+            ></i>
+
+            <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
           </span>
-          <mat-form-field *ngIf="editing[rowIndex + '-Date_taken']" (blur)="editing[rowIndex + '-Date_taken'] = false" style="width:90%">
-            <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="updateValue($event, 'Date_taken', rowIndex)" />
-            <mat-hint>MM/DD/YYYY</mat-hint>  
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker ></mat-datepicker>
+          <mat-form-field
+            *ngIf="editing[rowIndex + '-Date_taken']"
+            (blur)="editing[rowIndex + '-Date_taken'] = false"
+            style="width: 90%"
+          >
+            <input
+              matInput
+              [value]="value"
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              (dateInput)="updateValue($event, 'Date_taken', rowIndex)"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Return By" prop="Return_by">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-row="row"
+          let-value="value"
+        >
           <span
             title="click to edit"
             class="container-fluid"
             (click)="editing[rowIndex + '-Return_by'] = true"
             *ngIf="!editing[rowIndex + '-Return_by']"
-            
-          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
+            ><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <select
-          
             *ngIf="editing[rowIndex + '-Return_by']"
             (blur)="editing[rowIndex + '-Return_by'] = false"
             (change)="updateValue($event, 'Return_by', rowIndex)"
             [value]="value"
           >
-          <option >
-            Select..
-          </option>
-          <option [ngValue]="value" *ngFor="let empname of empName">
-            {{empname}}
-          </option>
-
+            <option>Select..</option>
+            <option [ngValue]="value" *ngFor="let empname of empName">
+              {{ empname }}
+            </option>
           </select>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Date Return" prop="Date_return" >
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" >
+      <ngx-datatable-column name="Date Return" prop="Date_return">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+        >
           <span
-          title=" click to edit"
-              (click)="editing[rowIndex + '-Date_return'] = true"
-              
-              *ngIf="!editing[rowIndex + '-Date_return']"><i  *ngIf="!value || value ==='0000-00-00'"  class="fa-solid fa-pen-to-square" ></i>
-              <p  *ngIf="value!=='0000-00-00'" >{{value}}</p>
+            title=" click to edit"
+            (click)="editing[rowIndex + '-Date_return'] = true"
+            *ngIf="!editing[rowIndex + '-Date_return']"
+            ><i
+              *ngIf="!value || value === '0000-00-00'"
+              class="fa-solid fa-pen-to-square"
+            ></i>
+            <p *ngIf="value !== '0000-00-00'">{{ value }}</p>
           </span>
-          <mat-form-field *ngIf="editing[rowIndex + '-Date_return']" (blur)="editing[rowIndex + '-Date_return'] = false" style="width:90%">
-            <input  matInput [value]="value" [matDatepicker]="picker" placeholder="Choose a date"  (dateChange)="updateValue($event, 'Date_return', rowIndex)"  />
-            <mat-hint>MM/DD/YYYY</mat-hint>  
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker ></mat-datepicker>
+          <mat-form-field
+            *ngIf="editing[rowIndex + '-Date_return']"
+            (blur)="editing[rowIndex + '-Date_return'] = false"
+            style="width: 90%"
+          >
+            <input
+              matInput
+              [value]="value"
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              (dateChange)="updateValue($event, 'Date_return', rowIndex)"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          </ng-template>
+        </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Remarks" prop="Remarks" >
-        <ng-template  ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <ngx-datatable-column name="Remarks" prop="Remarks">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+        >
           <span
             title="click to edit"
             class="container-fluid"
             (click)="editing[rowIndex + '-Remarks'] = true"
             *ngIf="!editing[rowIndex + '-Remarks']"
-          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
+            ><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <input
@@ -221,19 +326,23 @@
             *ngIf="editing[rowIndex + '-Remarks']"
             type="text"
             [value]="value"
-            style="width:90%"
+            style="width: 90%"
           />
         </ng-template>
       </ngx-datatable-column>
-      
+
       <ngx-datatable-column name="Category" prop="Category">
-      
-     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+        >
           <span
             title="click to edit"
             (click)="editing[rowIndex + '-Category'] = true"
             *ngIf="!editing[rowIndex + '-Category']"
-          ><i *ngIf="!value"  class="fa-solid fa-pen-to-square"></i>
+            ><i *ngIf="!value" class="fa-solid fa-pen-to-square"></i>
             {{ value }}
           </span>
           <input
@@ -242,11 +351,11 @@
             *ngIf="editing[rowIndex + '-Category']"
             type="text"
             [value]="value"
-            style="width:90%"
+            style="width: 90%"
           />
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
-   
-  </div> 
-  </div> <br><br>
+  </div>
+</div>
+<br /><br />

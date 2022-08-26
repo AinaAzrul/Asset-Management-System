@@ -1,52 +1,51 @@
 <!--Main Navigation-->
 <header>
-    <!-- Sidebar -->
-    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-      <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-          <a [routerLink]="'/dashboard'" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
-          </a>
-          <a [routerLink]="'/master-list'" class="list-group-item list-group-item-action py-2 ripple" [active]="isActive('/master_list')">
-            <i class="fas fa-file-alt fa-fw me-3"></i><span>Master List</span>
-          </a>
-          <a [routerLink]="'/asset-list'" class="list-group-item list-group-item-action py-2 ripple"><i
-              class="fas fa-chart-bar fa-fw me-3"></i><span>Asset List</span></a>
-             
-          <a [routerLink]="'/user'" class="list-group-item list-group-item-action py-2 ripple"><i
-              class="fas fa-users fa-fw me-3"></i><span>User Account</span></a>
-          
-        </div>
-      </div>
-    </nav>
-    <!-- Sidebar -->
-
-    <!-- Navbar -->
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-light text-muted fixed-top">
-      <!-- Container wrapper -->
-      <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-target="#sidebarMenu"
-          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <!-- Brand -->
-        <a class="navbar-brand" >
-            <h3>Asset Management System</h3>
+  <!-- Sidebar -->
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-4">
+        <a [routerLink]="'/dashboard'" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
         </a>
-       
-        <!-- Search form -->
-        <!-- <form class="d-none d-md-flex input-group w-auto my-auto">
+        <a [routerLink]="'/master-list'" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-file-alt fa-fw me-3"></i><span>Master List</span>
+        </a>
+        <a [routerLink]="'/asset-list'" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-chart-bar fa-fw me-3"></i><span>Asset List</span></a>
+
+        <a [routerLink]="'/user'" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-users fa-fw me-3"></i><span>User Account</span></a>
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-light text-muted fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-target="#sidebarMenu"
+        aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand">
+        <h3>Asset Management System</h3>
+      </a>
+
+      <!-- Search form -->
+      <!-- <form class="d-none d-md-flex input-group w-auto my-auto">
           <input autocomplete="off" type="search" class="form-control rounded"
             placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px;" />
           <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
         </form> -->
 
-        <!-- Right links -->
-        <ul class="navbar-nav ms-auto d-flex flex-row">
-          <!-- Notification dropdown -->
-          <!-- <li class="nav-item dropdown">
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Notification dropdown -->
+        <!-- <li class="nav-item dropdown">
             <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"  id="navbarDropdownMenuLink"
               role="button" data-mdb-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell"></i>
@@ -74,10 +73,9 @@
               <a class="dropdown-item" href="#">Separated link</a>
             </div>
           </li> -->
-        
 
-          <!-- Icon dropdown -->
-          <!-- <li class="nav-item dropdown">
+        <!-- Icon dropdown -->
+        <!-- <li class="nav-item dropdown">
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="#"
@@ -112,38 +110,42 @@
             </ul>
           </li> -->
 
-          <li class="nav-item"><button type="button" mdbBtn color="link" (click)="logout()">logout</button></li>
+        <li class="nav-item">
+          <button type="button" mdbBtn color="link" (click)="logout()">
+            logout
+          </button>
+        </li>
 
-          <!-- Avatar -->
-      
-            <nav class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-              id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
-                height="22" alt="Avatar" loading="lazy" />
-            </nav>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <a class="dropdown-item" [routerLink]="'/#'">My profile</a>
-              </li>
-              <li>
-                <a class="dropdown-item" [routerLink]="'/#'">Settings</a>
-              </li>
-              <li>
-                <a class="dropdown-item" [routerLink]="'/#'">Logout</a>
-              </li>
-            </ul>
+        <!-- Avatar -->
+
+        <nav class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
+          role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle" height="22"
+            alt="Avatar" loading="lazy" />
+        </nav>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+          <li>
+            <a class="dropdown-item" [routerLink]="'/#'">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="'/#'">Settings</a>
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="'/#'">Logout</a>
+          </li>
         </ul>
-      </div>
-      <!-- Container wrapper -->
-    </nav>
-    <!-- Navbar -->
-  </header>
-  <!--Main Navigation-->
-
-  <!--Main layout-->
-  <main style="margin-top: 70px;">
-    <div class="container pt-4">
-        <router-outlet></router-outlet>
+      </ul>
     </div>
-  </main>
-  <!--Main layout-->
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main style="margin-top: 70px">
+  <div class="container pt-4">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+<!--Main layout-->

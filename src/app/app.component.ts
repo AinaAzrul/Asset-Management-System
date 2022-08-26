@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'rdma_intern';
@@ -26,5 +26,4 @@ export class AppComponent implements OnInit {
   // isLoggedIn() {
   //   return localStorage.getItem('isLoggedIn') === 'true';
   // }
-  
 }
