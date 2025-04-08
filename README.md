@@ -1,8 +1,9 @@
-# RdmaIntern
+# Asset Management Intern
+# Intern Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
-## Requirement
+## Tech stack
 
 - Angular CLI: 14.0.4
 - Angular: 14.0.4
@@ -59,7 +60,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-
+# Screenshots 
 ![image](https://github.com/user-attachments/assets/811b2818-5a3e-4073-b8f7-a9af9cdf3760)
 ![image](https://github.com/user-attachments/assets/82db19f0-729f-4382-82f3-45bbeb581901)
 
