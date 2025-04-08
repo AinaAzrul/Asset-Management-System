@@ -1,5 +1,4 @@
-# Asset Management Intern
-# Intern Project
+# Asset Management System | Intern Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
